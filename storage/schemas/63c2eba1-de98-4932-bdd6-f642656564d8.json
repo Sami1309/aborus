@@ -1,0 +1,136 @@
+{
+  "entry": "evt-e6126ee28cf6a-1760595406292",
+  "nodes": {
+    "evt-e6126ee28cf6a-1760595406292": {
+      "node_id": "evt-e6126ee28cf6a-1760595406292",
+      "event": {
+        "event_id": "evt-e6126ee28cf6a-1760595406292",
+        "order": 1,
+        "type": "input",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=63c2eba1-de98-4932-bdd6-f642656564d8",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "name": "item",
+          "value": "asdasd"
+        }
+      },
+      "selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "intent": {
+        "summary": "input \u2192 input item-input",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-input",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "input#item-input",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-8372a6cb1f8f6-1760595407563": {
+      "node_id": "evt-8372a6cb1f8f6-1760595407563",
+      "event": {
+        "event_id": "evt-8372a6cb1f8f6-1760595407563",
+        "order": 2,
+        "type": "other",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=63c2eba1-de98-4932-bdd6-f642656564d8",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "item": "asdasd",
+          "quantity": "1"
+        }
+      },
+      "selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "intent": {
+        "summary": "other \u2192 form item-form",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-form",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByText('Item name\nQuantity\nAdd to List')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "form#item-form",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-03d4bccd688ce8-1760595409764": {
+      "node_id": "evt-03d4bccd688ce8-1760595409764",
+      "event": {
+        "event_id": "evt-03d4bccd688ce8-1760595409764",
+        "order": 3,
+        "type": "click",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=63c2eba1-de98-4932-bdd6-f642656564d8",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "action": "checkout"
+        }
+      },
+      "selectors": [
+        "getByText('Checkout')",
+        "html > body:nth-child(2) > section.grid:nth-child(2) > article.card:nth-child(2) > button.primary:nth-child(2)"
+      ],
+      "intent": {
+        "summary": "click \u2192 button Checkout",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "getByText('Checkout')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "html > body:nth-child(2) > section.grid:nth-child(2) > article.card:nth-child(2) > button.primary:nth-child(2)",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "evt-e6126ee28cf6a-1760595406292": [
+      "evt-8372a6cb1f8f6-1760595407563"
+    ],
+    "evt-8372a6cb1f8f6-1760595407563": [
+      "evt-03d4bccd688ce8-1760595409764"
+    ],
+    "evt-03d4bccd688ce8-1760595409764": []
+  }
+}

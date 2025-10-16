@@ -1,0 +1,64 @@
+[
+  {
+    "event_id": "evt-9b67c1eb0e30a8-1760594619695",
+    "timestamp": "2025-10-16T06:03:39.695Z",
+    "category": "input",
+    "url": "http://127.0.0.1:8001/web/test-page.html?session=dcce2f4e-4d52-4f3c-8b7a-f16bcdf5a96b",
+    "dom": {
+      "tag": "input",
+      "attributes": {
+        "id": "item-input",
+        "type": "text"
+      },
+      "accessibleName": null,
+      "innerText": "",
+      "classList": [],
+      "cssPath": "input#item-input"
+    },
+    "payload": {
+      "name": "item",
+      "value": "sdfsdf"
+    }
+  },
+  {
+    "event_id": "evt-4834f68700c5f8-1760594626386",
+    "timestamp": "2025-10-16T06:03:46.386Z",
+    "category": "submit",
+    "url": "http://127.0.0.1:8001/web/test-page.html?session=dcce2f4e-4d52-4f3c-8b7a-f16bcdf5a96b",
+    "dom": {
+      "tag": "form",
+      "attributes": {
+        "id": "item-form"
+      },
+      "accessibleName": "Add shopping item",
+      "innerText": "Item name\nQuantity\nAdd to List",
+      "classList": [],
+      "cssPath": "form#item-form"
+    },
+    "payload": {
+      "item": "sdfsdf",
+      "quantity": "1"
+    }
+  },
+  {
+    "event_id": "evt-71ca8f4533a32-1760594629390",
+    "timestamp": "2025-10-16T06:03:49.390Z",
+    "category": "click",
+    "url": "http://127.0.0.1:8001/web/test-page.html?session=dcce2f4e-4d52-4f3c-8b7a-f16bcdf5a96b",
+    "dom": {
+      "tag": "button",
+      "attributes": {
+        "data-action": "checkout"
+      },
+      "accessibleName": "Checkout",
+      "innerText": "Checkout",
+      "classList": [
+        "primary"
+      ],
+      "cssPath": "html > body:nth-child(2) > section.grid:nth-child(2) > article.card:nth-child(2) > button.primary:nth-child(2)"
+    },
+    "payload": {
+      "action": "checkout"
+    }
+  }
+]

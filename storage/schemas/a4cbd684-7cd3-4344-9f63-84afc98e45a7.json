@@ -1,0 +1,40 @@
+{
+  "entry": "test-1",
+  "nodes": {
+    "test-1": {
+      "node_id": "test-1",
+      "event": {
+        "event_id": "test-1",
+        "order": 1,
+        "type": "click",
+        "url": "",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "selector": "#submit"
+        }
+      },
+      "selectors": [
+        "#submit"
+      ],
+      "intent": {
+        "summary": "click \u2192 button",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#submit",
+            "score": 1.1,
+            "origin": "browser_use"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "test-1": []
+  }
+}

@@ -1,0 +1,144 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+body {
+  margin: 0;
+  padding: 2rem;
+  background: radial-gradient(circle at top left, #312e81, #0f172a 55%);
+  min-height: 100vh;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+header p {
+  margin: 0.5rem 0 0;
+  color: rgba(248, 250, 252, 0.7);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.45);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+label {
+  font-size: 0.9rem;
+  color: rgba(248, 250, 252, 0.8);
+}
+
+input {
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(15, 23, 42, 0.6);
+  color: inherit;
+}
+
+button {
+  padding: 0.7rem 1rem;
+  border-radius: 0.9rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(30, 41, 59, 0.35);
+}
+
+button.primary {
+  background: linear-gradient(135deg, #4c1d95, #7c3aed);
+  color: #fdf4ff;
+}
+
+button.secondary {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: #f8fafc;
+}
+
+button.ghost {
+  background: rgba(148, 163, 184, 0.15);
+  color: #e2e8f0;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+ul#items {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+ul#items li {
+  background: rgba(148, 163, 184, 0.1);
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+}
+
+.event-log {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.event-log li {
+  background: rgba(30, 41, 59, 0.7);
+  padding: 0.75rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.event-type {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(14, 165, 233, 0.9);
+}
+
+.event-detail {
+  background: rgba(148, 163, 184, 0.15);
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.4rem;
+  word-break: break-all;
+}
+
+.event-time {
+  font-size: 0.75rem;
+  color: rgba(148, 163, 184, 0.7);
+}

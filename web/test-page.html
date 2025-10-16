@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instrumented Demo Page</title>
+  <link rel="stylesheet" href="/web/assets/test-page.css" />
+</head>
+<body>
+  <header>
+    <h1>Instrumented Demo Page</h1>
+    <p>This page emits structured events to the Automation Modeler backend and the extension popup.</p>
+  </header>
+
+  <section class="grid">
+    <article class="card">
+      <h2>Shopping List</h2>
+      <form id="item-form" aria-label="Add shopping item">
+        <label for="item-input">Item name</label>
+        <input id="item-input" name="item" type="text" placeholder="e.g. Espresso beans" required />
+        <label for="item-quantity">Quantity</label>
+        <input id="item-quantity" name="quantity" type="number" min="1" value="1" />
+        <button type="submit" id="add-item">Add to List</button>
+      </form>
+      <ul id="items" aria-live="polite"></ul>
+    </article>
+
+    <article class="card">
+      <h2>Quick Actions</h2>
+      <button class="primary" data-action="checkout">Checkout</button>
+      <button class="secondary" data-action="reset">Reset Form</button>
+      <button class="ghost" data-action="help">Need Help?</button>
+    </article>
+
+    <article class="card">
+      <h2>Analytics Log</h2>
+      <p>Events sent to the backend will appear here in real time.</p>
+      <ol id="event-log" class="event-log"></ol>
+    </article>
+  </section>
+
+  <template id="event-template">
+    <li>
+      <span class="event-type"></span>
+      <code class="event-detail"></code>
+      <time class="event-time"></time>
+    </li>
+  </template>
+
+  <script src="/web/test-page.js" type="module"></script>
+</body>
+</html>

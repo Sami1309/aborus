@@ -1,0 +1,31 @@
+[
+  {
+    "event_id": "evt-1",
+    "timestamp": "2024-07-18T12:00:00",
+    "category": "navigate",
+    "url": "https://example.com",
+    "payload": {
+      "url": "https://example.com"
+    }
+  },
+  {
+    "event_id": "evt-2",
+    "timestamp": "2024-07-18T12:00:05",
+    "category": "click",
+    "url": "https://example.com",
+    "dom": {
+      "tag": "button",
+      "attributes": {
+        "id": "start",
+        "role": "button"
+      },
+      "accessibleName": "Start",
+      "innerText": "Start",
+      "classList": ["primary", "cta"],
+      "cssPath": "button#start"
+    },
+    "payload": {
+      "selector": "button#start"
+    }
+  }
+]

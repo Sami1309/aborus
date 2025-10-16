@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Automation Modeler Dashboard</title>
+  <link rel="stylesheet" href="/web/assets/dashboard.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <h1>Automation Modeler</h1>
+    <p class="subtitle">Record browser flows and review AI generated schemas</p>
+  </header>
+
+  <main>
+    <nav class="tabs">
+      <button class="tab-button active" data-tab="record">Recorder</button>
+      <button class="tab-button" data-tab="schemas">Schemas</button>
+    </nav>
+
+    <section id="tab-record" class="tab active">
+      <form id="record-form" class="card">
+        <label for="record-url">Pick a page to model</label>
+        <div class="input-row">
+          <input type="url" id="record-url" name="url" required placeholder="https://example.com" />
+          <button type="submit" id="record-submit">Record Model</button>
+        </div>
+        <p class="hint">Tip: use the bundled demo page at <code>/web/test-page.html</code> for built-in instrumentation.</p>
+      </form>
+
+      <div id="record-feedback" class="card muted" hidden>
+        <h2>Recording Ready</h2>
+        <p>Session <code id="session-id"></code> created.</p>
+        <ul>
+          <li><a id="demo-link" href="#" target="_blank">Open instrumented demo page</a></li>
+          <li><a id="schema-link" href="#" target="_blank">View schema JSON</a></li>
+          <li><a id="recording-link" href="#" target="_blank">View raw recording</a></li>
+        </ul>
+        <p class="note">A new browser tab will also launch with the page you provided.</p>
+      </div>
+    </section>
+
+    <section id="tab-schemas" class="tab">
+      <div class="card">
+        <div class="schemas-header">
+          <h2>Recorded Sessions</h2>
+          <button id="refresh-sessions" type="button">Refresh</button>
+        </div>
+        <div id="schemas-list" class="schemas-list">
+          <p class="muted">No sessions yet. Record a model to populate this list.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Need help? Open the demo page, interact with it, then return here to inspect the generated schema.</p>
+  </footer>
+
+  <script src="/web/dashboard/dashboard.js" type="module"></script>
+</body>
+</html>
