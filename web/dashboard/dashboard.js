@@ -748,6 +748,8 @@ automationRunButton?.addEventListener('click', async () => {
     const statusValue = (run.status || 'queued').toLowerCase();
     if (statusValue === 'succeeded') {
       setFlowchartStatus(`Automation completed (${modeLabel(run.engine)}).`, 'success');
+    } else if (statusValue === 'running') {
+      setFlowchartStatus('Automation running in new tab. Monitor progress via the recorder sidebar.', 'muted');
     } else if (statusValue === 'failed') {
       const message = run.message || 'Automation reported a failure.';
       setFlowchartStatus(message, 'error');
@@ -774,7 +776,13 @@ automationList?.addEventListener('click', async (event) => {
   try {
     const run = await queueAutomationRun(automationId, { engine });
     const statusValue = (run.status || 'succeeded').toLowerCase();
-    trigger.textContent = statusValue === 'succeeded' ? 'Ran ✓' : `Run (${statusValue})`;
+    if (statusValue === 'running') {
+      trigger.textContent = 'Running…';
+    } else if (statusValue === 'succeeded') {
+      trigger.textContent = 'Ran ✓';
+    } else {
+      trigger.textContent = `Run (${statusValue})`;
+    }
     setTimeout(() => {
       trigger.textContent = originalText;
       trigger.disabled = false;

@@ -157,27 +157,60 @@ class ModelerServiceTests(unittest.TestCase):
         )
         self.assertEqual(run_response.status_code, 200)
         run_data = run_response.json()
-        self.assertEqual(run_data["status"], "succeeded")
+        self.assertEqual(run_data["status"], "running")
         self.assertEqual(run_data["engine"], "llm")
-        self.assertEqual(run_data["target_url"], "https://example.com")
-        self.assertEqual(run_data.get("launch_url"), "https://example.com")
-        self.assertEqual(run_data.get("steps_executed"), len(flowchart["steps"]))
+        self.assertTrue(run_data.get("launch_url", "").startswith("https://example.com"))
+        self.assertEqual(run_data.get("steps_executed"), 0)
+        self.assertEqual(run_data.get("automation_name"), "Smoke path")
         self.assertIn("run_id", run_data)
+
+        # simulate automation progress via API
+        run_id = run_data["run_id"]
+        progress_start = client.post(
+            f"/runs/{run_id}/progress",
+            json={
+                "step_index": 0,
+                "status": "started",
+                "message": "Step started",
+            },
+        )
+        self.assertEqual(progress_start.status_code, 200)
+
+        progress_finish = client.post(
+            f"/runs/{run_id}/progress",
+            json={
+                "step_index": 0,
+                "status": "succeeded",
+                "message": "Step done",
+            },
+        )
+        self.assertEqual(progress_finish.status_code, 200)
+
+        completion = client.post(
+            f"/runs/{run_id}/progress",
+            json={
+                "step_index": 0,
+                "status": "completed",
+                "message": "Automation finished",
+            },
+        )
+        self.assertEqual(completion.status_code, 200)
+        self.assertEqual(completion.json()["run"]["status"], "succeeded")
 
         runs_response = client.get("/runs")
         self.assertEqual(runs_response.status_code, 200)
         runs_payload = runs_response.json()
         run_ids = {item["run_id"] for item in runs_payload.get("runs", [])}
-        self.assertIn(run_data["run_id"], run_ids)
+        self.assertIn(run_id, run_ids)
 
         automation_runs = client.get(f"/automations/{automation_id}/runs")
         self.assertEqual(automation_runs.status_code, 200)
         automation_run_ids = {item["run_id"] for item in automation_runs.json().get("runs", [])}
-        self.assertIn(run_data["run_id"], automation_run_ids)
+        self.assertIn(run_id, automation_run_ids)
 
-        run_detail = client.get(f"/runs/{run_data['run_id']}")
+        run_detail = client.get(f"/runs/{run_id}")
         self.assertEqual(run_detail.status_code, 200)
-        self.assertEqual(run_detail.json()["run"]["run_id"], run_data["run_id"])
+        self.assertEqual(run_detail.json()["run"]["run_id"], run_id)
 
 
 class CliFlowExportTests(unittest.TestCase):

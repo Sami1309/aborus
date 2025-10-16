@@ -1,0 +1,227 @@
+{
+  "entry": "evt-d8a45d8bf256a-1760602957927",
+  "nodes": {
+    "evt-d8a45d8bf256a-1760602957927": {
+      "node_id": "evt-d8a45d8bf256a-1760602957927",
+      "event": {
+        "event_id": "evt-d8a45d8bf256a-1760602957927",
+        "order": 1,
+        "type": "input",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=86d823d8-6e7b-4887-8189-1cdb98a2a585",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "name": "item",
+          "value": "Espresso beans"
+        }
+      },
+      "selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "intent": {
+        "summary": "User typed 'Espresso beans' into an input field with id 'item-input'",
+        "semantic_action": "Enter 'Espresso beans' into the item input field",
+        "user_value": "Espresso beans",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-input",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "input#item-input",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-65e61b84d86b8-1760602958003": {
+      "node_id": "evt-65e61b84d86b8-1760602958003",
+      "event": {
+        "event_id": "evt-65e61b84d86b8-1760602958003",
+        "order": 2,
+        "type": "other",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=86d823d8-6e7b-4887-8189-1cdb98a2a585",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "item": "Espresso beans",
+          "quantity": "1"
+        }
+      },
+      "selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "intent": {
+        "summary": "User submitted a form to add 'Espresso beans' with quantity '1' to a shopping list",
+        "semantic_action": "submit form 'Add shopping item' with item='Espresso beans' and quantity='1'",
+        "user_value": "{\"item\": \"Espresso beans\", \"quantity\": \"1\"}",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-form",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByText('Item name\nQuantity\nAdd to List')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "form#item-form",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-fbd2bf27645a1-1760603026004": {
+      "node_id": "evt-fbd2bf27645a1-1760603026004",
+      "event": {
+        "event_id": "evt-fbd2bf27645a1-1760603026004",
+        "order": 3,
+        "type": "input",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=86d823d8-6e7b-4887-8189-1cdb98a2a585&automation_run=d552c5de-1178-4ce1-a2f1-4565be1a7f4f&automation_id=d34f8eb1-341a-4eef-a196-09e31dd998d0&automation_engine=deterministic",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "name": "item",
+          "value": "Espresso beans"
+        }
+      },
+      "selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "intent": {
+        "summary": "User typed 'Espresso beans' into an input field labeled 'item-input'",
+        "semantic_action": "fill",
+        "user_value": "Espresso beans",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-input",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "input#item-input",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-1141881a99bde8-1760603030658": {
+      "node_id": "evt-1141881a99bde8-1760603030658",
+      "event": {
+        "event_id": "evt-1141881a99bde8-1760603030658",
+        "order": 4,
+        "type": "other",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=86d823d8-6e7b-4887-8189-1cdb98a2a585&automation_run=d552c5de-1178-4ce1-a2f1-4565be1a7f4f&automation_id=d34f8eb1-341a-4eef-a196-09e31dd998d0&automation_engine=deterministic",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "item": "Espresso beans",
+          "quantity": "1"
+        }
+      },
+      "selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "intent": {
+        "summary": "User submitted a form to add 'Espresso beans' with quantity '1' to a shopping list",
+        "semantic_action": "Submit form 'Add shopping item' with item='Espresso beans' and quantity='1'",
+        "user_value": "{\"item\": \"Espresso beans\", \"quantity\": \"1\"}",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-form",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByText('Item name\nQuantity\nAdd to List')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "form#item-form",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-79118a771bfda-1760603106966": {
+      "node_id": "evt-79118a771bfda-1760603106966",
+      "event": {
+        "event_id": "evt-79118a771bfda-1760603106966",
+        "order": 5,
+        "type": "input",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=86d823d8-6e7b-4887-8189-1cdb98a2a585&automation_run=7e11cb98-6ff2-42bc-9d8a-8b44f61ed746&automation_id=cac79750-9545-41fc-a0d4-1c4e98be5676&automation_engine=hybrid",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "name": "item",
+          "value": "Espresso beans"
+        }
+      },
+      "selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "intent": {
+        "summary": "User entered 'Espresso beans' into an input field with id 'item-input'",
+        "semantic_action": "fill",
+        "user_value": "Espresso beans",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-input",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "input#item-input",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "evt-d8a45d8bf256a-1760602957927": [
+      "evt-65e61b84d86b8-1760602958003"
+    ],
+    "evt-65e61b84d86b8-1760602958003": [
+      "evt-fbd2bf27645a1-1760603026004"
+    ],
+    "evt-fbd2bf27645a1-1760603026004": [
+      "evt-1141881a99bde8-1760603030658"
+    ],
+    "evt-1141881a99bde8-1760603030658": [
+      "evt-79118a771bfda-1760603106966"
+    ],
+    "evt-79118a771bfda-1760603106966": []
+  }
+}

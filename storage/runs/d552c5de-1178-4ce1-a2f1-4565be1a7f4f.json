@@ -1,0 +1,154 @@
+{
+  "run_id": "d552c5de-1178-4ce1-a2f1-4565be1a7f4f",
+  "automation_id": "d34f8eb1-341a-4eef-a196-09e31dd998d0",
+  "session_id": "86d823d8-6e7b-4887-8189-1cdb98a2a585",
+  "engine": "deterministic",
+  "status": "succeeded",
+  "created_at": "2025-10-16T08:23:44.856577+00:00",
+  "started_at": "2025-10-16T08:23:44.856577+00:00",
+  "completed_at": "2025-10-16T08:23:56.086915+00:00",
+  "target_url": "http://127.0.0.1:8001/web/test-page.html",
+  "launch_url": "http://127.0.0.1:8001/web/test-page.html?session=86d823d8-6e7b-4887-8189-1cdb98a2a585&automation_run=d552c5de-1178-4ce1-a2f1-4565be1a7f4f&automation_id=d34f8eb1-341a-4eef-a196-09e31dd998d0&automation_engine=deterministic",
+  "steps_planned": 2,
+  "steps_executed": 2,
+  "deterministic_steps": 2,
+  "llm_steps": 0,
+  "hybrid_steps": 0,
+  "message": "Automation completed",
+  "logs": [
+    {
+      "timestamp": "2025-10-16T08:23:44.856577+00:00",
+      "level": "info",
+      "message": "Automation initialised with 2 steps."
+    },
+    {
+      "timestamp": "2025-10-16T08:23:45.335692+00:00",
+      "level": "info",
+      "message": "Starting Enter Item Name",
+      "details": {
+        "description": "Type 'Espresso beans' into the item input field to specify the product to add."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:50.051715+00:00",
+      "level": "info",
+      "message": "Executed step via #item-input (deterministic).",
+      "details": {
+        "selector": "#item-input"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:50.055674+00:00",
+      "level": "info",
+      "message": "Starting Submit Shopping Item Form",
+      "details": {
+        "description": "Submit the form to add 'Espresso beans' with quantity '1' to the shopping list."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:56.075714+00:00",
+      "level": "info",
+      "message": "Executed step via #item-form (deterministic).",
+      "details": {
+        "selector": "#item-form"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:56.086915+00:00",
+      "level": "info",
+      "message": "Automation completed",
+      "details": {}
+    }
+  ],
+  "result": {
+    "success": true,
+    "summary": "Automation completed"
+  },
+  "steps": [
+    {
+      "node_id": "evt-d8a45d8bf256a-1760602957927",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "title": "Enter Item Name",
+      "description": "Type 'Espresso beans' into the item input field to specify the product to add.",
+      "hints": {
+        "user_value": "Espresso beans",
+        "notes": "Input field for item name with high confidence selector"
+      },
+      "order": 1,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "evt-65e61b84d86b8-1760602958003",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "title": "Submit Shopping Item Form",
+      "description": "Submit the form to add 'Espresso beans' with quantity '1' to the shopping list.",
+      "hints": {
+        "user_value": "{\"item\": \"Espresso beans\", \"quantity\": \"1\"}",
+        "notes": "Form submission action with item and quantity payload"
+      },
+      "order": 2,
+      "status": "succeeded"
+    }
+  ],
+  "progress": [
+    {
+      "timestamp": "2025-10-16T08:23:45.335692+00:00",
+      "step_index": 0,
+      "status": "started",
+      "message": "Starting Enter Item Name",
+      "details": {
+        "description": "Type 'Espresso beans' into the item input field to specify the product to add."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:50.051715+00:00",
+      "step_index": 0,
+      "status": "succeeded",
+      "message": "Executed step via #item-input (deterministic).",
+      "details": {
+        "selector": "#item-input"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:50.055674+00:00",
+      "step_index": 1,
+      "status": "started",
+      "message": "Starting Submit Shopping Item Form",
+      "details": {
+        "description": "Submit the form to add 'Espresso beans' with quantity '1' to the shopping list."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:56.075714+00:00",
+      "step_index": 1,
+      "status": "succeeded",
+      "message": "Executed step via #item-form (deterministic).",
+      "details": {
+        "selector": "#item-form"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:23:56.086915+00:00",
+      "step_index": 1,
+      "status": "completed",
+      "message": "Automation completed",
+      "details": {}
+    }
+  ],
+  "current_step_index": null,
+  "completed_steps": [
+    0,
+    1
+  ],
+  "automation_name": "checkout easy",
+  "name": "checkout easy"
+}

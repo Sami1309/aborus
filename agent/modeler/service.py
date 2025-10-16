@@ -86,6 +86,13 @@ class AutomationRunIn(BaseModel):
     engine: Optional[str] = None
 
 
+class RunProgressIn(BaseModel):
+    step_index: int
+    status: str
+    message: Optional[str] = None
+    details: Optional[Dict[str, Any]] = None
+
+
 class ModelerService:
     """Encapsulates the FastAPI app and recording lifecycle."""
 
@@ -356,5 +363,21 @@ class ModelerService:
             except KeyError:
                 raise HTTPException(status_code=404, detail="Automation not found")
             return result
+
+        @app.post("/runs/{run_id}/progress")
+        async def run_progress_endpoint(run_id: str, body: RunProgressIn) -> Dict[str, Any]:
+            try:
+                updated = self.sessions.update_run_progress(
+                    run_id,
+                    step_index=body.step_index,
+                    status=body.status,
+                    message=body.message,
+                    details=body.details,
+                )
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Run not found")
+            except IndexError as error:
+                raise HTTPException(status_code=400, detail=str(error))
+            return {'run': updated}
 
         return app

@@ -89,10 +89,41 @@ def test_session_manager_flowchart_and_automation():
         assert any(item["automation_id"] == automation["automation_id"] for item in listed)
 
         run_result = manager.run_automation(automation["automation_id"], engine="llm")
-        assert run_result["status"] == "succeeded"
+        assert run_result["status"] == "running"
         assert run_result["engine"] == "llm"
-        assert run_result["launch_url"] == "https://example.com"
-        assert run_result["steps_executed"] == 1
+        assert run_result["launch_url"].startswith("https://example.com")
+        assert run_result["steps_executed"] == 0
+        assert run_result["automation_name"] == "Smoke"
+        assert run_result["progress"] == []
+        assert run_result["steps"][0]["status"] == "pending"
+
+        # simulate progress updates
+        updated = manager.update_run_progress(
+            run_result["run_id"],
+            step_index=0,
+            status="started",
+            message="Beginning step",
+        )
+        assert updated["progress"]
+        assert updated["steps"][0]["status"] == "running"
+
+        updated = manager.update_run_progress(
+            run_result["run_id"],
+            step_index=0,
+            status="succeeded",
+            message="Step completed",
+        )
+        assert updated["steps_executed"] == 1
+        assert updated["steps"][0]["status"] == "succeeded"
+
+        finalised = manager.update_run_progress(
+            run_result["run_id"],
+            step_index=0,
+            status="completed",
+            message="Flow finished",
+        )
+        assert finalised["status"] == "succeeded"
+        assert finalised["completed_at"] is not None
 
         runs = manager.list_runs(automation_id=automation["automation_id"])
         assert any(item["run_id"] == run_result["run_id"] for item in runs)

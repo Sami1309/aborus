@@ -3,7 +3,16 @@ const SIDEBAR_WIDTH = 340;
 const SIDEBAR_COLLAPSED_WIDTH = 40;
 const sessionParams = new URLSearchParams(window.location.search);
 const sessionId = sessionParams.get('session');
+const automationRunParam = sessionParams.get('automation_run');
 let events = [];
+let automationState = {
+  runId: automationRunParam || null,
+  steps: [],
+  status: 'idle',
+  engine: (sessionParams.get('automation_engine') || '').toLowerCase() || null,
+  automationId: sessionParams.get('automation_id') || null,
+  name: 'Automation Run',
+};
 
 function onReady(callback) {
   if (document.readyState === 'loading') {
@@ -40,6 +49,16 @@ function createSidebar() {
       <button type="button" class="collapse" aria-label="Collapse monitor">⟨</button>
     </div>
     <div class="modeler-body">
+      <section id="modeler-automation" class="automation hidden">
+        <div class="automation-header">
+          <div>
+            <strong id="modeler-automation-title">Automation Run</strong>
+            <span id="modeler-automation-status" class="status-pill">Idle</span>
+          </div>
+          <small id="modeler-automation-engine" class="muted"></small>
+        </div>
+        <ul id="modeler-automation-steps" class="automation-steps"></ul>
+      </section>
       <div id="modeler-empty" class="empty">Waiting for activity…</div>
       <ul id="modeler-events" class="events"></ul>
     </div>
@@ -61,6 +80,7 @@ function createSidebar() {
 }
 
 function render() {
+  renderAutomation();
   const list = document.getElementById('modeler-events');
   const empty = document.getElementById('modeler-empty');
   if (!list || !empty) return;
@@ -117,6 +137,150 @@ function formatEvent(event) {
   };
 }
 
+function renderAutomation() {
+  const wrapper = document.getElementById('modeler-automation');
+  if (!wrapper) return;
+  const stepsList = document.getElementById('modeler-automation-steps');
+  const statusEl = document.getElementById('modeler-automation-status');
+  const engineEl = document.getElementById('modeler-automation-engine');
+  const titleEl = document.getElementById('modeler-automation-title');
+
+  if (!automationState.runId || !automationState.steps.length) {
+    wrapper.classList.add('hidden');
+    if (statusEl) statusEl.textContent = 'Idle';
+    if (statusEl) statusEl.dataset.status = 'idle';
+    if (stepsList) {
+      stepsList.innerHTML = '<li class="automation-step muted">Run an automation to see live progress.</li>';
+    }
+    return;
+  }
+
+  wrapper.classList.remove('hidden');
+  if (titleEl) {
+    titleEl.textContent = automationState.name || 'Automation Run';
+  }
+  if (statusEl) {
+    const status = automationState.status || 'running';
+    const readable = status.charAt(0).toUpperCase() + status.slice(1);
+    statusEl.textContent = readable;
+    statusEl.dataset.status = status;
+  }
+  if (engineEl) {
+    engineEl.textContent = automationState.engine ? `Engine: ${automationState.engine}` : '';
+  }
+  if (!stepsList) return;
+
+  const fragments = automationState.steps.map((step, index) => {
+    const status = step.status || 'pending';
+    const classes = ['automation-step'];
+    if (status === 'running') classes.push('current');
+    if (status === 'succeeded') classes.push('completed');
+    if (status === 'skipped') classes.push('skipped');
+    if (status === 'failed') classes.push('failed');
+    const selector = Array.isArray(step.dom_selectors) && step.dom_selectors.length ? step.dom_selectors[0] : null;
+    const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
+    const description = step.description ? `<p class="step-description">${step.description}</p>` : '';
+    const selectorTag = selector ? `<code class="step-selector">${selector}</code>` : '';
+    return `
+      <li class="${classes.join(' ')}" data-step-index="${index}">
+        <div class="step-header">
+          <span class="step-order">${index + 1}</span>
+          <div class="step-copy">
+            <strong>${step.title || `Step ${index + 1}`}</strong>
+            ${description}
+            ${selectorTag}
+          </div>
+          <span class="step-status">${statusLabel}</span>
+        </div>
+      </li>
+    `;
+  });
+
+  stepsList.innerHTML = fragments.join('');
+}
+
+function normaliseAutomationSteps(steps) {
+  return (Array.isArray(steps) ? steps : []).map((step, index) => ({
+    ...step,
+    index,
+    status: (step?.status || 'pending').toLowerCase(),
+  }));
+}
+
+function setAutomationState(partial) {
+  const next = { ...automationState, ...partial };
+  if (partial.steps !== undefined) {
+    next.steps = normaliseAutomationSteps(partial.steps);
+  }
+  automationState = next;
+  renderAutomation();
+}
+
+function applyAutomationProgress(payload) {
+  const stepIndex = Number(payload.stepIndex);
+  if (Number.isNaN(stepIndex) || stepIndex < 0) return;
+  const status = (payload.status || 'pending').toLowerCase();
+  const mapped =
+    status === 'started'
+      ? 'running'
+      : status === 'completed'
+        ? 'succeeded'
+        : status;
+  const steps = automationState.steps.slice();
+  if (!steps[stepIndex]) {
+    steps[stepIndex] = {
+      index: stepIndex,
+      title: `Step ${stepIndex + 1}`,
+      status: 'pending',
+      dom_selectors: [],
+    };
+  }
+  steps[stepIndex] = { ...steps[stepIndex], status: mapped };
+  const overallStatus = status === 'failed' ? 'failed' : status === 'completed' ? 'succeeded' : 'running';
+  setAutomationState({ steps, status: overallStatus });
+}
+
+function handleAutomationMessage(kind, payload) {
+  if (!payload || !payload.runId) return;
+  if (!automationState.runId || automationState.runId !== payload.runId) {
+    automationState = {
+      ...automationState,
+      runId: payload.runId,
+    };
+  }
+
+  if (kind === 'automation_init') {
+    setAutomationState({
+      runId: payload.runId,
+      automationId: payload.automationId || automationState.automationId,
+      engine: (payload.engine || automationState.engine || '').toLowerCase() || null,
+      status: (payload.status || 'running').toLowerCase(),
+      name: payload.automationName || automationState.name,
+      steps: payload.steps || [],
+    });
+    return;
+  }
+
+  if (kind === 'automation_progress') {
+    applyAutomationProgress(payload);
+    return;
+  }
+
+  if (kind === 'automation_complete') {
+    const finalStatus = (payload.status || 'succeeded').toLowerCase();
+    const steps = automationState.steps.map((step) => {
+      if (finalStatus === 'succeeded' && step.status === 'running') {
+        return { ...step, status: 'succeeded' };
+      }
+      return step;
+    });
+    setAutomationState({
+      status: finalStatus,
+      steps,
+    });
+  }
+}
+
 function handleEventsUpdated(newEvents) {
   const incoming = Array.isArray(newEvents) ? newEvents : [];
   events = incoming.filter((event) => !event.sessionId || event.sessionId === sessionId);
@@ -151,6 +315,7 @@ function handleWindowMessage(event) {
   if (event.source !== window) return;
   const data = event.data;
   if (!data || data.source !== 'modeler-demo' || data.type !== 'modeler_event') return;
+  handleAutomationMessage(data.kind, data.payload);
   forwardToBackground(data.kind, data.payload);
 }
 

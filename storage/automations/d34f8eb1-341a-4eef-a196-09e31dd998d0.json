@@ -1,0 +1,95 @@
+{
+  "automation_id": "d34f8eb1-341a-4eef-a196-09e31dd998d0",
+  "created_at": "2025-10-16T08:23:39.808124+00:00",
+  "updated_at": "2025-10-16T08:23:56.086915+00:00",
+  "session_id": "86d823d8-6e7b-4887-8189-1cdb98a2a585",
+  "name": "checkout easy",
+  "engine": "deterministic",
+  "description": null,
+  "steps": [
+    {
+      "node_id": "evt-d8a45d8bf256a-1760602957927",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "title": "Enter Item Name",
+      "description": "Type 'Espresso beans' into the item input field to specify the product to add.",
+      "hints": {
+        "user_value": "Espresso beans",
+        "notes": "Input field for item name with high confidence selector"
+      }
+    },
+    {
+      "node_id": "evt-65e61b84d86b8-1760602958003",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "title": "Submit Shopping Item Form",
+      "description": "Submit the form to add 'Espresso beans' with quantity '1' to the shopping list.",
+      "hints": {
+        "user_value": "{\"item\": \"Espresso beans\", \"quantity\": \"1\"}",
+        "notes": "Form submission action with item and quantity payload"
+      }
+    }
+  ],
+  "flowchart_snapshot": {
+    "session_id": "86d823d8-6e7b-4887-8189-1cdb98a2a585",
+    "generated_at": "2025-10-16T08:23:17.837193+00:00",
+    "model": "claude-sonnet-4-5",
+    "steps": [
+      {
+        "node_id": "evt-d8a45d8bf256a-1760602957927",
+        "order": 1,
+        "title": "Enter Item Name",
+        "description": "Type 'Espresso beans' into the item input field to specify the product to add.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "#item-input",
+          "input#item-input"
+        ],
+        "hints": {
+          "user_value": "Espresso beans",
+          "notes": "Input field for item name with high confidence selector"
+        },
+        "source": "llm"
+      },
+      {
+        "node_id": "evt-65e61b84d86b8-1760602958003",
+        "order": 2,
+        "title": "Submit Shopping Item Form",
+        "description": "Submit the form to add 'Espresso beans' with quantity '1' to the shopping list.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "#item-form",
+          "getByText('Item name\nQuantity\nAdd to List')",
+          "form#item-form"
+        ],
+        "hints": {
+          "user_value": "{\"item\": \"Espresso beans\", \"quantity\": \"1\"}",
+          "notes": "Form submission action with item and quantity payload"
+        },
+        "source": "llm"
+      }
+    ],
+    "edges": {
+      "evt-d8a45d8bf256a-1760602957927": [
+        "evt-65e61b84d86b8-1760602958003"
+      ],
+      "evt-65e61b84d86b8-1760602958003": []
+    },
+    "source": {
+      "type": "llm",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5"
+    }
+  },
+  "target_url": "http://127.0.0.1:8001/web/test-page.html",
+  "session_created_at": "2025-10-16T08:22:31.222092+00:00",
+  "last_run_id": "d552c5de-1178-4ce1-a2f1-4565be1a7f4f",
+  "last_run_status": "succeeded"
+}

@@ -1,11 +1,15 @@
 const params = new URLSearchParams(window.location.search);
 const sessionId = params.get('session');
+const automationRunId = params.get('automation_run');
+const automationId = params.get('automation_id');
+const automationEngine = (params.get('automation_engine') || 'deterministic').toLowerCase();
 const logContainer = document.getElementById('event-log');
 const template = document.getElementById('event-template');
 const itemForm = document.getElementById('item-form');
 const itemsList = document.getElementById('items');
 const buttons = document.querySelectorAll('button[data-action]');
 const inputFields = document.querySelectorAll('#item-input, #item-quantity');
+const STEP_DELAY_MS = 600;
 
 if (!sessionId) {
   const warning = document.createElement('p');
@@ -103,6 +107,20 @@ function notifyExtension(kind, payload) {
   });
 }
 
+function notifyAutomation(kind, payload) {
+  if (!automationRunId) return;
+  notifyExtension(kind, {
+    runId: automationRunId,
+    automationId,
+    engine: automationEngine,
+    ...(payload || {}),
+  });
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function sendEvent(category, element, payload) {
   if (!sessionId) return;
   const dom = buildDomSnapshot(element);
@@ -170,4 +188,173 @@ if (sessionId) {
     sendEvent('submit', itemForm, { item, quantity });
     itemForm.reset();
   });
+}
+
+async function reportRunProgress(stepIndex, status, message, details) {
+  if (!automationRunId) return;
+  try {
+    const response = await fetch(`/runs/${automationRunId}/progress`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        step_index: stepIndex,
+        status,
+        message,
+        details,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+  } catch (error) {
+    console.warn('Unable to report automation progress', error);
+  }
+}
+
+function highlightElement(element) {
+  if (!(element instanceof HTMLElement)) return () => {};
+  element.classList.add('automation-highlight');
+  return () => {
+    element.classList.remove('automation-highlight');
+  };
+}
+
+function readStepValue(step) {
+  const hints = step?.hints || {};
+  return hints.user_value ?? hints.value ?? hints.text ?? hints.input ?? '';
+}
+
+async function performStepAction(step) {
+  const selectors = step?.dom_selectors || step?.selectors || [];
+  const selector = selectors.find((item) => typeof item === 'string' && item.trim().length > 0);
+  if (!selector) {
+    return { outcome: 'skipped', message: 'No selectors available for step.' };
+  }
+  const element = document.querySelector(selector);
+  if (!element) {
+    throw new Error(`Selector not found: ${selector}`);
+  }
+
+  const cleanup = highlightElement(element);
+  const mode = (step?.execution_mode || 'deterministic').toLowerCase();
+  try {
+    if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+      const value = readStepValue(step);
+      element.focus();
+      if (value !== undefined && value !== null && value !== '') {
+        element.value = value;
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+        element.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    } else if (element instanceof HTMLSelectElement) {
+      const value = readStepValue(step);
+      if (value) {
+        element.value = value;
+        element.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    } else if (element instanceof HTMLFormElement) {
+      if (typeof element.requestSubmit === 'function') {
+        element.requestSubmit();
+      } else {
+        element.submit();
+      }
+    } else {
+      element.focus();
+      element.click();
+    }
+    await delay(200);
+    return {
+      outcome: 'succeeded',
+      message: `Executed step via ${selector} (${mode}).`,
+      selector,
+    };
+  } finally {
+    cleanup();
+  }
+}
+
+async function executeAutomationStep(step, index) {
+  const title = step?.title || `Step ${index + 1}`;
+  const description = step?.description || title;
+  notifyAutomation('automation_progress', {
+    stepIndex: index,
+    status: 'started',
+    step,
+  });
+  logEventCard('automation', `${title}: starting`, false);
+  await reportRunProgress(index, 'started', `Starting ${title}`, { description });
+  await delay(STEP_DELAY_MS);
+
+  try {
+    if ((step.execution_mode || '').toLowerCase() === 'llm') {
+      await reportRunProgress(index, 'succeeded', `${title} delegated to LLM.`, { execution_mode: 'llm' });
+      notifyAutomation('automation_progress', {
+        stepIndex: index,
+        status: 'succeeded',
+        step,
+        delegated: true,
+      });
+      logEventCard('automation', `${title}: delegated to LLM`, false);
+      return;
+    }
+
+    const result = await performStepAction(step);
+    const outcomeStatus = result.outcome === 'skipped' ? 'skipped' : 'succeeded';
+    await reportRunProgress(index, outcomeStatus, result.message, { selector: result.selector });
+    notifyAutomation('automation_progress', {
+      stepIndex: index,
+      status: outcomeStatus,
+      step,
+    });
+    logEventCard('automation', `${title}: ${outcomeStatus}`, outcomeStatus === 'failed');
+  } catch (error) {
+    await reportRunProgress(index, 'failed', `${title} failed: ${error.message}`, { error: error.message });
+    notifyAutomation('automation_progress', {
+      stepIndex: index,
+      status: 'failed',
+      step,
+      error: error.message,
+    });
+    logEventCard('automation', `${title}: failed`, true);
+    throw error;
+  }
+}
+
+async function startAutomationRun() {
+  if (!automationRunId) return;
+  try {
+    const response = await fetch(`/runs/${automationRunId}`);
+    if (!response.ok) {
+      throw new Error(`Run ${automationRunId} not found`);
+    }
+    const data = await response.json();
+    const run = data.run || data;
+    const steps = Array.isArray(run.steps) ? run.steps : [];
+    notifyAutomation('automation_init', {
+      steps,
+      status: run.status,
+      automationName: run.automation_name || run.name || 'Automation run',
+    });
+
+    for (let index = 0; index < steps.length; index += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await executeAutomationStep(steps[index], index);
+    }
+
+    if (steps.length) {
+      await reportRunProgress(steps.length - 1, 'completed', 'Automation completed', {});
+    }
+    notifyAutomation('automation_complete', { status: 'succeeded' });
+    logEventCard('automation', 'Automation completed', false);
+  } catch (error) {
+    console.error('Automation run failed', error);
+    const failingStep = 0;
+    await reportRunProgress(failingStep, 'failed', error.message, { reason: error.message });
+    notifyAutomation('automation_complete', { status: 'failed', message: error.message });
+    logEventCard('automation', `Automation failed: ${error.message}`, true);
+  }
+}
+
+if (automationRunId) {
+  startAutomationRun();
 }

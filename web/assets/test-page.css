@@ -142,3 +142,9 @@ ul#items li {
   font-size: 0.75rem;
   color: rgba(148, 163, 184, 0.7);
 }
+
+.automation-highlight {
+  outline: 3px solid rgba(56, 189, 248, 0.8);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.35);
+  transition: outline 0.2s ease;
+}

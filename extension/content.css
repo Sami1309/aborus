@@ -39,6 +39,11 @@
   font-size: 0.7rem;
 }
 
+#modeler-recorder-sidebar .muted {
+  color: rgba(148, 163, 184, 0.8);
+  font-size: 0.75rem;
+}
+
 #modeler-recorder-sidebar .collapse {
   background: rgba(15, 23, 42, 0.2);
   border: 1px solid rgba(148, 163, 184, 0.3);
@@ -77,6 +82,139 @@
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+}
+
+#modeler-recorder-sidebar .automation {
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 0.85rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+#modeler-recorder-sidebar .automation.hidden {
+  display: none;
+}
+
+#modeler-recorder-sidebar .automation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#modeler-recorder-sidebar .automation-header strong {
+  display: block;
+}
+
+#modeler-recorder-sidebar .automation-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+#modeler-recorder-sidebar .automation-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.6rem;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 0.7rem;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+#modeler-recorder-sidebar .automation-step .step-order {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+#modeler-recorder-sidebar .automation-step .step-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+#modeler-recorder-sidebar .automation-step .step-description {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(203, 213, 225, 0.8);
+}
+
+#modeler-recorder-sidebar .automation-step .step-selector {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+#modeler-recorder-sidebar .automation-step .step-status {
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  color: rgba(148, 163, 184, 0.85);
+}
+
+#modeler-recorder-sidebar .automation-step.current {
+  border-color: rgba(56, 189, 248, 0.7);
+  background: rgba(15, 23, 42, 0.75);
+}
+
+#modeler-recorder-sidebar .automation-step.completed {
+  border-color: rgba(34, 197, 94, 0.6);
+}
+
+#modeler-recorder-sidebar .automation-step.skipped {
+  border-color: rgba(234, 179, 8, 0.6);
+}
+
+#modeler-recorder-sidebar .automation-step.failed {
+  border-color: rgba(239, 68, 68, 0.7);
+  background: rgba(127, 29, 29, 0.35);
+}
+
+#modeler-recorder-sidebar .status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(59, 130, 246, 0.25);
+  color: rgba(191, 219, 254, 0.95);
+}
+
+#modeler-recorder-sidebar .status-pill[data-status='running'] {
+  background: rgba(59, 130, 246, 0.35);
+}
+
+#modeler-recorder-sidebar .status-pill[data-status='succeeded'] {
+  background: rgba(34, 197, 94, 0.35);
+  color: rgba(187, 247, 208, 0.95);
+}
+
+#modeler-recorder-sidebar .status-pill[data-status='failed'] {
+  background: rgba(239, 68, 68, 0.35);
+  color: rgba(254, 202, 202, 0.95);
+}
+
+#modeler-recorder-sidebar .status-pill[data-status='idle'] {
+  background: rgba(148, 163, 184, 0.3);
+  color: rgba(226, 232, 240, 0.9);
 }
 
 #modeler-recorder-sidebar .event {

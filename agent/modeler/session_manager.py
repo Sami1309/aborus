@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 from uuid import uuid4
+from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
 from .recorder import SessionRecorder
 
@@ -214,65 +215,227 @@ class SessionManager:
         automation = self.get_automation(automation_id)
         run_id = str(uuid4())
         timestamp = datetime.now(timezone.utc).isoformat()
-        requested_engine = engine or automation.get("engine") or "deterministic"
-        selected_engine = requested_engine.lower()
-        if selected_engine not in {"deterministic", "llm", "hybrid"}:
-            selected_engine = "deterministic"
+        requested_engine = (engine or automation.get("engine") or "deterministic").lower()
+        if requested_engine not in {"deterministic", "llm", "hybrid"}:
+            requested_engine = "deterministic"
 
-        steps = automation.get("steps") or []
-        normalised_modes = [(step.get("execution_mode") or "deterministic").lower() for step in steps]
-        deterministic_count = sum(1 for mode in normalised_modes if mode == "deterministic")
-        llm_count = sum(1 for mode in normalised_modes if mode == "llm")
-        hybrid_count = sum(1 for mode in normalised_modes if mode == "hybrid")
-        executed_steps = deterministic_count + llm_count + hybrid_count
+        steps_payload = automation.get("steps") or []
+        steps = [dict(step) for step in steps_payload]
+        for index, step in enumerate(steps):
+            step.setdefault("order", index + 1)
+            step.setdefault("status", "pending")
+            step["execution_mode"] = (step.get("execution_mode") or "deterministic").lower()
 
-        success = executed_steps > 0
-        status = "succeeded" if success else "failed"
         target_url = automation.get("target_url")
-        if not target_url and automation.get("session_id") in self._sessions:
-            target_url = self._sessions[automation["session_id"]].metadata.url
+        session_id = automation.get("session_id")
+        if not target_url and session_id in self._sessions:
+            target_url = self._sessions[session_id].metadata.url
 
-        if success:
-            message = f"Executed {executed_steps} steps using {selected_engine} engine."
-        else:
-            message = "Automation contains no executable steps; please add steps before running."
-
-        log_entry = {
-            "timestamp": timestamp,
-            "level": "info",
-            "message": message if success else "Run aborted because no steps were available.",
-        }
+        launch_url = (
+            self._build_launch_url(target_url, session_id, automation_id, run_id, requested_engine)
+            if target_url
+            else None
+        )
 
         automation['updated_at'] = timestamp
+        automation['last_run_id'] = run_id
+
+        if not steps:
+            message = "Automation contains no executable steps; please add steps before running."
+            run_record = {
+                "run_id": run_id,
+                "automation_id": automation_id,
+                "session_id": session_id,
+                "engine": requested_engine,
+                "status": "failed",
+                "created_at": timestamp,
+                "started_at": timestamp,
+                "completed_at": timestamp,
+                "target_url": target_url,
+                "launch_url": launch_url,
+                "steps_planned": 0,
+                "steps_executed": 0,
+                "deterministic_steps": 0,
+                "llm_steps": 0,
+                "hybrid_steps": 0,
+                "message": message,
+                "logs": [
+                    {
+                        "timestamp": timestamp,
+                        "level": "error",
+                        "message": "Run aborted because no steps were available.",
+                    }
+                ],
+                "result": {
+                    "success": False,
+                    "summary": message,
+                },
+                "steps": steps,
+                "progress": [],
+                "current_step_index": None,
+                "completed_steps": [],
+                "automation_name": automation.get("name"),
+                "name": automation.get("name"),
+            }
+            self._runs[run_id] = run_record
+            self._write_run(run_record)
+            self._write_automation(automation)
+            return run_record
+
+        deterministic_count = sum(1 for step in steps if step.get("execution_mode") == "deterministic")
+        llm_count = sum(1 for step in steps if step.get("execution_mode") == "llm")
+        hybrid_count = sum(1 for step in steps if step.get("execution_mode") == "hybrid")
+
+        message = f"Automation initialised with {len(steps)} steps."
 
         run_record = {
             "run_id": run_id,
             "automation_id": automation_id,
-            "session_id": automation.get("session_id"),
-            "engine": selected_engine,
-            "status": status,
+            "session_id": session_id,
+            "engine": requested_engine,
+            "status": "running",
             "created_at": timestamp,
             "started_at": timestamp,
-            "completed_at": timestamp,
+            "completed_at": None,
             "target_url": target_url,
-            "launch_url": target_url,
+            "launch_url": launch_url,
             "steps_planned": len(steps),
-            "steps_executed": executed_steps if success else 0,
+            "steps_executed": 0,
             "deterministic_steps": deterministic_count,
             "llm_steps": llm_count,
             "hybrid_steps": hybrid_count,
             "message": message,
-            "logs": [log_entry],
-            "result": {
-                "success": success,
-                "summary": message,
-            },
+            "logs": [
+                {
+                    "timestamp": timestamp,
+                    "level": "info",
+                    "message": message,
+                }
+            ],
+            "result": None,
+            "steps": steps,
+            "progress": [],
+            "current_step_index": None,
+            "completed_steps": [],
+            "automation_name": automation.get("name"),
+            "name": automation.get("name"),
         }
 
         self._runs[run_id] = run_record
         self._write_run(run_record)
         self._write_automation(automation)
         return run_record
+
+    def update_run_progress(
+        self,
+        run_id: str,
+        *,
+        step_index: int,
+        status: str,
+        message: Optional[str] = None,
+        details: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        run = self.get_run(run_id)
+        timestamp = datetime.now(timezone.utc).isoformat()
+        normalised_status = (status or "").lower() or "unknown"
+        steps = run.get("steps") or []
+
+        if step_index < 0 or (steps and step_index >= len(steps)):
+            raise IndexError(f"step_index {step_index} is out of range")
+
+        progress_entry = {
+            "timestamp": timestamp,
+            "step_index": step_index,
+            "status": normalised_status,
+            "message": message,
+            "details": details or {},
+        }
+        progress_log = list(run.get("progress") or [])
+        progress_log.append(progress_entry)
+        run["progress"] = progress_log
+
+        run["logs"] = list(run.get("logs") or [])
+        run["logs"].append(
+            {
+                "timestamp": timestamp,
+                "level": "info" if normalised_status not in {"failed", "error"} else "error",
+                "message": message or f"Step {step_index + 1} {normalised_status}.",
+                "details": details or {},
+            }
+        )
+
+        run["current_step_index"] = step_index if normalised_status in {"started", "running"} else run.get("current_step_index")
+        step = steps[step_index] if step_index < len(steps) else None
+        if step is not None:
+            if normalised_status in {"started", "running"}:
+                step["status"] = "running"
+            elif normalised_status in {"succeeded", "completed"}:
+                step["status"] = "succeeded"
+            elif normalised_status in {"failed", "error"}:
+                step["status"] = "failed"
+            elif normalised_status in {"skipped"}:
+                step["status"] = "skipped"
+
+        completed_steps = set(run.get("completed_steps") or [])
+        if normalised_status in {"succeeded", "completed", "skipped"}:
+            if step_index not in completed_steps:
+                completed_steps.add(step_index)
+                run["steps_executed"] = len(completed_steps)
+        run["completed_steps"] = sorted(completed_steps)
+
+        if normalised_status == "completed" or (
+            normalised_status == "succeeded" and len(completed_steps) == len(steps)
+        ):
+            run["status"] = "succeeded"
+            run["completed_at"] = timestamp
+            run["current_step_index"] = None
+            run["result"] = {
+                "success": True,
+                "summary": message or "Automation completed successfully.",
+            }
+            run["message"] = run["result"]["summary"]
+        elif normalised_status in {"failed", "error"}:
+            run["status"] = "failed"
+            run["completed_at"] = timestamp
+            run["current_step_index"] = step_index
+            run["result"] = {
+                "success": False,
+                "summary": message or "Automation failed.",
+            }
+            run["message"] = run["result"]["summary"]
+
+        self._runs[run_id] = run
+        self._write_run(run)
+
+        automation_id = run.get("automation_id")
+        if automation_id and automation_id in self._automations:
+            automation = self._automations[automation_id]
+            automation["updated_at"] = timestamp
+            automation["last_run_status"] = run["status"]
+            self._write_automation(automation)
+
+        return run
+
+    def _build_launch_url(
+        self,
+        target_url: str,
+        session_id: Optional[str],
+        automation_id: str,
+        run_id: str,
+        engine: str,
+    ) -> str:
+        try:
+            parsed = urlparse(target_url)
+        except Exception:
+            return target_url
+        query = parse_qs(parsed.query, keep_blank_values=True)
+        if session_id:
+            query.setdefault("session", [session_id])
+        query["automation_run"] = [run_id]
+        query["automation_id"] = [automation_id]
+        query["automation_engine"] = [engine]
+        encoded = urlencode(query, doseq=True)
+        return urlunparse(parsed._replace(query=encoded))
 
     def _write_automation(self, record: Dict[str, Any]) -> None:
         path = self.automation_path(record["automation_id"])

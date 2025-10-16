@@ -1,0 +1,154 @@
+{
+  "run_id": "7e11cb98-6ff2-42bc-9d8a-8b44f61ed746",
+  "automation_id": "cac79750-9545-41fc-a0d4-1c4e98be5676",
+  "session_id": "86d823d8-6e7b-4887-8189-1cdb98a2a585",
+  "engine": "hybrid",
+  "status": "succeeded",
+  "created_at": "2025-10-16T08:25:05.914111+00:00",
+  "started_at": "2025-10-16T08:25:05.914111+00:00",
+  "completed_at": "2025-10-16T08:25:10.729563+00:00",
+  "target_url": "http://127.0.0.1:8001/web/test-page.html",
+  "launch_url": "http://127.0.0.1:8001/web/test-page.html?session=86d823d8-6e7b-4887-8189-1cdb98a2a585&automation_run=7e11cb98-6ff2-42bc-9d8a-8b44f61ed746&automation_id=cac79750-9545-41fc-a0d4-1c4e98be5676&automation_engine=hybrid",
+  "steps_planned": 2,
+  "steps_executed": 2,
+  "deterministic_steps": 1,
+  "llm_steps": 1,
+  "hybrid_steps": 0,
+  "message": "Automation completed",
+  "logs": [
+    {
+      "timestamp": "2025-10-16T08:25:05.914111+00:00",
+      "level": "info",
+      "message": "Automation initialised with 2 steps."
+    },
+    {
+      "timestamp": "2025-10-16T08:25:06.325645+00:00",
+      "level": "info",
+      "message": "Starting Enter Item Name",
+      "details": {
+        "description": "Type 'Espresso beans' into the item input field to specify the product to add."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.117983+00:00",
+      "level": "info",
+      "message": "Executed step via #item-input (deterministic).",
+      "details": {
+        "selector": "#item-input"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.120816+00:00",
+      "level": "info",
+      "message": "Starting Submit Random Grocery Item",
+      "details": {
+        "description": "Submit the form with a randomly selected grocery item and default quantity of '1' to add it to the shopping list."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.725685+00:00",
+      "level": "info",
+      "message": "Submit Random Grocery Item delegated to LLM.",
+      "details": {
+        "execution_mode": "llm"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.729563+00:00",
+      "level": "info",
+      "message": "Automation completed",
+      "details": {}
+    }
+  ],
+  "result": {
+    "success": true,
+    "summary": "Automation completed"
+  },
+  "steps": [
+    {
+      "node_id": "evt-d8a45d8bf256a-1760602957927",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "title": "Enter Item Name",
+      "description": "Type 'Espresso beans' into the item input field to specify the product to add.",
+      "hints": {
+        "user_value": "Espresso beans",
+        "notes": "Input field for item name with high confidence selector"
+      },
+      "order": 1,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "evt-65e61b84d86b8-1760602958003",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "title": "Submit Random Grocery Item",
+      "description": "Submit the form with a randomly selected grocery item and default quantity of '1' to add it to the shopping list.",
+      "hints": {
+        "user_value": "{\"item\": \"<random_grocery_item>\", \"quantity\": \"1\"}",
+        "notes": "Form submission with randomly generated grocery item. LLM will select an appropriate grocery item each execution."
+      },
+      "order": 2,
+      "status": "succeeded"
+    }
+  ],
+  "progress": [
+    {
+      "timestamp": "2025-10-16T08:25:06.325645+00:00",
+      "step_index": 0,
+      "status": "started",
+      "message": "Starting Enter Item Name",
+      "details": {
+        "description": "Type 'Espresso beans' into the item input field to specify the product to add."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.117983+00:00",
+      "step_index": 0,
+      "status": "succeeded",
+      "message": "Executed step via #item-input (deterministic).",
+      "details": {
+        "selector": "#item-input"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.120816+00:00",
+      "step_index": 1,
+      "status": "started",
+      "message": "Starting Submit Random Grocery Item",
+      "details": {
+        "description": "Submit the form with a randomly selected grocery item and default quantity of '1' to add it to the shopping list."
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.725685+00:00",
+      "step_index": 1,
+      "status": "succeeded",
+      "message": "Submit Random Grocery Item delegated to LLM.",
+      "details": {
+        "execution_mode": "llm"
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:25:10.729563+00:00",
+      "step_index": 1,
+      "status": "completed",
+      "message": "Automation completed",
+      "details": {}
+    }
+  ],
+  "current_step_index": null,
+  "completed_steps": [
+    0,
+    1
+  ],
+  "automation_name": "checkout random",
+  "name": "checkout random"
+}
