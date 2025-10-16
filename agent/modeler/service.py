@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 try:
     from fastapi import FastAPI, HTTPException
@@ -24,10 +25,13 @@ except ModuleNotFoundError:  # pragma: no cover - optional dependency
 from pydantic import BaseModel, Field
 
 from .events import FlowIntent
-from .llm import FlowAnnotator
+from .llm import FlowAnnotator, FlowChartGenerator, FlowChartEditor
 from .recorder import SessionRecorder
 from .selectors import SelectorMiner
 from .session_manager import SessionManager
+
+
+logger = logging.getLogger(__name__)
 
 
 class EventIn(BaseModel):
@@ -52,6 +56,36 @@ class SessionEventIn(BaseModel):
     payload: Dict[str, Any]
 
 
+class FlowchartGenerateIn(BaseModel):
+    regenerate: bool = False
+
+
+class FlowchartEditIn(BaseModel):
+    instructions: str
+
+
+class AutomationNodeIn(BaseModel):
+    node_id: str
+    execution_mode: str = Field(default="deterministic")
+    dom_selectors: List[str] = Field(default_factory=list)
+    title: Optional[str] = None
+    description: Optional[str] = None
+    hints: Optional[Dict[str, Any]] = None
+
+
+class AutomationCreateIn(BaseModel):
+    session_id: str
+    name: str
+    engine: str = Field(default="deterministic")
+    description: Optional[str] = None
+    steps: List[AutomationNodeIn]
+    flowchart_snapshot: Optional[Dict[str, Any]] = None
+
+
+class AutomationRunIn(BaseModel):
+    engine: Optional[str] = None
+
+
 class ModelerService:
     """Encapsulates the FastAPI app and recording lifecycle."""
 
@@ -61,6 +95,8 @@ class ModelerService:
         selector_miner: Optional[SelectorMiner] = None,
         annotator: Optional[FlowAnnotator] = None,
         session_manager: Optional[SessionManager] = None,
+        flowchart_generator: Optional[FlowChartGenerator] = None,
+        flowchart_editor: Optional[FlowChartEditor] = None,
     ) -> None:
         if FastAPI is None:
             raise RuntimeError("FastAPI is required to build the ModelerService app")
@@ -72,6 +108,9 @@ class ModelerService:
 
             self.sessions = SessionManager(recorder_factory=_factory)
         self._legacy_session_id: Optional[str] = None
+        flowchart_config = annotator.config if annotator else None
+        self.flowchart_generator = flowchart_generator or FlowChartGenerator(config=flowchart_config)
+        self.flowchart_editor = flowchart_editor or FlowChartEditor(config=self.flowchart_generator.config)
         self.app = self._create_app()
 
     def _legacy_session(self) -> str:
@@ -103,6 +142,7 @@ class ModelerService:
                     "schema": f"/sessions/{session_id}/schema",
                     "recording": f"/sessions/{session_id}/events",
                     "demo_page": f"/web/test-page.html?session={session_id}",
+                    "flowchart": f"/sessions/{session_id}/flowchart",
                 },
             }
 
@@ -114,10 +154,12 @@ class ModelerService:
                 sessions.append(
                     {
                         **meta,
+                        "flowchart_generated": meta.get("flowchart_generated", False),
                         "links": {
                             "schema": f"/sessions/{session_id}/schema",
                             "recording": f"/sessions/{session_id}/events",
                             "demo_page": f"/web/test-page.html?session={session_id}",
+                            "flowchart": f"/sessions/{session_id}/flowchart",
                         },
                     }
                 )
@@ -135,8 +177,10 @@ class ModelerService:
                     "schema": f"/sessions/{session_id}/schema",
                     "recording": f"/sessions/{session_id}/events",
                     "demo_page": f"/web/test-page.html?session={session_id}",
+                    "flowchart": f"/sessions/{session_id}/flowchart",
                 },
                 "graph": record.recorder.flow().to_dict(),
+                "flowchart_generated": self.sessions.flowchart_path(session_id).exists(),
             }
 
         @app.post("/sessions/{session_id}/events")
@@ -169,6 +213,50 @@ class ModelerService:
                 "session_id": session_id,
                 "events": json.loads(path.read_text(encoding="utf-8")),
             }
+
+        @app.get("/sessions/{session_id}/flowchart")
+        async def session_flowchart(session_id: str) -> Dict[str, Any]:
+            try:
+                flowchart = self.sessions.get_flowchart(session_id)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Session not found")
+            if flowchart is None:
+                raise HTTPException(status_code=404, detail="Flow chart not found")
+            return flowchart
+
+        @app.post("/sessions/{session_id}/flowchart")
+        async def generate_flowchart(session_id: str, body: Optional[FlowchartGenerateIn] = None) -> Dict[str, Any]:
+            try:
+                record = self.sessions.get_session(session_id)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Session not found")
+            existing = self.sessions.get_flowchart(session_id)
+            if existing and not (body and body.regenerate):
+                return existing
+            chart = self.flowchart_generator.generate(session_id, record.recorder.flow())
+            self.sessions.save_flowchart(session_id, chart)
+            return chart
+
+        @app.post("/sessions/{session_id}/flowchart/edit")
+        async def edit_flowchart(session_id: str, body: FlowchartEditIn) -> Dict[str, Any]:
+            try:
+                flowchart = self.sessions.get_flowchart(session_id)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Session not found")
+            if flowchart is None:
+                raise HTTPException(status_code=404, detail="Flow chart not found")
+            instructions = (body.instructions or '').strip()
+            if not instructions:
+                raise HTTPException(status_code=400, detail="Instructions are required")
+            try:
+                updated = self.flowchart_editor.edit(flowchart, instructions)
+            except ValueError as err:
+                raise HTTPException(status_code=400, detail=str(err))
+            except RuntimeError as err:
+                logger.exception("Flow chart edit runtime failure for session %s", session_id)
+                raise HTTPException(status_code=503, detail=str(err))
+            self.sessions.save_flowchart(session_id, updated)
+            return updated
 
         @app.post("/events")
         async def ingest(event_in: EventIn) -> Dict[str, Any]:
@@ -206,5 +294,67 @@ class ModelerService:
             # Persist mutations
             self.sessions.persist_schema(session_id)
             return {"graph": graph.to_dict()}
+
+        @app.get("/automations")
+        async def list_automations_endpoint() -> Dict[str, Any]:
+            automations = self.sessions.list_automations()
+            return {"automations": automations}
+
+        @app.post("/automations")
+        async def create_automation_endpoint(body: AutomationCreateIn) -> Dict[str, Any]:
+            try:
+                session_record = self.sessions.get_session(body.session_id)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Session not found")
+            automation = self.sessions.create_automation(
+                {
+                    "session_id": body.session_id,
+                    "name": body.name,
+                    "engine": body.engine,
+                    "description": body.description,
+                    "steps": [step.dict() for step in body.steps],
+                    "flowchart_snapshot": body.flowchart_snapshot,
+                    "target_url": session_record.metadata.url,
+                    "session_created_at": session_record.metadata.created_at.isoformat(),
+                }
+            )
+            return {"automation": automation}
+
+        @app.get("/automations/{automation_id}")
+        async def automation_detail(automation_id: str) -> Dict[str, Any]:
+            try:
+                automation = self.sessions.get_automation(automation_id)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Automation not found")
+            return {"automation": automation}
+
+        @app.get("/automations/{automation_id}/runs")
+        async def automation_runs_endpoint(automation_id: str) -> Dict[str, Any]:
+            try:
+                self.sessions.get_automation(automation_id)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Automation not found")
+            runs = self.sessions.list_runs(automation_id=automation_id)
+            return {'runs': runs}
+
+        @app.get("/runs")
+        async def runs_index() -> Dict[str, Any]:
+            return {'runs': self.sessions.list_runs()}
+
+        @app.get("/runs/{run_id}")
+        async def run_detail_endpoint(run_id: str) -> Dict[str, Any]:
+            try:
+                run = self.sessions.get_run(run_id)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Run not found")
+            return {'run': run}
+
+        @app.post("/automations/{automation_id}/run")
+        async def run_automation_endpoint(automation_id: str, body: Optional[AutomationRunIn] = None) -> Dict[str, Any]:
+            try:
+                result = self.sessions.run_automation(automation_id, engine=body.engine if body else None)
+            except KeyError:
+                raise HTTPException(status_code=404, detail="Automation not found")
+            return result
 
         return app

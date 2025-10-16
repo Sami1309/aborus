@@ -171,6 +171,359 @@ main {
   text-decoration: none;
 }
 
+.flowchart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.flowchart-edit h2 {
+  margin: 0 0 0.75rem;
+}
+
+.flowchart-edit form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.flowchart-edit textarea {
+  min-height: 5rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(31, 37, 50, 0.15);
+  font-size: 0.95rem;
+}
+
+.edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.edit-actions button {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 0.7rem;
+  background: #2f3df6;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.flowchart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.flowchart-select {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.flowchart-select select {
+  min-width: 14rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(31, 37, 50, 0.12);
+  border-radius: 0.65rem;
+}
+
+.flowchart-select button {
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.65rem;
+  border: none;
+  background: rgba(47, 61, 246, 0.12);
+  color: #2f3df6;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.flowchart-select button:hover {
+  background: rgba(47, 61, 246, 0.2);
+}
+
+.flowchart-body {
+  display: grid;
+  grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.5fr);
+  gap: 1.5rem;
+}
+
+.flowchart-steps {
+  border-left: 2px solid rgba(47, 61, 246, 0.15);
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.flowchart-step {
+  position: relative;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.85rem;
+  background: rgba(248, 249, 255, 0.92);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.flowchart-step::before {
+  content: "";
+  position: absolute;
+  left: -1.8rem;
+  top: 1rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #2f3df6;
+  box-shadow: 0 0 0 4px rgba(47, 61, 246, 0.1);
+}
+
+.flowchart-step.active {
+  background: #2f3df6;
+  color: #ffffff;
+  box-shadow: 0 12px 25px rgba(47, 61, 246, 0.25);
+}
+
+.flowchart-step[data-mode="llm"] {
+  border: 1px solid rgba(216, 48, 74, 0.4);
+}
+
+.flowchart-step[data-mode="hybrid"] {
+  border: 1px solid rgba(255, 193, 7, 0.35);
+}
+
+.flowchart-step h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.flowchart-step .summary {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.mode-tag {
+  display: inline-block;
+  margin-top: 0.45rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(47, 61, 246, 0.2);
+  color: #2f3df6;
+}
+
+.flowchart-step[data-mode="llm"] .mode-tag {
+  background: rgba(216, 48, 74, 0.18);
+  color: #d8304a;
+}
+
+.flowchart-step[data-mode="hybrid"] .mode-tag {
+  background: rgba(255, 193, 7, 0.22);
+  color: #8c6600;
+}
+
+.flowchart-detail {
+  background: rgba(248, 249, 255, 0.78);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(31, 37, 50, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.flowchart-detail h3 {
+  margin: 0;
+}
+
+.flowchart-detail .selectors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.flowchart-detail code {
+  background: rgba(47, 61, 246, 0.12);
+  color: #2f3df6;
+}
+
+.flowchart-detail label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.flowchart-detail select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(31, 37, 50, 0.15);
+}
+
+.flowchart-detail .detail-block {
+  border-top: 1px solid rgba(31, 37, 50, 0.08);
+  padding-top: 0.75rem;
+}
+
+.flowchart-detail .detail-block h4 {
+  margin: 0 0 0.5rem;
+}
+
+.hint-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.flowchart-card .error {
+  color: #d8304a;
+}
+
+.flowchart-card .success {
+  color: #2b9348;
+}
+
+.automation-compose h2 {
+  margin: 0 0 0.75rem;
+}
+
+.automation-compose form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.automation-compose .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.automation-compose input,
+.automation-compose select,
+.automation-compose textarea {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(31, 37, 50, 0.15);
+  border-radius: 0.65rem;
+  font-size: 0.95rem;
+}
+
+.automation-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.automation-actions button {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.automation-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.automation-card-header h3 {
+  margin: 0;
+}
+
+.automation-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.automation-run-trigger {
+  padding: 0.45rem 1.1rem;
+  border-radius: 0.65rem;
+  border: none;
+  background: #2f3df6;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.automation-run-trigger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.automation-meta {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(31, 37, 50, 0.7);
+}
+
+.run-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.run-status.succeeded {
+  background: rgba(43, 147, 72, 0.18);
+  color: #2b9348;
+}
+
+.run-status.failed {
+  background: rgba(216, 48, 74, 0.18);
+  color: #d8304a;
+}
+
+.run-status.pending {
+  background: rgba(47, 61, 246, 0.18);
+  color: #2f3df6;
+}
+
+.run-message {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.run-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(31, 37, 50, 0.65);
+}
+
+.automation-actions button[type="submit"] {
+  background: #2f3df6;
+  color: #ffffff;
+}
+
+#automation-run {
+  background: rgba(47, 61, 246, 0.12);
+  color: #2f3df6;
+}
+
+#automation-run:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.automation-list .schema-item {
+  background: rgba(248, 249, 255, 0.78);
+}
+
 .footer {
   text-align: center;
   padding: 1rem 2rem 2rem;
@@ -196,5 +549,13 @@ code {
   .input-row input[type="url"],
   .input-row button {
     width: 100%;
+  }
+
+  .flowchart-body {
+    grid-template-columns: 1fr;
+  }
+
+  .automation-actions {
+    flex-direction: column;
   }
 }

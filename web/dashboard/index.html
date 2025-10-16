@@ -16,6 +16,9 @@
     <nav class="tabs">
       <button class="tab-button active" data-tab="record">Recorder</button>
       <button class="tab-button" data-tab="schemas">Schemas</button>
+      <button class="tab-button" data-tab="flowchart">Flowchart</button>
+      <button class="tab-button" data-tab="automations">Automations</button>
+      <button class="tab-button" data-tab="runs">Runs</button>
     </nav>
 
     <section id="tab-record" class="tab active">
@@ -48,6 +51,94 @@
         </div>
         <div id="schemas-list" class="schemas-list">
           <p class="muted">No sessions yet. Record a model to populate this list.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-flowchart" class="tab">
+      <div class="card flowchart-card">
+        <header class="flowchart-controls">
+          <div class="flowchart-select">
+            <label for="flowchart-session">Recording</label>
+            <select id="flowchart-session">
+              <option value="">Select a session…</option>
+            </select>
+            <button id="flowchart-generate" type="button">Generate with Claude</button>
+            <button id="flowchart-refresh" type="button">Refresh</button>
+          </div>
+          <p id="flowchart-status" class="muted">Pick a recorded session to build a flow chart.</p>
+        </header>
+
+        <div class="flowchart-body">
+          <section class="flowchart-steps" id="flowchart-steps">
+            <p class="muted">No flow chart yet.</p>
+          </section>
+          <aside class="flowchart-detail" id="flowchart-detail">
+            <p class="muted">Select a step to inspect selectors, hints, and execution mode.</p>
+          </aside>
+        </div>
+
+        <section class="flowchart-edit">
+          <h2>Refine Flow With Claude</h2>
+          <form id="flowchart-edit-form">
+            <label for="flowchart-edit-text">Describe the change you need</label>
+            <textarea id="flowchart-edit-text" rows="3" placeholder="E.g. add a confirmation step after submission"></textarea>
+            <div class="edit-actions">
+              <button type="submit" id="flowchart-edit-apply">Apply update</button>
+              <p id="flowchart-edit-helper" class="muted">Claude Sonnet will preserve selectors while updating the steps.</p>
+            </div>
+          </form>
+        </section>
+
+        <section class="automation-compose">
+          <h2>Save as Automation</h2>
+          <form id="automation-form">
+            <div class="form-row">
+              <label for="automation-name">Automation name</label>
+              <input id="automation-name" type="text" placeholder="Checkout happy path" required />
+            </div>
+            <div class="form-row">
+              <label for="automation-engine">Execution engine</label>
+              <select id="automation-engine">
+                <option value="deterministic">Deterministic (Playwright)</option>
+                <option value="llm">Claude browser/computer use</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="automation-notes">Notes (optional)</label>
+              <textarea id="automation-notes" rows="3" placeholder="Add reminders or runtime instructions"></textarea>
+            </div>
+            <div class="automation-actions">
+              <button type="submit">Save automation</button>
+              <button type="button" id="automation-run" disabled>Run automation</button>
+            </div>
+          </form>
+        </section>
+
+      </div>
+    </section>
+
+    <section id="tab-automations" class="tab">
+      <div class="card">
+        <div class="schemas-header">
+          <h2>Saved Automations</h2>
+          <button id="refresh-automations" type="button">Refresh</button>
+        </div>
+        <div id="automation-list" class="schemas-list">
+          <p class="muted">No automations yet. Generate a flow chart and save one.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-runs" class="tab">
+      <div class="card">
+        <div class="schemas-header">
+          <h2>Automation Runs</h2>
+          <button id="refresh-runs" type="button">Refresh</button>
+        </div>
+        <div id="runs-list" class="schemas-list">
+          <p class="muted">No automation runs yet. Run an automation to see history.</p>
         </div>
       </div>
     </section>

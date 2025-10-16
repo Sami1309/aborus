@@ -1,0 +1,94 @@
+{
+  "automation_id": "ea2000bc-4846-43aa-bcde-061ec8ffe4af",
+  "created_at": "2025-10-16T07:16:55.464340+00:00",
+  "updated_at": "2025-10-16T07:16:55.464340+00:00",
+  "session_id": "06131f43-f256-4d6d-bc19-6012e13dc684",
+  "name": "Checkout",
+  "engine": "deterministic",
+  "description": null,
+  "steps": [
+    {
+      "node_id": "evt-408850260e1ba8-1760598971431",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "title": "input \u2192 input item-input",
+      "description": "input \u2192 input item-input",
+      "hints": {
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.3
+      }
+    },
+    {
+      "node_id": "evt-3826c6a066bc68-1760598971510",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "title": "other \u2192 form item-form",
+      "description": "other \u2192 form item-form",
+      "hints": {
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.3
+      }
+    }
+  ],
+  "flowchart_snapshot": {
+    "session_id": "06131f43-f256-4d6d-bc19-6012e13dc684",
+    "generated_at": "2025-10-16T07:16:23.059106+00:00",
+    "model": "claude-sonnet-4-5",
+    "steps": [
+      {
+        "node_id": "evt-408850260e1ba8-1760598971431",
+        "order": 1,
+        "title": "input \u2192 input item-input",
+        "description": "input \u2192 input item-input",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "#item-input",
+          "input#item-input"
+        ],
+        "hints": {
+          "semantic_action": null,
+          "user_value": null,
+          "confidence": 0.3
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "evt-3826c6a066bc68-1760598971510",
+        "order": 2,
+        "title": "other \u2192 form item-form",
+        "description": "other \u2192 form item-form",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "#item-form",
+          "getByText('Item name\nQuantity\nAdd to List')",
+          "form#item-form"
+        ],
+        "hints": {
+          "semantic_action": null,
+          "user_value": null,
+          "confidence": 0.3
+        },
+        "source": "llm-error"
+      }
+    ],
+    "edges": {
+      "evt-408850260e1ba8-1760598971431": [
+        "evt-3826c6a066bc68-1760598971510"
+      ],
+      "evt-3826c6a066bc68-1760598971510": []
+    },
+    "source": {
+      "type": "heuristic",
+      "reason": "llm-error"
+    }
+  }
+}

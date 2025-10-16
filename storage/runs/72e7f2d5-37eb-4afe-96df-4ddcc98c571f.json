@@ -1,0 +1,29 @@
+{
+  "run_id": "72e7f2d5-37eb-4afe-96df-4ddcc98c571f",
+  "automation_id": "d81605c9-ed40-4b7f-901e-f5fc70d49c83",
+  "session_id": "41515b12-0f21-4c5b-8623-99467bfa2969",
+  "engine": "deterministic",
+  "status": "succeeded",
+  "created_at": "2025-10-16T07:54:15.150289+00:00",
+  "started_at": "2025-10-16T07:54:15.150289+00:00",
+  "completed_at": "2025-10-16T07:54:15.150289+00:00",
+  "target_url": "http://127.0.0.1:8001/web/test-page.html",
+  "launch_url": "http://127.0.0.1:8001/web/test-page.html",
+  "steps_planned": 2,
+  "steps_executed": 2,
+  "deterministic_steps": 2,
+  "llm_steps": 0,
+  "hybrid_steps": 0,
+  "message": "Executed 2 steps using deterministic engine.",
+  "logs": [
+    {
+      "timestamp": "2025-10-16T07:54:15.150289+00:00",
+      "level": "info",
+      "message": "Executed 2 steps using deterministic engine."
+    }
+  ],
+  "result": {
+    "success": true,
+    "summary": "Executed 2 steps using deterministic engine."
+  }
+}

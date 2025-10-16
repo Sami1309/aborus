@@ -49,6 +49,48 @@ class SessionRecorderTests(unittest.TestCase):
 
 class ModelerServiceTests(unittest.TestCase):
     @unittest.skipIf(TestClient is None or ModelerService is None, "FastAPI stack not available")
+    def test_flowchart_edit_endpoint_preserves_steps(self) -> None:
+        service = ModelerService()
+        client = TestClient(service.app)
+
+        create_response = client.post("/sessions", json={"url": "https://example.com"})
+        self.assertEqual(create_response.status_code, 200)
+        session_id = create_response.json()["session"]["session_id"]
+
+        record_response = client.post(f"/sessions/{session_id}/events", json={"payload": SAMPLE_EVENT})
+        self.assertEqual(record_response.status_code, 200)
+
+        flowchart_response = client.post(
+            f"/sessions/{session_id}/flowchart",
+            json={"regenerate": True},
+        )
+        self.assertEqual(flowchart_response.status_code, 200)
+        flowchart = flowchart_response.json()
+        original_steps = flowchart.get("steps", [])
+        self.assertTrue(original_steps)
+
+        edit_response = client.post(
+            f"/sessions/{session_id}/flowchart/edit",
+            json={"instructions": "Add a note describing the outcome."},
+        )
+        self.assertEqual(edit_response.status_code, 200)
+        edited = edit_response.json()
+        self.assertEqual(edited["session_id"], session_id)
+        self.assertIn("steps", edited)
+        self.assertEqual(len(edited["steps"]), len(original_steps))
+        self.assertIn("history", edited)
+        self.assertTrue(edited["history"])
+        last_entry = edited["history"][-1]
+        self.assertEqual(last_entry.get("instructions"), "Add a note describing the outcome.")
+        self.assertEqual(edited.get("source", {}).get("operation"), "edit")
+
+        missing_instructions = client.post(
+            f"/sessions/{session_id}/flowchart/edit",
+            json={"instructions": ""},
+        )
+        self.assertEqual(missing_instructions.status_code, 400)
+
+    @unittest.skipIf(TestClient is None or ModelerService is None, "FastAPI stack not available")
     def test_modeler_service_patch_updates_selectors(self) -> None:
         service = ModelerService()
         client = TestClient(service.app)
@@ -65,6 +107,77 @@ class ModelerServiceTests(unittest.TestCase):
         self.assertEqual(patch_response.status_code, 200)
         mutated_graph = patch_response.json()["graph"]
         self.assertEqual(mutated_graph["nodes"][node_id]["selectors"], ["#submit"])
+
+    @unittest.skipIf(TestClient is None or ModelerService is None, "FastAPI stack not available")
+    def test_flowchart_generation_and_automation_pipeline(self) -> None:
+        service = ModelerService()
+        client = TestClient(service.app)
+
+        create_response = client.post("/sessions", json={"url": "https://example.com"})
+        self.assertEqual(create_response.status_code, 200)
+        session_id = create_response.json()["session"]["session_id"]
+
+        record_response = client.post(f"/sessions/{session_id}/events", json={"payload": SAMPLE_EVENT})
+        self.assertEqual(record_response.status_code, 200)
+
+        flowchart_response = client.post(
+            f"/sessions/{session_id}/flowchart",
+            json={"regenerate": True},
+        )
+        self.assertEqual(flowchart_response.status_code, 200)
+        flowchart = flowchart_response.json()
+        self.assertEqual(flowchart["session_id"], session_id)
+        self.assertTrue(flowchart["steps"])
+
+        automation_payload = {
+            "session_id": session_id,
+            "name": "Smoke path",
+            "engine": "hybrid",
+            "steps": [
+                {
+                    "node_id": step["node_id"],
+                    "execution_mode": step.get("execution_mode", "deterministic"),
+                    "dom_selectors": step.get("dom_selectors", []),
+                    "title": step.get("title"),
+                    "description": step.get("description"),
+                    "hints": step.get("hints", {}),
+                }
+                for step in flowchart["steps"]
+            ],
+            "flowchart_snapshot": flowchart,
+        }
+
+        automation_response = client.post("/automations", json=automation_payload)
+        self.assertEqual(automation_response.status_code, 200)
+        automation_id = automation_response.json()["automation"]["automation_id"]
+
+        run_response = client.post(
+            f"/automations/{automation_id}/run",
+            json={"engine": "llm"},
+        )
+        self.assertEqual(run_response.status_code, 200)
+        run_data = run_response.json()
+        self.assertEqual(run_data["status"], "succeeded")
+        self.assertEqual(run_data["engine"], "llm")
+        self.assertEqual(run_data["target_url"], "https://example.com")
+        self.assertEqual(run_data.get("launch_url"), "https://example.com")
+        self.assertEqual(run_data.get("steps_executed"), len(flowchart["steps"]))
+        self.assertIn("run_id", run_data)
+
+        runs_response = client.get("/runs")
+        self.assertEqual(runs_response.status_code, 200)
+        runs_payload = runs_response.json()
+        run_ids = {item["run_id"] for item in runs_payload.get("runs", [])}
+        self.assertIn(run_data["run_id"], run_ids)
+
+        automation_runs = client.get(f"/automations/{automation_id}/runs")
+        self.assertEqual(automation_runs.status_code, 200)
+        automation_run_ids = {item["run_id"] for item in automation_runs.json().get("runs", [])}
+        self.assertIn(run_data["run_id"], automation_run_ids)
+
+        run_detail = client.get(f"/runs/{run_data['run_id']}")
+        self.assertEqual(run_detail.status_code, 200)
+        self.assertEqual(run_detail.json()["run"]["run_id"], run_data["run_id"])
 
 
 class CliFlowExportTests(unittest.TestCase):

@@ -1,0 +1,52 @@
+{
+  "session_id": "5dff4b86-732f-4cf2-8780-7cf58736495f",
+  "generated_at": "2025-10-16T07:08:04.274901+00:00",
+  "model": "claude-sonnet-4-5",
+  "steps": [
+    {
+      "node_id": "evt-d940a492078788-1760598457666",
+      "order": 1,
+      "title": "input \u2192 input item-input",
+      "description": "input \u2192 input item-input",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "hints": {
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.1
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "evt-b0a5ae56e444d8-1760598457667",
+      "order": 2,
+      "title": "other \u2192 form item-form",
+      "description": "other \u2192 form item-form",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "hints": {
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.1
+      },
+      "source": "llm-error"
+    }
+  ],
+  "edges": {
+    "evt-d940a492078788-1760598457666": [
+      "evt-b0a5ae56e444d8-1760598457667"
+    ],
+    "evt-b0a5ae56e444d8-1760598457667": []
+  },
+  "source": {
+    "type": "heuristic",
+    "reason": "llm-error"
+  }
+}

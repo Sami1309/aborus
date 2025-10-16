@@ -1,0 +1,43 @@
+[
+  {
+    "event_id": "evt-408850260e1ba8-1760598971431",
+    "timestamp": "2025-10-16T07:16:11.431Z",
+    "category": "input",
+    "url": "http://127.0.0.1:8001/web/test-page.html?session=06131f43-f256-4d6d-bc19-6012e13dc684",
+    "dom": {
+      "tag": "input",
+      "attributes": {
+        "id": "item-input",
+        "type": "text"
+      },
+      "accessibleName": null,
+      "innerText": "",
+      "classList": [],
+      "cssPath": "input#item-input"
+    },
+    "payload": {
+      "name": "item",
+      "value": "Espresso beans"
+    }
+  },
+  {
+    "event_id": "evt-3826c6a066bc68-1760598971510",
+    "timestamp": "2025-10-16T07:16:11.510Z",
+    "category": "submit",
+    "url": "http://127.0.0.1:8001/web/test-page.html?session=06131f43-f256-4d6d-bc19-6012e13dc684",
+    "dom": {
+      "tag": "form",
+      "attributes": {
+        "id": "item-form"
+      },
+      "accessibleName": "Add shopping item",
+      "innerText": "Item name\nQuantity\nAdd to List",
+      "classList": [],
+      "cssPath": "form#item-form"
+    },
+    "payload": {
+      "item": "Espresso beans",
+      "quantity": "1"
+    }
+  }
+]

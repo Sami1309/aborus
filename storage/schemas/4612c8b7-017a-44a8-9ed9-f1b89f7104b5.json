@@ -1,0 +1,95 @@
+{
+  "entry": "evt-e3f470c063f68-1760597884768",
+  "nodes": {
+    "evt-e3f470c063f68-1760597884768": {
+      "node_id": "evt-e3f470c063f68-1760597884768",
+      "event": {
+        "event_id": "evt-e3f470c063f68-1760597884768",
+        "order": 1,
+        "type": "input",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=4612c8b7-017a-44a8-9ed9-f1b89f7104b5",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "name": "item",
+          "value": "Espresso beans"
+        }
+      },
+      "selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "intent": {
+        "summary": "input \u2192 input item-input",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-input",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "input#item-input",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-dc240b9e044af-1760597884854": {
+      "node_id": "evt-dc240b9e044af-1760597884854",
+      "event": {
+        "event_id": "evt-dc240b9e044af-1760597884854",
+        "order": 2,
+        "type": "other",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=4612c8b7-017a-44a8-9ed9-f1b89f7104b5",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "item": "Espresso beans",
+          "quantity": "1"
+        }
+      },
+      "selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "intent": {
+        "summary": "other \u2192 form item-form",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-form",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByText('Item name\nQuantity\nAdd to List')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "form#item-form",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "evt-e3f470c063f68-1760597884768": [
+      "evt-dc240b9e044af-1760597884854"
+    ],
+    "evt-dc240b9e044af-1760597884854": []
+  }
+}

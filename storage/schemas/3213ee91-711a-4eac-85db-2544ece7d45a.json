@@ -1,0 +1,95 @@
+{
+  "entry": "evt-35f8fd1d180ba-1760601799626",
+  "nodes": {
+    "evt-35f8fd1d180ba-1760601799626": {
+      "node_id": "evt-35f8fd1d180ba-1760601799626",
+      "event": {
+        "event_id": "evt-35f8fd1d180ba-1760601799626",
+        "order": 1,
+        "type": "input",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=3213ee91-711a-4eac-85db-2544ece7d45a",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "name": "item",
+          "value": "Espresso beans"
+        }
+      },
+      "selectors": [
+        "#item-input",
+        "input#item-input"
+      ],
+      "intent": {
+        "summary": "User typed 'Espresso beans' into an input field with id 'item-input'",
+        "semantic_action": "enter text in item input field",
+        "user_value": "Espresso beans",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-input",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "input#item-input",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "evt-a3692e36e247f-1760601799698": {
+      "node_id": "evt-a3692e36e247f-1760601799698",
+      "event": {
+        "event_id": "evt-a3692e36e247f-1760601799698",
+        "order": 2,
+        "type": "other",
+        "url": "http://127.0.0.1:8001/web/test-page.html?session=3213ee91-711a-4eac-85db-2544ece7d45a",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "item": "Espresso beans",
+          "quantity": "1"
+        }
+      },
+      "selectors": [
+        "#item-form",
+        "getByText('Item name\nQuantity\nAdd to List')",
+        "form#item-form"
+      ],
+      "intent": {
+        "summary": "User submitted a form to add 'Espresso beans' with quantity '1' to a shopping list",
+        "semantic_action": "submit_form",
+        "user_value": "{\"item\": \"Espresso beans\", \"quantity\": \"1\"}",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#item-form",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByText('Item name\nQuantity\nAdd to List')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "form#item-form",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "evt-35f8fd1d180ba-1760601799626": [
+      "evt-a3692e36e247f-1760601799698"
+    ],
+    "evt-a3692e36e247f-1760601799698": []
+  }
+}

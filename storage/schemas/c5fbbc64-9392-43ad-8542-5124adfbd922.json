@@ -1,0 +1,55 @@
+{
+  "entry": "evt-1",
+  "nodes": {
+    "evt-1": {
+      "node_id": "evt-1",
+      "event": {
+        "event_id": "evt-1",
+        "order": 1,
+        "type": "click",
+        "url": "https://example.com",
+        "frame": null,
+        "title": null,
+        "payload": {
+          "selector": "button#submit"
+        }
+      },
+      "selectors": [
+        "#submit"
+      ],
+      "intent": {
+        "summary": "click \u2192 button submit",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "button#submit",
+            "score": 1.1,
+            "origin": "browser_use"
+          },
+          {
+            "value": "#submit",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByRole('button', { name: 'Submit order' })",
+            "score": 0.9,
+            "origin": "aria_role"
+          },
+          {
+            "value": "getByText('Submit')",
+            "score": 0.7,
+            "origin": "text"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "evt-1": []
+  }
+}

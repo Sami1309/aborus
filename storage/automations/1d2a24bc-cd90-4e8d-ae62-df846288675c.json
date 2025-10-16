@@ -1,0 +1,61 @@
+{
+  "automation_id": "1d2a24bc-cd90-4e8d-ae62-df846288675c",
+  "created_at": "2025-10-16T06:57:48.423982+00:00",
+  "updated_at": "2025-10-16T06:57:48.423982+00:00",
+  "session_id": "d310d58d-9d98-40cb-89ad-c3c2271f5112",
+  "name": "Smoke path",
+  "engine": "hybrid",
+  "description": null,
+  "steps": [
+    {
+      "node_id": "evt-1",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "button#submit",
+        "#submit",
+        "getByRole('button', { name: 'Submit order' })",
+        "getByText('Submit')"
+      ],
+      "title": "click \u2192 button submit",
+      "description": "click \u2192 button submit",
+      "hints": {
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.2
+      }
+    }
+  ],
+  "flowchart_snapshot": {
+    "session_id": "d310d58d-9d98-40cb-89ad-c3c2271f5112",
+    "generated_at": "2025-10-16T06:57:48.423046+00:00",
+    "model": "claude-sonnet-4-5",
+    "steps": [
+      {
+        "node_id": "evt-1",
+        "order": 1,
+        "title": "click \u2192 button submit",
+        "description": "click \u2192 button submit",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "button#submit",
+          "#submit",
+          "getByRole('button', { name: 'Submit order' })",
+          "getByText('Submit')"
+        ],
+        "hints": {
+          "semantic_action": null,
+          "user_value": null,
+          "confidence": 0.2
+        },
+        "source": "missing-api-key"
+      }
+    ],
+    "edges": {
+      "evt-1": []
+    },
+    "source": {
+      "type": "heuristic",
+      "reason": "missing-api-key"
+    }
+  }
+}
