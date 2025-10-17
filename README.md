@@ -1,6 +1,6 @@
 # Aborus
 
-**AI-powered browser automation that learns from your actions and runs reliably at scale.**
+**Dead-simple AI browser automation to speedily deploy workflows at scale**
 
 Aborus transforms manual browser workflows into robust, production-ready automations. Record once, automate forever—with intelligent fallback when pages change.
 
@@ -8,10 +8,10 @@ Aborus transforms manual browser workflows into robust, production-ready automat
 
 ## Why Aborus?
 
-Traditional browser automation breaks when UI changes. Aborus uses AI (Claude Sonnet 4.5) to understand your workflows and adapt to changes automatically.
+Traditional browser automation breaks when UI changes. Aborus uses a mixture of DOM-selectors for speed, and browser-use AI scaffolding to fill in the gaps for the best of both worlds, adapting seamlessly to any task in any environment.
 
 - **Record naturally** — Browse normally while Aborus captures your actions
-- **AI-powered intelligence** — Claude analyzes recordings to generate structured automation flows
+- **Natural-language workflow generator** — Analyze recordings to generate structured automation flows
 - **Hybrid execution** — Run deterministically for speed, fall back to AI when needed
 - **Self-healing** — Automatically adapts to UI changes without manual intervention
 
