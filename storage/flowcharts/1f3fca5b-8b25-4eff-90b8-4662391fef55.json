@@ -1,0 +1,192 @@
+{
+  "session_id": "1f3fca5b-8b25-4eff-90b8-4662391fef55",
+  "generated_at": "2025-10-17T08:42:42.636243+00:00",
+  "model": "claude-haiku-4-5",
+  "steps": [
+    {
+      "node_id": "7550ec44-e4f4-4bb5-b392-0062375d72fe",
+      "order": 1,
+      "title": "Navigation to Google homepage with session and modeler origin parameters",
+      "description": "Navigation to Google homepage with session and modeler origin parameters.",
+      "execution_mode": "llm",
+      "dom_selectors": [],
+      "hints": {
+        "semantic_action": "navigate_to_url",
+        "user_value": "https://www.google.com/?session=1f3fca5b-8b25-4eff-90b8-4662391fef55&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "b187b82a-29ac-46c7-bf05-5167ae1a3393",
+      "order": 2,
+      "title": "User typed 's' into the Google search box",
+      "description": "User typed 's' into the Google search box.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "semantic_action": "search",
+        "user_value": "s",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "1cb12ce1-8b7f-4914-b226-1326cd669d1e",
+      "order": 3,
+      "title": "User is typing in the Google search box, entering the text 'so'",
+      "description": "User is typing in the Google search box, entering the text 'so'.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "semantic_action": "search_input",
+        "user_value": "so",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "de72e6d1-b53a-4d58-afce-5521732713ee",
+      "order": 4,
+      "title": "User is typing into the Google search box, entering the text 'some r'",
+      "description": "User is typing into the Google search box, entering the text 'some r'.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "semantic_action": "search_input",
+        "user_value": "some r",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "97011ec3-5272-4996-b4a3-932eacc8ce6d",
+      "order": 5,
+      "title": "User pressed Enter key in the Google search box",
+      "description": "User pressed Enter key in the Google search box.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "semantic_action": "submit_search",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "5606e63b-6443-4536-9e02-947d479c7116",
+      "order": 6,
+      "title": "User navigated to Google Search results page for the query 'some random stuff'",
+      "description": "User navigated to Google Search results page for the query 'some random stuff'.",
+      "execution_mode": "llm",
+      "dom_selectors": [],
+      "hints": {
+        "semantic_action": "search",
+        "user_value": "some random stuff",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "105e1f10-6bd3-47b5-a48f-87c66dde3213",
+      "order": 7,
+      "title": "User typed 'some random' into the Google search box",
+      "description": "User typed 'some random' into the Google search box.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "semantic_action": "search",
+        "user_value": "some random",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "13ce9470-7d3f-4f62-928f-71a776a3c7a8",
+      "order": 8,
+      "title": "User is typing 'some random stu' into the Google search box",
+      "description": "User is typing 'some random stu' into the Google search box.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "semantic_action": "search",
+        "user_value": "some random stu",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "29df6413-8bd3-438a-b5fe-91e9fdc10338",
+      "order": 9,
+      "title": "User entered 'some random stuff' into the Google search box",
+      "description": "User entered 'some random stuff' into the Google search box.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "semantic_action": "search",
+        "user_value": "some random stuff",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    }
+  ],
+  "edges": {
+    "7550ec44-e4f4-4bb5-b392-0062375d72fe": [
+      "b187b82a-29ac-46c7-bf05-5167ae1a3393"
+    ],
+    "b187b82a-29ac-46c7-bf05-5167ae1a3393": [
+      "1cb12ce1-8b7f-4914-b226-1326cd669d1e"
+    ],
+    "1cb12ce1-8b7f-4914-b226-1326cd669d1e": [
+      "de72e6d1-b53a-4d58-afce-5521732713ee"
+    ],
+    "de72e6d1-b53a-4d58-afce-5521732713ee": [
+      "97011ec3-5272-4996-b4a3-932eacc8ce6d"
+    ],
+    "97011ec3-5272-4996-b4a3-932eacc8ce6d": [
+      "5606e63b-6443-4536-9e02-947d479c7116"
+    ],
+    "5606e63b-6443-4536-9e02-947d479c7116": [
+      "105e1f10-6bd3-47b5-a48f-87c66dde3213"
+    ],
+    "105e1f10-6bd3-47b5-a48f-87c66dde3213": [
+      "13ce9470-7d3f-4f62-928f-71a776a3c7a8"
+    ],
+    "13ce9470-7d3f-4f62-928f-71a776a3c7a8": [
+      "29df6413-8bd3-438a-b5fe-91e9fdc10338"
+    ],
+    "29df6413-8bd3-438a-b5fe-91e9fdc10338": []
+  },
+  "source": {
+    "type": "heuristic",
+    "reason": "llm-error"
+  }
+}

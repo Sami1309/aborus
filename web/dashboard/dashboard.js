@@ -54,14 +54,53 @@ function markSessionFlowchartReady(sessionId) {
   }
 }
 
+function initialiseTabs() {
+  tabs.forEach((btn) => {
+    const tabKey = btn.dataset.tab;
+    if (!tabKey) return;
+    const triggerId = btn.id || `tab-trigger-${tabKey}`;
+    btn.id = triggerId;
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-controls', `tab-${tabKey}`);
+  });
+
+  tabPanels.forEach((panel) => {
+    panel.setAttribute('role', 'tabpanel');
+    const tabKey = panel.id?.replace('tab-', '') || '';
+    const owner = document.querySelector(`.tab-button[data-tab="${tabKey}"]`);
+    if (owner) {
+      panel.setAttribute('aria-labelledby', owner.id);
+    }
+    panel.hidden = !panel.classList.contains('active');
+  });
+
+  const activeTab = document.querySelector('.tab-button.active');
+  if (activeTab && activeTab.dataset.tab) {
+    switchTab(activeTab.dataset.tab);
+  } else if (tabs.length) {
+    switchTab(tabs[0].dataset.tab);
+  }
+}
+
 function switchTab(target) {
-  tabs.forEach((btn) => btn.classList.toggle('active', btn.dataset.tab === target));
-  tabPanels.forEach((panel) => panel.classList.toggle('active', panel.id === `tab-${target}`));
+  tabs.forEach((btn) => {
+    const isActive = btn.dataset.tab === target;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', String(isActive));
+    btn.tabIndex = isActive ? 0 : -1;
+  });
+  tabPanels.forEach((panel) => {
+    const isActive = panel.id === `tab-${target}`;
+    panel.classList.toggle('active', isActive);
+    panel.hidden = !isActive;
+  });
 }
 
 tabs.forEach((btn) => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
+
+initialiseTabs();
 
 async function fetchWithTimeout(url, options = {}) {
   const { timeout = 8000, ...rest } = options;
