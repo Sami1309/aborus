@@ -1,8 +1,11 @@
-# Aborus
+
+<img width="248" height="106" alt="Screenshot 2025-10-17 at 1 45 28 AM" src="https://github.com/user-attachments/assets/6352c73e-3519-4e99-b3d0-8065d5a32b09" />
+
 
 **Dead-simple AI browser automation to speedily deploy workflows at scale**
 
-Aborus transforms manual browser workflows into robust, production-ready automations. Record once, automate forever—with intelligent fallback when pages change.
+
+<img width="1473" height="702" alt="Screenshot 2025-10-17 at 1 43 19 AM" src="https://github.com/user-attachments/assets/108e812f-e886-4750-83fc-0a108381a3eb" />
 
 ---
 
@@ -276,5 +279,3 @@ MIT
 - **Discord**: [Join our community](#) (coming soon)
 
 ---
-
-**Built for YC W25** | Making browser automation intelligent and reliable
