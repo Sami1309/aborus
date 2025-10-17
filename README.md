@@ -279,5 +279,3 @@ MIT
 - **Discord**: [Join our community](#) (coming soon)
 
 ---
-
-**Built for YC W25** | Making browser automation intelligent and reliable
