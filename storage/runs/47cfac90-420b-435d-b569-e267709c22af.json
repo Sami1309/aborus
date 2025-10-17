@@ -1,0 +1,292 @@
+{
+  "run_id": "47cfac90-420b-435d-b569-e267709c22af",
+  "automation_id": "e3e59112-b928-4f9c-990d-325fb7b54eb2",
+  "session_id": "a5751dab-abd7-48c7-8c71-b6c24e6dc743",
+  "engine": "deterministic",
+  "status": "succeeded",
+  "created_at": "2025-10-17T01:13:03.881313+00:00",
+  "started_at": "2025-10-17T01:13:03.881313+00:00",
+  "completed_at": "2025-10-17T01:13:12.261542+00:00",
+  "target_url": "https://www.google.com/",
+  "launch_url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&automation_run=47cfac90-420b-435d-b569-e267709c22af&automation_id=e3e59112-b928-4f9c-990d-325fb7b54eb2&automation_engine=deterministic",
+  "steps_planned": 5,
+  "steps_executed": 5,
+  "deterministic_steps": 5,
+  "llm_steps": 0,
+  "hybrid_steps": 0,
+  "message": "Automation completed successfully.",
+  "logs": [
+    {
+      "timestamp": "2025-10-17T01:13:03.881313+00:00",
+      "level": "info",
+      "message": "Automation initialised with 5 steps."
+    },
+    {
+      "timestamp": "2025-10-17T01:13:08.530079+00:00",
+      "level": "info",
+      "message": "Starting Navigate to Google Homepage",
+      "details": {
+        "description": "Open Google search engine in the browser to begin the search workflow."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.150454+00:00",
+      "level": "info",
+      "message": "No selectors available for this step.",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.156320+00:00",
+      "level": "info",
+      "message": "Starting Focus Search Box",
+      "details": {
+        "description": "Click on the Google search input field to activate it for text entry."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.979316+00:00",
+      "level": "info",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.984395+00:00",
+      "level": "info",
+      "message": "Starting Submit Search",
+      "details": {
+        "description": "Press Enter to execute the search query and load results."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:10.799399+00:00",
+      "level": "info",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:10.807684+00:00",
+      "level": "info",
+      "message": "Starting Enter Search Query",
+      "details": {
+        "description": "Type the complete search term into the Google search box."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:11.640112+00:00",
+      "level": "info",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:11.645250+00:00",
+      "level": "info",
+      "message": "Starting View Search Results",
+      "details": {
+        "description": "Google displays search results page for the submitted query."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:12.251327+00:00",
+      "level": "info",
+      "message": "No selectors available for this step.",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-10-17T01:13:12.261542+00:00",
+      "level": "info",
+      "message": "Automation completed successfully.",
+      "details": {}
+    }
+  ],
+  "result": {
+    "success": true,
+    "summary": "Automation completed successfully."
+  },
+  "steps": [
+    {
+      "node_id": "57764f85-f7c4-40a5-babe-1845d85af329",
+      "execution_mode": "deterministic",
+      "dom_selectors": [],
+      "title": "Navigate to Google Homepage",
+      "description": "Open Google search engine in the browser to begin the search workflow.",
+      "hints": {
+        "notes": "Initial navigation to Google with session tracking parameters"
+      },
+      "order": 1,
+      "status": "skipped"
+    },
+    {
+      "node_id": "1d9cb8b4-cb4e-4d9e-bd9b-cfd540074420",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Focus Search Box",
+      "description": "Click on the Google search input field to activate it for text entry.",
+      "hints": {
+        "notes": "Prepare search field for user input"
+      },
+      "order": 2,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "3e11903b-70a3-46d4-9a38-7b92ae3f4f9a",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Submit Search",
+      "description": "Press Enter to execute the search query and load results.",
+      "hints": {
+        "notes": "Keyboard Enter submission action"
+      },
+      "order": 3,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "2050e578-1e6c-49b8-940f-0d3b887373d8",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Enter Search Query",
+      "description": "Type the complete search term into the Google search box.",
+      "hints": {
+        "user_value": "some random stuff",
+        "notes": "Consolidated from incremental typing events; final query value"
+      },
+      "order": 4,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "fec914fa-429b-455d-ac07-8fa3abe96e94",
+      "execution_mode": "deterministic",
+      "dom_selectors": [],
+      "title": "View Search Results",
+      "description": "Google displays search results page for the submitted query.",
+      "hints": {
+        "user_value": "some random stuff",
+        "notes": "Navigation to results page completes the search flow"
+      },
+      "order": 5,
+      "status": "succeeded"
+    }
+  ],
+  "progress": [
+    {
+      "timestamp": "2025-10-17T01:13:08.530079+00:00",
+      "step_index": 0,
+      "status": "started",
+      "message": "Starting Navigate to Google Homepage",
+      "details": {
+        "description": "Open Google search engine in the browser to begin the search workflow."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.150454+00:00",
+      "step_index": 0,
+      "status": "skipped",
+      "message": "No selectors available for this step.",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.156320+00:00",
+      "step_index": 1,
+      "status": "started",
+      "message": "Starting Focus Search Box",
+      "details": {
+        "description": "Click on the Google search input field to activate it for text entry."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.979316+00:00",
+      "step_index": 1,
+      "status": "succeeded",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:09.984395+00:00",
+      "step_index": 2,
+      "status": "started",
+      "message": "Starting Submit Search",
+      "details": {
+        "description": "Press Enter to execute the search query and load results."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:10.799399+00:00",
+      "step_index": 2,
+      "status": "succeeded",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:10.807684+00:00",
+      "step_index": 3,
+      "status": "started",
+      "message": "Starting Enter Search Query",
+      "details": {
+        "description": "Type the complete search term into the Google search box."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:11.640112+00:00",
+      "step_index": 3,
+      "status": "succeeded",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:11.645250+00:00",
+      "step_index": 4,
+      "status": "started",
+      "message": "Starting View Search Results",
+      "details": {
+        "description": "Google displays search results page for the submitted query."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:13:12.251327+00:00",
+      "step_index": 4,
+      "status": "skipped",
+      "message": "No selectors available for this step.",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-10-17T01:13:12.261542+00:00",
+      "step_index": 4,
+      "status": "completed",
+      "message": "Automation completed successfully.",
+      "details": {}
+    }
+  ],
+  "current_step_index": null,
+  "completed_steps": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "automation_name": "Da people",
+  "name": "Da people"
+}

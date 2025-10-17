@@ -1,0 +1,239 @@
+{
+  "run_id": "e1df5b5d-7879-48e0-b15a-ce8d6e1b107a",
+  "automation_id": "dfa2f7ec-207e-4851-9955-8a5a308c1054",
+  "session_id": "94fe5ae8-f184-42d3-858d-fb810a5fc86f",
+  "engine": "deterministic",
+  "status": "failed",
+  "created_at": "2025-10-17T01:16:17.239142+00:00",
+  "started_at": "2025-10-17T01:16:17.239142+00:00",
+  "completed_at": "2025-10-17T01:16:25.662854+00:00",
+  "target_url": "https://aistudio.google.com/prompts/new_chat",
+  "launch_url": "https://aistudio.google.com/prompts/new_chat?session=94fe5ae8-f184-42d3-858d-fb810a5fc86f&automation_run=e1df5b5d-7879-48e0-b15a-ce8d6e1b107a&automation_id=dfa2f7ec-207e-4851-9955-8a5a308c1054&automation_engine=deterministic",
+  "steps_planned": 4,
+  "steps_executed": 3,
+  "deterministic_steps": 4,
+  "llm_steps": 0,
+  "hybrid_steps": 0,
+  "message": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)",
+  "logs": [
+    {
+      "timestamp": "2025-10-17T01:16:17.239142+00:00",
+      "level": "info",
+      "message": "Automation initialised with 4 steps."
+    },
+    {
+      "timestamp": "2025-10-17T01:16:22.768540+00:00",
+      "level": "info",
+      "message": "Starting Navigate to Google AI Studio",
+      "details": {
+        "description": "Open Google AI Studio new chat page with specified session parameters."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:23.385484+00:00",
+      "level": "info",
+      "message": "No selectors available for this step.",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-10-17T01:16:23.394491+00:00",
+      "level": "info",
+      "message": "Starting Click Prompt Input Field",
+      "details": {
+        "description": "Focus on the main textarea to begin entering a prompt."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:24.210430+00:00",
+      "level": "info",
+      "message": "Executed step via ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-untouched (deterministic).",
+      "details": {
+        "selector": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-untouched"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:24.217312+00:00",
+      "level": "info",
+      "message": "Starting Execute Prompt via Run Button",
+      "details": {
+        "description": "Click the Run button to submit the prompt for AI processing."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.038454+00:00",
+      "level": "info",
+      "message": "Executed step via div.prompt-input-wrapper-container.ng-star-inserted > div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8 (deterministic).",
+      "details": {
+        "selector": "div.prompt-input-wrapper-container.ng-star-inserted > div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.043918+00:00",
+      "level": "info",
+      "message": "Starting Stop AI Generation",
+      "details": {
+        "description": "Click the stop button to halt the running AI generation process."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.657729+00:00",
+      "level": "error",
+      "message": "Stop AI Generation failed: Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)",
+      "details": {
+        "error": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.662854+00:00",
+      "level": "error",
+      "message": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)",
+      "details": {
+        "reason": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)"
+      }
+    }
+  ],
+  "result": {
+    "success": false,
+    "summary": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)"
+  },
+  "steps": [
+    {
+      "node_id": "65903a55-86c7-4d9f-a961-61a0c4acb481",
+      "execution_mode": "deterministic",
+      "dom_selectors": [],
+      "title": "Navigate to Google AI Studio",
+      "description": "Open Google AI Studio new chat page with specified session parameters.",
+      "hints": {
+        "user_value": "https://aistudio.google.com/prompts/new_chat?session=94fe5ae8-f184-42d3-858d-fb810a5fc86f&modeler_origin=http:%2F%2F127.0.0.1:8001"
+      },
+      "order": 1,
+      "status": "skipped"
+    },
+    {
+      "node_id": "9bfb8f25-816b-46b9-af03-5bc165e7e614",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-untouched"
+      ],
+      "title": "Click Prompt Input Field",
+      "description": "Focus on the main textarea to begin entering a prompt.",
+      "hints": {},
+      "order": 2,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "53f19a79-57ca-4fbd-8b0f-8e3c5042ccba",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "getByText('Run\nkeyboard_command_key\nkeyboard_return')",
+        "div.prompt-input-wrapper-container.ng-star-inserted > div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8"
+      ],
+      "title": "Execute Prompt via Run Button",
+      "description": "Click the Run button to submit the prompt for AI processing.",
+      "hints": {},
+      "order": 3,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "fbe06477-7240-4634-a73b-cc468c625208",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)"
+      ],
+      "title": "Stop AI Generation",
+      "description": "Click the stop button to halt the running AI generation process.",
+      "hints": {},
+      "order": 4,
+      "status": "failed"
+    }
+  ],
+  "progress": [
+    {
+      "timestamp": "2025-10-17T01:16:22.768540+00:00",
+      "step_index": 0,
+      "status": "started",
+      "message": "Starting Navigate to Google AI Studio",
+      "details": {
+        "description": "Open Google AI Studio new chat page with specified session parameters."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:23.385484+00:00",
+      "step_index": 0,
+      "status": "skipped",
+      "message": "No selectors available for this step.",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-10-17T01:16:23.394491+00:00",
+      "step_index": 1,
+      "status": "started",
+      "message": "Starting Click Prompt Input Field",
+      "details": {
+        "description": "Focus on the main textarea to begin entering a prompt."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:24.210430+00:00",
+      "step_index": 1,
+      "status": "succeeded",
+      "message": "Executed step via ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-untouched (deterministic).",
+      "details": {
+        "selector": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-untouched"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:24.217312+00:00",
+      "step_index": 2,
+      "status": "started",
+      "message": "Starting Execute Prompt via Run Button",
+      "details": {
+        "description": "Click the Run button to submit the prompt for AI processing."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.038454+00:00",
+      "step_index": 2,
+      "status": "succeeded",
+      "message": "Executed step via div.prompt-input-wrapper-container.ng-star-inserted > div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8 (deterministic).",
+      "details": {
+        "selector": "div.prompt-input-wrapper-container.ng-star-inserted > div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.043918+00:00",
+      "step_index": 3,
+      "status": "started",
+      "message": "Starting Stop AI Generation",
+      "details": {
+        "description": "Click the stop button to halt the running AI generation process."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.657729+00:00",
+      "step_index": 3,
+      "status": "failed",
+      "message": "Stop AI Generation failed: Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)",
+      "details": {
+        "error": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T01:16:25.662854+00:00",
+      "step_index": 3,
+      "status": "failed",
+      "message": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)",
+      "details": {
+        "reason": "Selector not found: div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)"
+      }
+    }
+  ],
+  "current_step_index": 3,
+  "completed_steps": [
+    0,
+    1,
+    2
+  ],
+  "automation_name": "auto",
+  "name": "auto"
+}

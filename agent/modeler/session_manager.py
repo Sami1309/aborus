@@ -90,8 +90,9 @@ class SessionManager:
         record = self.get_session(session_id)
         node = record.recorder.record_browser_use_event(payload)
         record.events.append(payload)
+        # Only write recording, skip schema write for performance
+        # Schema is persisted on-demand via persist_schema() or at session end
         self._write_recording(session_id, record.events)
-        self._write_schema(session_id, record.recorder.flow().to_dict())
         return {
             "node": node.to_dict(),
             "graph": record.recorder.flow().to_dict(),

@@ -8,9 +8,10 @@ function getParam(name) {
   return sessionParams.get(name) || hashParams.get(name) || null;
 }
 
-const sessionId = getParam('session') || getParam('modeler_session');
+let sessionId = getParam('session') || getParam('modeler_session');
 const automationRunParam = getParam('automation_run');
 let events = [];
+let rawEvents = [];
 let automationState = {
   runId: automationRunParam || null,
   steps: [],
@@ -22,14 +23,25 @@ let automationState = {
 const apiOriginHint = getParam('modeler_origin');
 let sessionConfig = null;
 let sessionConfigPromise = null;
+let sessionIdentityPromise = null;
 let domListenersBound = false;
 const lastInputEvent = new WeakMap();
 const INPUT_EVENT_DEBOUNCE_MS = 400;
 const ignoredRecordingPaths = ['/web/test-page.html'];
 const STEP_DELAY_MS = 600;
+const NAVIGATION_EVENTS = new Set(['navigate', 'redirect', 'location', 'urlchange', 'hashchange']);
 
 let automationRunStarted = false;
 let cachedApiBase = null;
+let tabBindingPromise = null;
+let recorderInitialised = false;
+let appInitialised = false;
+
+if (sessionId) {
+  bindSessionToTab(sessionId);
+} else {
+  resolveSessionIdentity();
+}
 
 function isDemoPage() {
   try {
@@ -70,6 +82,59 @@ async function resolveApiBase() {
     cachedApiBase = window.location.origin;
   }
   return cachedApiBase;
+}
+
+function bindSessionToTab(id) {
+  if (!id) return;
+  if (tabBindingPromise) {
+    return;
+  }
+  tabBindingPromise = new Promise((resolve) => {
+    chrome.runtime.sendMessage(
+      { type: 'modeler_bind_tab_session', sessionId: id },
+      () => {
+        tabBindingPromise = null;
+        resolve();
+      },
+    );
+  });
+}
+
+function resolveSessionIdentity() {
+  if (sessionId) {
+    bindSessionToTab(sessionId);
+    return Promise.resolve(sessionId);
+  }
+  if (sessionIdentityPromise) {
+    return sessionIdentityPromise;
+  }
+  sessionIdentityPromise = new Promise((resolve) => {
+    chrome.runtime.sendMessage(
+      { type: 'modeler_resume_session' },
+      (response) => {
+        sessionIdentityPromise = null;
+        if (chrome.runtime.lastError) {
+          console.warn('Modeler session resume failed', chrome.runtime.lastError.message);
+          resolve(null);
+          return;
+        }
+        const recovered = response?.sessionId || null;
+        if (recovered) {
+          sessionId = recovered;
+          bindSessionToTab(sessionId);
+          if (response?.config) {
+            sessionConfig = response.config;
+          }
+          if (rawEvents.length) {
+            events = rawEvents.filter((event) => !event.sessionId || event.sessionId === sessionId);
+            render();
+          }
+        }
+        resolve(sessionId);
+      },
+    );
+  });
+  return sessionIdentityPromise;
 }
 
 function automationInFlight(status) {
@@ -277,13 +342,59 @@ async function executeAutomationStep(step, index) {
   try {
     const mode = (step?.execution_mode || 'deterministic').toLowerCase();
     if (mode === 'llm') {
-      await reportRunProgress(index, 'succeeded', `${title} delegated to LLM.`, { execution_mode: 'llm' });
-      emitAutomationEvent('automation_progress', {
-        stepIndex: index,
-        status: 'succeeded',
-        step,
-        delegated: true,
-      });
+      // Execute LLM step using browser-use on the backend
+      await reportRunProgress(index, 'running', `Executing ${title} with LLM...`, { execution_mode: 'llm' });
+
+      try {
+        const apiBase = await resolveApiBase();
+        if (!apiBase) {
+          throw new Error('Modeler API base unavailable');
+        }
+
+        const response = await fetch(`${apiBase}/execute/llm-step`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            step: step,
+            context: {
+              url: window.location.href,
+              title: document.title,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.detail || `LLM execution failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const result = data.result || {};
+
+        if (result.outcome === 'succeeded') {
+          await reportRunProgress(index, 'succeeded', `${title} completed with LLM.`, {
+            execution_mode: 'llm',
+            result: result.message
+          });
+          emitAutomationEvent('automation_progress', {
+            stepIndex: index,
+            status: 'succeeded',
+            step,
+            llm_result: result,
+          });
+        } else {
+          throw new Error(result.message || 'LLM step failed');
+        }
+      } catch (llmError) {
+        const message = llmError?.message || String(llmError);
+        await reportRunProgress(index, 'failed', `${title} (LLM) failed: ${message}`, {
+          execution_mode: 'llm',
+          error: message
+        });
+        throw llmError;
+      }
       return;
     }
 
@@ -315,6 +426,7 @@ async function startAutomationRunIfNeeded() {
   if (automationRunStarted) return;
   if (!automationState.runId) return;
   if (isDemoPage()) return;
+  await resolveSessionIdentity();
   automationRunStarted = true;
 
   let run;
@@ -379,25 +491,36 @@ async function startAutomationRunIfNeeded() {
 }
 
 function ensureSessionConfig() {
-  if (!sessionId) {
-    return Promise.resolve(null);
+  if (sessionConfig) {
+    return Promise.resolve(sessionConfig);
   }
   if (sessionConfigPromise) {
     return sessionConfigPromise;
   }
-  sessionConfigPromise = new Promise((resolve) => {
-    chrome.runtime.sendMessage(
-      { type: 'modeler_get_session_config', sessionId },
-      (response) => {
-        if (chrome.runtime.lastError) {
-          console.warn('Modeler session config unavailable', chrome.runtime.lastError.message);
-          resolve(null);
-          return;
-        }
-        sessionConfig = response?.config || null;
-        resolve(sessionConfig);
-      },
-    );
+  sessionConfigPromise = resolveSessionIdentity().then((id) => {
+    if (!id) {
+      sessionConfigPromise = null;
+      return null;
+    }
+    if (sessionConfig) {
+      sessionConfigPromise = null;
+      return sessionConfig;
+    }
+    return new Promise((resolve) => {
+      chrome.runtime.sendMessage(
+        { type: 'modeler_get_session_config', sessionId: id },
+        (response) => {
+          sessionConfigPromise = null;
+          if (chrome.runtime.lastError) {
+            console.warn('Modeler session config unavailable', chrome.runtime.lastError.message);
+            resolve(null);
+            return;
+          }
+          sessionConfig = response?.config || null;
+          resolve(sessionConfig);
+        },
+      );
+    });
   });
   return sessionConfigPromise;
 }
@@ -408,10 +531,6 @@ function onReady(callback) {
   } else {
     callback();
   }
-}
-
-function isRecordingPage() {
-  return Boolean(sessionId);
 }
 
 function setBodyOffset(width) {
@@ -683,8 +802,9 @@ function buildDomSnapshot(element) {
     attrs.value = element.value;
   }
   const ariaLabel = element.getAttribute('aria-label');
-  snapshot.accessibleName = ariaLabel || element.textContent?.trim() || element.innerText?.trim() || null;
-  snapshot.innerText = element.innerText || null;
+  const nameCandidate = ariaLabel || element.textContent || element.innerText || null;
+  snapshot.accessibleName = nameCandidate ? sanitiseValue(nameCandidate.trim(), 200) : null;
+  snapshot.innerText = sanitiseValue(element.innerText, 400);
   return snapshot;
 }
 
@@ -755,8 +875,12 @@ function buildFormPayload(form) {
 }
 
 function dispatchRecord(payload) {
-  if (!sessionId) return Promise.resolve(null);
-  return ensureSessionConfig().then((config) => {
+  return ensureSessionConfig().then(async (config) => {
+    const id = await resolveSessionIdentity();
+    if (!id) {
+      console.warn('Modeler recorder missing session id; skipping event dispatch');
+      return null;
+    }
     const apiBase = getApiBaseOverride(config);
     if (!apiBase) {
       console.warn('Modeler recorder missing API base URL; skipping event dispatch');
@@ -764,7 +888,7 @@ function dispatchRecord(payload) {
     }
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
-        { type: 'modeler_record_event', sessionId, event: payload, apiBase },
+        { type: 'modeler_record_event', sessionId: id, event: payload, apiBase },
         (response) => {
           if (chrome.runtime.lastError) {
             console.error('Failed to record event via background', chrome.runtime.lastError.message);
@@ -784,7 +908,6 @@ function dispatchRecord(payload) {
 }
 
 function recordDomEvent(category, element, payload = {}) {
-  if (!sessionId) return;
   if (isSidebarElement(element)) return;
   const body = {
     event_id: createEventId(),
@@ -792,15 +915,21 @@ function recordDomEvent(category, element, payload = {}) {
     category,
     url: window.location.href,
     title: document.title,
-    dom: buildDomSnapshot(element),
+    dom: null,
     payload,
   };
+  if (element && !NAVIGATION_EVENTS.has((category || '').toLowerCase())) {
+    body.dom = buildDomSnapshot(element);
+  }
   forwardToBackground('raw', body);
   dispatchRecord(body);
 }
 
 function shouldRecordEvent(event) {
-  if (!sessionId) return false;
+  if (!sessionId) {
+    resolveSessionIdentity();
+    return false;
+  }
   if (!event || event.isTrusted === false) return false;
   const target = event.target;
   if (target instanceof Element && isSidebarElement(target)) return false;
@@ -899,6 +1028,7 @@ function handleAutomationMessage(kind, payload) {
 
   if (kind === 'automation_init') {
     events = [];
+    rawEvents = [];
     setAutomationState({
       runId: payload.runId,
       automationId: payload.automationId || automationState.automationId,
@@ -931,8 +1061,12 @@ function handleAutomationMessage(kind, payload) {
 }
 
 function handleEventsUpdated(newEvents) {
-  const incoming = Array.isArray(newEvents) ? newEvents : [];
-  events = incoming.filter((event) => !event.sessionId || event.sessionId === sessionId);
+  rawEvents = Array.isArray(newEvents) ? newEvents : [];
+  if (!sessionId) {
+    events = rawEvents.slice();
+  } else {
+    events = rawEvents.filter((event) => !event.sessionId || event.sessionId === sessionId);
+  }
   render();
 }
 
@@ -947,16 +1081,21 @@ function requestInitialEvents() {
 }
 
 function forwardToBackground(kind, payload) {
-  if (!sessionId) return;
-  chrome.runtime.sendMessage({
-    type: 'modeler_event',
-    sessionId,
-    kind,
-    payload,
-  }, () => {
-    if (chrome.runtime.lastError) {
-      console.warn('Recorder monitor unavailable', chrome.runtime.lastError.message);
-    }
+  resolveSessionIdentity().then((id) => {
+    if (!id) return;
+    chrome.runtime.sendMessage(
+      {
+        type: 'modeler_event',
+        sessionId: id,
+        kind,
+        payload,
+      },
+      () => {
+        if (chrome.runtime.lastError) {
+          console.warn('Recorder monitor unavailable', chrome.runtime.lastError.message);
+        }
+      },
+    );
   });
 }
 
@@ -986,26 +1125,50 @@ function handleWindowMessage(event) {
     return;
   }
 
+  if (data.source === 'modeler-dashboard' && data.type === 'modeler_run_preload') {
+    if (!data.run || !data.run.run_id) return;
+    chrome.runtime.sendMessage(
+      {
+        type: 'modeler_preload_run',
+        apiBase: data.apiBase,
+        run: data.run,
+      },
+      () => {
+        if (chrome.runtime.lastError) {
+          console.warn('Unable to preload automation run', chrome.runtime.lastError.message);
+        }
+      },
+    );
+    return;
+  }
+
   if (data.source !== 'modeler-demo' || data.type !== 'modeler_event') return;
   handleAutomationMessage(data.kind, data.payload);
   forwardToBackground(data.kind, data.payload);
 }
 
 function initialiseRecorder() {
-  if (!sessionId) return;
-  if (isDemoPage()) return;
-  ensureSessionConfig().finally(() => {
-    bindDomListeners();
-    recordDomEvent('navigate', document.documentElement, {
-      title: document.title,
-      url: window.location.href,
+  if (recorderInitialised) return;
+  resolveSessionIdentity().then((id) => {
+    if (!id) return;
+    if (recorderInitialised) return;
+    recorderInitialised = true;
+    if (isDemoPage()) return;
+    ensureSessionConfig().finally(() => {
+      bindDomListeners();
+      recordDomEvent('navigate', document.documentElement, {
+        title: document.title,
+        url: window.location.href,
+      });
     });
   });
 }
 
 window.addEventListener('message', handleWindowMessage);
 
-if (isRecordingPage()) {
+function initialiseApp() {
+  if (appInitialised) return;
+  appInitialised = true;
   onReady(() => {
     createSidebar();
     requestInitialEvents();
@@ -1023,13 +1186,14 @@ if (isRecordingPage()) {
       window.removeEventListener('message', handleWindowMessage);
     });
   });
-} else if (automationState.runId) {
-  onReady(() => {
-    createSidebar();
-    startAutomationRunIfNeeded();
-    window.addEventListener('beforeunload', () => {
-      resetBodyOffset();
-      window.removeEventListener('message', handleWindowMessage);
-    });
+}
+
+if (sessionId || automationState.runId) {
+  initialiseApp();
+} else {
+  resolveSessionIdentity().then((id) => {
+    if (id || automationState.runId) {
+      initialiseApp();
+    }
   });
 }

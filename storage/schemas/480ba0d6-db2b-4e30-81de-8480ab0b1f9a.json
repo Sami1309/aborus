@@ -1,0 +1,466 @@
+{
+  "entry": "7760e043-9725-46ee-85f1-5f0c2ea2c38a",
+  "nodes": {
+    "7760e043-9725-46ee-85f1-5f0c2ea2c38a": {
+      "node_id": "7760e043-9725-46ee-85f1-5f0c2ea2c38a",
+      "event": {
+        "event_id": "7760e043-9725-46ee-85f1-5f0c2ea2c38a",
+        "order": 1,
+        "type": "navigate",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "title": "Google AI Studio",
+          "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001"
+        }
+      },
+      "selectors": [],
+      "intent": {
+        "summary": "User navigated to Google AI Studio to start a new chat prompt with a specific session ID and modeler origin parameter",
+        "semantic_action": "Navigate to Google AI Studio new chat page",
+        "user_value": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": []
+      }
+    },
+    "ebf38979-96d6-481f-9cee-4fa68221a820": {
+      "node_id": "ebf38979-96d6-481f-9cee-4fa68221a820",
+      "event": {
+        "event_id": "ebf38979-96d6-481f-9cee-4fa68221a820",
+        "order": 2,
+        "type": "click",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "tag": "div",
+          "text": "Design a REST API for a social media platform.\nkeyboard_tab",
+          "button": 0
+        }
+      },
+      "selectors": [
+        "getByText('Design a REST API for a social media platform.\nkeyboard_tab')",
+        "footer.ng-star-inserted:nth-child(3) > ms-prompt-input-wrapper > div.mat-mdc-tooltip-trigger.prompt-input-wrapper > div > div.prompt-input-wrapper-container.ng-star-inserted > div.text-wrapper"
+      ],
+      "intent": {
+        "summary": "User clicked on a prompt suggestion to design a REST API for a social media platform in Google AI Studio's new chat interface",
+        "semantic_action": "Select the prompt suggestion 'Design a REST API for a social media platform'",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "getByText('Design a REST API for a social media platform.\nkeyboard_tab')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "footer.ng-star-inserted:nth-child(3) > ms-prompt-input-wrapper > div.mat-mdc-tooltip-trigger.prompt-input-wrapper > div > div.prompt-input-wrapper-container.ng-star-inserted > div.text-wrapper",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "34346f0a-24d2-4d01-9b29-2c4bd3a12963": {
+      "node_id": "34346f0a-24d2-4d01-9b29-2c4bd3a12963",
+      "event": {
+        "event_id": "34346f0a-24d2-4d01-9b29-2c4bd3a12963",
+        "order": 3,
+        "type": "click",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "tag": "textarea",
+          "text": "",
+          "button": 0
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+      ],
+      "intent": {
+        "summary": "User clicked on the main prompt input textarea to begin composing a prompt in Google AI Studio",
+        "semantic_action": "Click on the main prompt input textarea",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "6af6c17a-b792-4e0e-89c7-0ca029a3cdb3": {
+      "node_id": "6af6c17a-b792-4e0e-89c7-0ca029a3cdb3",
+      "event": {
+        "event_id": "6af6c17a-b792-4e0e-89c7-0ca029a3cdb3",
+        "order": 4,
+        "type": "input",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "name": null,
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "som",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "intent": {
+        "summary": "User is typing 'som' into a text area input field, likely composing a message or prompt",
+        "semantic_action": "type into chat input",
+        "user_value": "som",
+        "confidence": 0.92
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "d08ce3d4-4914-4bb4-9cfa-2c3977cd65b2": {
+      "node_id": "d08ce3d4-4914-4bb4-9cfa-2c3977cd65b2",
+      "event": {
+        "event_id": "d08ce3d4-4914-4bb4-9cfa-2c3977cd65b2",
+        "order": 5,
+        "type": "input",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "name": null,
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "s",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+      ],
+      "intent": {
+        "summary": "User started typing the letter 's' in the main chat input textarea",
+        "semantic_action": "type_into_chat_input",
+        "user_value": "s",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "2813b525-81cf-4733-ac00-1cac4e896c48": {
+      "node_id": "2813b525-81cf-4733-ac00-1cac4e896c48",
+      "event": {
+        "event_id": "2813b525-81cf-4733-ac00-1cac4e896c48",
+        "order": 6,
+        "type": "input",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "name": null,
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "some eaa",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "intent": {
+        "summary": "User is typing 'some eaa' into the chat prompt textarea in Google AI Studio",
+        "semantic_action": "Enter text into chat input field",
+        "user_value": "some eaa",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "5941212d-6210-48be-a696-7027b4772db6": {
+      "node_id": "5941212d-6210-48be-a696-7027b4772db6",
+      "event": {
+        "event_id": "5941212d-6210-48be-a696-7027b4772db6",
+        "order": 7,
+        "type": "input",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "name": null,
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "some eaaaa",
+          "trigger": "change"
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "intent": {
+        "summary": "User is typing a chat message or prompt in the AI Studio chat interface, entering 'some eaaaa' into the textarea input field",
+        "semantic_action": "Enter text into chat prompt input field",
+        "user_value": "some eaaaa",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "c154766f-055a-4de5-88fb-a3a9af45fd71": {
+      "node_id": "c154766f-055a-4de5-88fb-a3a9af45fd71",
+      "event": {
+        "event_id": "c154766f-055a-4de5-88fb-a3a9af45fd71",
+        "order": 8,
+        "type": "input",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "name": null,
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "some",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "intent": {
+        "summary": "User is typing 'some' into the main chat input textarea in Google AI Studio's new chat interface",
+        "semantic_action": "type into chat input",
+        "user_value": "some",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "2f666375-6456-4263-8274-8ee0d6f189b2": {
+      "node_id": "2f666375-6456-4263-8274-8ee0d6f189b2",
+      "event": {
+        "event_id": "2f666375-6456-4263-8274-8ee0d6f189b2",
+        "order": 9,
+        "type": "input",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "name": null,
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "some ",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "intent": {
+        "summary": "User typed 'some ' into a textarea input field for entering a prompt in Google AI Studio's new chat interface",
+        "semantic_action": "type into prompt input field",
+        "user_value": "some ",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "bfa083cf-7354-4e26-982d-ee29943b09f0": {
+      "node_id": "bfa083cf-7354-4e26-982d-ee29943b09f0",
+      "event": {
+        "event_id": "bfa083cf-7354-4e26-982d-ee29943b09f0",
+        "order": 10,
+        "type": "input",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "name": null,
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "some e",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "intent": {
+        "summary": "User is typing 'some e' into the main chat/prompt textarea in Google AI Studio",
+        "semantic_action": "type into prompt input",
+        "user_value": "some e",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "4204141b-4ff5-4777-b841-b1363aa2942c": {
+      "node_id": "4204141b-4ff5-4777-b841-b1363aa2942c",
+      "event": {
+        "event_id": "4204141b-4ff5-4777-b841-b1363aa2942c",
+        "order": 11,
+        "type": "click",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "tag": "span",
+          "text": "Run",
+          "button": 0
+        }
+      },
+      "selectors": [
+        "getByText('Run')",
+        "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8 > span.label.ng-tns-c1913044297-8"
+      ],
+      "intent": {
+        "summary": "User clicked the 'Run' button to execute or run a prompt/query in Google AI Studio",
+        "semantic_action": "Click the 'Run' button",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "getByText('Run')",
+            "score": 0.7,
+            "origin": "text"
+          },
+          {
+            "value": "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8 > span.label.ng-tns-c1913044297-8",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "d93d1052-fd7d-4af2-af96-21d0725ed037": {
+      "node_id": "d93d1052-fd7d-4af2-af96-21d0725ed037",
+      "event": {
+        "event_id": "d93d1052-fd7d-4af2-af96-21d0725ed037",
+        "order": 12,
+        "type": "click",
+        "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "frame": null,
+        "title": "Google AI Studio",
+        "payload": {
+          "tag": "circle",
+          "text": "",
+          "button": 0
+        }
+      },
+      "selectors": [
+        "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > circle.stoppable-spinner.ng-tns-c1913044297-8"
+      ],
+      "intent": {
+        "summary": "User clicked on a spinner element, likely indicating an attempt to interact with or stop a loading/processing animation in Google AI Studio's chat interface.",
+        "semantic_action": "Click on loading spinner",
+        "user_value": null,
+        "confidence": 0.75
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > circle.stoppable-spinner.ng-tns-c1913044297-8",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "7760e043-9725-46ee-85f1-5f0c2ea2c38a": [
+      "ebf38979-96d6-481f-9cee-4fa68221a820"
+    ],
+    "ebf38979-96d6-481f-9cee-4fa68221a820": [
+      "34346f0a-24d2-4d01-9b29-2c4bd3a12963"
+    ],
+    "34346f0a-24d2-4d01-9b29-2c4bd3a12963": [
+      "6af6c17a-b792-4e0e-89c7-0ca029a3cdb3"
+    ],
+    "6af6c17a-b792-4e0e-89c7-0ca029a3cdb3": [
+      "d08ce3d4-4914-4bb4-9cfa-2c3977cd65b2"
+    ],
+    "d08ce3d4-4914-4bb4-9cfa-2c3977cd65b2": [
+      "2813b525-81cf-4733-ac00-1cac4e896c48"
+    ],
+    "2813b525-81cf-4733-ac00-1cac4e896c48": [
+      "5941212d-6210-48be-a696-7027b4772db6"
+    ],
+    "5941212d-6210-48be-a696-7027b4772db6": [
+      "c154766f-055a-4de5-88fb-a3a9af45fd71"
+    ],
+    "c154766f-055a-4de5-88fb-a3a9af45fd71": [
+      "2f666375-6456-4263-8274-8ee0d6f189b2"
+    ],
+    "2f666375-6456-4263-8274-8ee0d6f189b2": [
+      "bfa083cf-7354-4e26-982d-ee29943b09f0"
+    ],
+    "bfa083cf-7354-4e26-982d-ee29943b09f0": [
+      "4204141b-4ff5-4777-b841-b1363aa2942c"
+    ],
+    "4204141b-4ff5-4777-b841-b1363aa2942c": [
+      "d93d1052-fd7d-4af2-af96-21d0725ed037"
+    ],
+    "d93d1052-fd7d-4af2-af96-21d0725ed037": []
+  }
+}

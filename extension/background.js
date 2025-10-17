@@ -2,9 +2,26 @@ const MAX_EVENTS = 50;
 const SESSION_CONFIG_KEY = 'modeler_session_configs';
 let monitorWindowId = null;
 let sessionConfigsCache = null;
+const tabSessions = new Map();
+const runCache = new Map();
 
 function normaliseApiBase(apiBase) {
   return typeof apiBase === 'string' ? apiBase.replace(/\/+$/, '') : '';
+}
+
+function runCacheKey(runId, apiBase) {
+  return `${apiBase}::${runId}`;
+}
+
+function storeRunInCache(run, apiBase) {
+  if (!run || !run.run_id) return;
+  const base = normaliseApiBase(apiBase);
+  const key = runCacheKey(run.run_id, base);
+  runCache.set(key, {
+    run,
+    apiBase: base,
+    updatedAt: Date.now(),
+  });
 }
 
 async function fetchRunRecord(runId, apiBase) {
@@ -15,6 +32,10 @@ async function fetchRunRecord(runId, apiBase) {
   if (!base) {
     throw new Error('Missing API base for run lookup');
   }
+  const cached = runCache.get(runCacheKey(runId, base));
+  if (cached?.run) {
+    return cached.run;
+  }
   const response = await fetch(`${base}/runs/${runId}`);
   if (!response.ok) {
     const detail = await response.text();
@@ -22,7 +43,9 @@ async function fetchRunRecord(runId, apiBase) {
     throw new Error(message);
   }
   const data = await response.json();
-  return data.run || data;
+  const run = data.run || data;
+  storeRunInCache(run, base);
+  return run;
 }
 
 async function postRunProgress(runId, apiBase, payload) {
@@ -43,7 +66,12 @@ async function postRunProgress(runId, apiBase, payload) {
     const message = detail || `HTTP ${response.status}`;
     throw new Error(message);
   }
-  return response.json();
+  const result = await response.json();
+  const run = result?.run;
+  if (run?.run_id) {
+    storeRunInCache(run, apiBase);
+  }
+  return result;
 }
 
 async function getSessionConfigs() {
@@ -135,6 +163,9 @@ async function appendEvent(event) {
       } catch (error) {
         sessionId = undefined;
       }
+      if (!sessionId && tabSessions.has(tab.id)) {
+        sessionId = tabSessions.get(tab.id);
+      }
       if (!sessionId) continue;
       const sessionEvents = events.filter((item) => item.sessionId === sessionId);
       if (!sessionEvents.length) continue;
@@ -171,6 +202,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const { sessionId, config } = message;
     upsertSessionConfig(sessionId, config)
       .then((stored) => {
+        if (sender?.tab?.id && sessionId) {
+          tabSessions.set(sender.tab.id, sessionId);
+        }
         sendResponse({ ok: true, config: stored });
       })
       .catch((error) => {
@@ -200,6 +234,31 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ ok: false, error: error.message });
       });
     return true;
+  } else if (message.type === 'modeler_bind_tab_session') {
+    const { sessionId } = message;
+    const tabId = sender?.tab?.id;
+    if (tabId && sessionId) {
+      tabSessions.set(tabId, sessionId);
+      sendResponse({ ok: true });
+    } else {
+      sendResponse({ ok: false });
+    }
+  } else if (message.type === 'modeler_resume_session') {
+    const tabId = sender?.tab?.id;
+    const sessionId = tabId ? tabSessions.get(tabId) : null;
+    if (!sessionId) {
+      sendResponse({ ok: false, sessionId: null, config: null });
+      return;
+    }
+    getSessionConfig(sessionId)
+      .then((config) => {
+        sendResponse({ ok: true, sessionId, config });
+      })
+      .catch((error) => {
+        console.error('Failed to resume session config', error);
+        sendResponse({ ok: false, sessionId, config: null, error: error.message });
+      });
+    return true;
   } else if (message.type === 'modeler_fetch_run') {
     const { runId, apiBase } = message;
     fetchRunRecord(runId, apiBase)
@@ -222,6 +281,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ ok: false, error: error.message });
       });
     return true;
+  } else if (message.type === 'modeler_preload_run') {
+    const { run, apiBase } = message;
+    if (run?.run_id) {
+      storeRunInCache(run, apiBase);
+      sendResponse({ ok: true });
+    } else {
+      sendResponse({ ok: false, error: 'Invalid run payload' });
+    }
+  }
+});
+
+chrome.tabs.onRemoved.addListener((tabId) => {
+  if (tabSessions.has(tabId)) {
+    tabSessions.delete(tabId);
   }
 });
 

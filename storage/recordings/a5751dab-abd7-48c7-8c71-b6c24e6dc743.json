@@ -1,0 +1,226 @@
+[
+  {
+    "event_id": "57764f85-f7c4-40a5-babe-1845d85af329",
+    "timestamp": "2025-10-17T01:11:56.901Z",
+    "category": "navigate",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": null,
+    "payload": {
+      "title": "Google",
+      "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001"
+    }
+  },
+  {
+    "event_id": "1d9cb8b4-cb4e-4d9e-bd9b-cfd540074420",
+    "timestamp": "2025-10-17T01:11:58.500Z",
+    "category": "click",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "tag": "textarea",
+      "text": "",
+      "button": 0
+    }
+  },
+  {
+    "event_id": "feabb0e9-3146-46fa-905e-c53a1d715cd8",
+    "timestamp": "2025-10-17T01:11:59.109Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "s",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "d98cf024-8ef2-4e2c-876f-b4ffb81057ba",
+    "timestamp": "2025-10-17T01:11:59.571Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some ",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "90d08b60-f2a0-4790-a568-ea2041174686",
+    "timestamp": "2025-10-17T01:12:00.064Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some random",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "c7a208bf-dc67-46b7-abc9-51c31f80f262",
+    "timestamp": "2025-10-17T01:12:00.530Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some random stuf",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "3e11903b-70a3-46d4-9a38-7b92ae3f4f9a",
+    "timestamp": "2025-10-17T01:12:01.673Z",
+    "category": "key",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "key": "Enter",
+      "code": "Enter",
+      "ctrl": false,
+      "meta": false,
+      "alt": false,
+      "shift": false
+    }
+  },
+  {
+    "event_id": "2050e578-1e6c-49b8-940f-0d3b887373d8",
+    "timestamp": "2025-10-17T01:12:02.424Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some random stuff",
+      "trigger": "change"
+    }
+  },
+  {
+    "event_id": "fec914fa-429b-455d-ac07-8fa3abe96e94",
+    "timestamp": "2025-10-17T01:12:03.166Z",
+    "category": "navigate",
+    "url": "https://www.google.com/search?q=some+random+stuff&sca_esv=a38228b0d963ca0b&sxsrf=AE3TifNWHag5sSdmtezU3KoptwlKI96jAg%3A1760663516387&source=hp&ei=3JfxaJzvFaqK8L0PruPyqAU&iflsig=AOw8s4IAAAAAaPGl7PPLu7fT9X4PA3_RxI4WZbY3g75l&ved=0ahUKEwiczdjbhqqQAxUqBbwBHa6xHFUQ4dUDCBo&uact=5&oq=some+random+stuff&gs_lp=Egdnd3Mtd2l6IhFzb21lIHJhbmRvbSBzdHVmZjIKECMYgAQYJxiKBTIFEAAYgAQyBRAAGIAEMggQABgWGAoYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHkjkGFDgBFiIEXABeACQAQCYAXCgAY4KqgEEMTYuMbgBA8gBAPgBAZgCEqACqwqoAgrCAg0QIxiABBgnGIoFGOoCwgIHECMYJxjqAsICExAjGPAFGIAEGCcYyQIYigUY6gLCAgoQABiABBhDGIoFwgIKEC4YgAQYJxiKBcICCxAAGIAEGJECGIoFwgITEC4YgAQYQxjHARiKBRiOBRivAcICEBAjGPAFGIAEGCcYyQIYigXCAgsQLhiABBixAxiDAcICDhAuGIAEGLEDGIMBGIoFwgIIEAAYgAQYsQPCAggQLhiABBixA8ICDhAuGIAEGLEDGIMBGNQCwgILEC4YgAQYsQMY1ALCAg4QABiABBixAxiDARiKBcICBBAAGAPCAgUQLhiABMICCxAuGIAEGMcBGK8BwgILEAAYgAQYhgMYigXCAggQABiiBBiJBcICCBAAGIAEGKIEmAMD8QXDsrCv5yMWaJIHBDE2LjKgB7-7AbIHBDE1LjK4B6gKwgcEMTIuNsgHEw&sclient=gws-wiz",
+    "title": "some random stuff - Google Search",
+    "dom": null,
+    "payload": {
+      "title": "some random stuff - Google Search",
+      "url": "https://www.google.com/search?q=some+random+stuff&sca_esv=a38228b0d963ca0b&sxsrf=AE3TifNWHag5sSdmtezU3KoptwlKI96jAg%3A1760663516387&source=hp&ei=3JfxaJzvFaqK8L0PruPyqAU&iflsig=AOw8s4IAAAAAaPGl7PPLu7fT9X4PA3_RxI4WZbY3g75l&ved=0ahUKEwiczdjbhqqQAxUqBbwBHa6xHFUQ4dUDCBo&uact=5&oq=some+random+stuff&gs_lp=Egdnd3Mtd2l6IhFzb21lIHJhbmRvbSBzdHVmZjIKECMYgAQYJxiKBTIFEAAYgAQyBRAAGIAEMggQABgWGAoYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHkjkGFDgBFiIEXABeACQAQCYAXCgAY4KqgEEMTYuMbgBA8gBAPgBAZgCEqACqwqoAgrCAg0QIxiABBgnGIoFGOoCwgIHECMYJxjqAsICExAjGPAFGIAEGCcYyQIYigUY6gLCAgoQABiABBhDGIoFwgIKEC4YgAQYJxiKBcICCxAAGIAEGJECGIoFwgITEC4YgAQYQxjHARiKBRiOBRivAcICEBAjGPAFGIAEGCcYyQIYigXCAgsQLhiABBixAxiDAcICDhAuGIAEGLEDGIMBGIoFwgIIEAAYgAQYsQPCAggQLhiABBixA8ICDhAuGIAEGLEDGIMBGNQCwgILEC4YgAQYsQMY1ALCAg4QABiABBixAxiDARiKBcICBBAAGAPCAgUQLhiABMICCxAuGIAEGMcBGK8BwgILEAAYgAQYhgMYigXCAggQABiiBBiJBcICCBAAGIAEGKIEmAMD8QXDsrCv5yMWaJIHBDE2LjKgB7-7AbIHBDE1LjK4B6gKwgcEMTIuNsgHEw&sclient=gws-wiz"
+    }
+  },
+  {
+    "event_id": "0a3a2913-7ab6-4322-88e0-eaab2a1ff9cd",
+    "timestamp": "2025-10-17T01:13:04.643Z",
+    "category": "navigate",
+    "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&automation_run=47cfac90-420b-435d-b569-e267709c22af&automation_id=e3e59112-b928-4f9c-990d-325fb7b54eb2&automation_engine=deterministic",
+    "title": "Google",
+    "dom": null,
+    "payload": {
+      "title": "Google",
+      "url": "https://www.google.com/?session=a5751dab-abd7-48c7-8c71-b6c24e6dc743&automation_run=47cfac90-420b-435d-b569-e267709c22af&automation_id=e3e59112-b928-4f9c-990d-325fb7b54eb2&automation_engine=deterministic"
+    }
+  }
+]

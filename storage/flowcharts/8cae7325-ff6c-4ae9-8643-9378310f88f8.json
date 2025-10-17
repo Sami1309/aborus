@@ -1,0 +1,96 @@
+{
+  "session_id": "8cae7325-ff6c-4ae9-8643-9378310f88f8",
+  "generated_at": "2025-10-17T01:27:36.711128+00:00",
+  "model": "claude-sonnet-4-5",
+  "steps": [
+    {
+      "node_id": "df07e8d4-de13-49a6-9f17-2237ff14196b",
+      "order": 1,
+      "title": "Navigate to Google Homepage",
+      "description": "Open Google's homepage to begin the search workflow.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [],
+      "hints": {
+        "url": "https://www.google.com/"
+      },
+      "source": "llm"
+    },
+    {
+      "node_id": "fbe4bad2-eade-4091-8414-7366b130b330",
+      "order": 6,
+      "title": "Enter Search Query",
+      "description": "Type the search query 'some random stuff' into Google's search box.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "user_value": "some random stuff",
+        "notes": "Input field accepts text entry for search queries"
+      },
+      "source": "llm"
+    },
+    {
+      "node_id": "f03f8800-46fc-469a-98c4-509ca3910f00",
+      "order": 7,
+      "title": "Submit Search",
+      "description": "Press Enter key to execute the search and navigate to results page.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "notes": "Enter key press triggers search submission"
+      },
+      "source": "llm"
+    },
+    {
+      "node_id": "dbfc496c-95c5-44d2-9518-c55782b8b9b8",
+      "order": 9,
+      "title": "View Search Results",
+      "description": "Google displays search results page for the submitted query.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [],
+      "hints": {
+        "notes": "Results page loads automatically after search submission"
+      },
+      "source": "llm"
+    }
+  ],
+  "edges": {
+    "df07e8d4-de13-49a6-9f17-2237ff14196b": [
+      "ed1bcd03-46a6-47fb-8be2-3db8f76ec494"
+    ],
+    "ed1bcd03-46a6-47fb-8be2-3db8f76ec494": [
+      "02bf3f01-c7e1-4854-97af-53bf0e0027d4"
+    ],
+    "02bf3f01-c7e1-4854-97af-53bf0e0027d4": [
+      "b54bfeda-d643-407d-a8a2-a32c12e64045"
+    ],
+    "b54bfeda-d643-407d-a8a2-a32c12e64045": [
+      "772a58a9-9126-4410-a3ad-981d8916cd37"
+    ],
+    "772a58a9-9126-4410-a3ad-981d8916cd37": [
+      "fbe4bad2-eade-4091-8414-7366b130b330"
+    ],
+    "fbe4bad2-eade-4091-8414-7366b130b330": [
+      "f03f8800-46fc-469a-98c4-509ca3910f00"
+    ],
+    "f03f8800-46fc-469a-98c4-509ca3910f00": [
+      "47069b07-3dd6-4251-811a-bc558ed1c9f0"
+    ],
+    "47069b07-3dd6-4251-811a-bc558ed1c9f0": [
+      "dbfc496c-95c5-44d2-9518-c55782b8b9b8"
+    ],
+    "dbfc496c-95c5-44d2-9518-c55782b8b9b8": []
+  },
+  "source": {
+    "type": "llm",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5"
+  }
+}

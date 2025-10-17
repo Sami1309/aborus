@@ -24,3 +24,7 @@
 - Re-scores selectors and re-annotates nodes after edits so deterministic runners stay in sync.
 
 Each agent runs inside the modeler service defined in `agent/`, with clear module boundaries to swap implementations as we build the rest of the stack in SPEC.md.
+
+## Resource Profiles
+- Set `MODELER_SERVER_LIMITS=constrained` before `python -m agent.modeler serve` to cap uvicorn concurrency and threadpool usage for lower CPU and RAM overhead on development laptops.
+- You can fine-tune the limits with `MODELER_SERVER_LIMITS=limit_concurrency=2,threadpool_workers=2` (comma-separated `key=value` pairs).

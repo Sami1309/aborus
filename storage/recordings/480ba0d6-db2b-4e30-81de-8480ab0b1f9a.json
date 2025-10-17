@@ -1,0 +1,297 @@
+[
+  {
+    "event_id": "7760e043-9725-46ee-85f1-5f0c2ea2c38a",
+    "timestamp": "2025-10-17T01:18:23.242Z",
+    "category": "navigate",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": null,
+    "payload": {
+      "title": "Google AI Studio",
+      "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001"
+    }
+  },
+  {
+    "event_id": "ebf38979-96d6-481f-9cee-4fa68221a820",
+    "timestamp": "2025-10-17T01:18:26.988Z",
+    "category": "click",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "div",
+      "attributes": {},
+      "accessibleName": "Design a REST API for a social media platform. keyboard_tab",
+      "innerText": "Design a REST API for a social media platform.\nkeyboard_tab",
+      "classList": [
+        "text-wrapper"
+      ],
+      "cssPath": "footer.ng-star-inserted:nth-child(3) > ms-prompt-input-wrapper > div.mat-mdc-tooltip-trigger.prompt-input-wrapper > div > div.prompt-input-wrapper-container.ng-star-inserted > div.text-wrapper"
+    },
+    "payload": {
+      "tag": "div",
+      "text": "Design a REST API for a social media platform.\nkeyboard_tab",
+      "button": 0
+    }
+  },
+  {
+    "event_id": "34346f0a-24d2-4d01-9b29-2c4bd3a12963",
+    "timestamp": "2025-10-17T01:18:29.414Z",
+    "category": "click",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-pristine",
+        "ng-valid",
+        "ng-touched"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+    },
+    "payload": {
+      "tag": "textarea",
+      "text": "",
+      "button": 0
+    }
+  },
+  {
+    "event_id": "6af6c17a-b792-4e0e-89c7-0ca029a3cdb3",
+    "timestamp": "2025-10-17T01:18:30.673Z",
+    "category": "input",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-valid",
+        "ng-touched",
+        "ng-dirty"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+    },
+    "payload": {
+      "name": null,
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "som",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "d08ce3d4-4914-4bb4-9cfa-2c3977cd65b2",
+    "timestamp": "2025-10-17T01:18:30.097Z",
+    "category": "input",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-pristine",
+        "ng-valid",
+        "ng-touched"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+    },
+    "payload": {
+      "name": null,
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "s",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "2813b525-81cf-4733-ac00-1cac4e896c48",
+    "timestamp": "2025-10-17T01:18:33.313Z",
+    "category": "input",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-valid",
+        "ng-touched",
+        "ng-dirty"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+    },
+    "payload": {
+      "name": null,
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some eaa",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "5941212d-6210-48be-a696-7027b4772db6",
+    "timestamp": "2025-10-17T01:18:34.928Z",
+    "category": "input",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-valid",
+        "ng-touched",
+        "ng-dirty"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+    },
+    "payload": {
+      "name": null,
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some eaaaa",
+      "trigger": "change"
+    }
+  },
+  {
+    "event_id": "c154766f-055a-4de5-88fb-a3a9af45fd71",
+    "timestamp": "2025-10-17T01:18:31.144Z",
+    "category": "input",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-valid",
+        "ng-touched",
+        "ng-dirty"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+    },
+    "payload": {
+      "name": null,
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "2f666375-6456-4263-8274-8ee0d6f189b2",
+    "timestamp": "2025-10-17T01:18:31.680Z",
+    "category": "input",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-valid",
+        "ng-touched",
+        "ng-dirty"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+    },
+    "payload": {
+      "name": null,
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some ",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "bfa083cf-7354-4e26-982d-ee29943b09f0",
+    "timestamp": "2025-10-17T01:18:32.235Z",
+    "category": "input",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {},
+      "accessibleName": "Type something or tab to choose an example prompt",
+      "innerText": "",
+      "classList": [
+        "textarea",
+        "ng-valid",
+        "ng-touched",
+        "ng-dirty"
+      ],
+      "cssPath": "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+    },
+    "payload": {
+      "name": null,
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "some e",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "4204141b-4ff5-4777-b841-b1363aa2942c",
+    "timestamp": "2025-10-17T01:18:35.020Z",
+    "category": "click",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "span",
+      "attributes": {},
+      "accessibleName": "Run",
+      "innerText": "Run",
+      "classList": [
+        "label",
+        "ng-tns-c1913044297-8",
+        "ng-star-inserted"
+      ],
+      "cssPath": "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8 > span.label.ng-tns-c1913044297-8"
+    },
+    "payload": {
+      "tag": "span",
+      "text": "Run",
+      "button": 0
+    }
+  },
+  {
+    "event_id": "d93d1052-fd7d-4af2-af96-21d0725ed037",
+    "timestamp": "2025-10-17T01:18:39.359Z",
+    "category": "click",
+    "url": "https://aistudio.google.com/prompts/new_chat?session=480ba0d6-db2b-4e30-81de-8480ab0b1f9a&modeler_origin=http:%2F%2F127.0.0.1:8001",
+    "title": "Google AI Studio",
+    "dom": {
+      "tag": "circle",
+      "attributes": {},
+      "accessibleName": null,
+      "innerText": null,
+      "classList": [
+        "stoppable-spinner",
+        "ng-tns-c1913044297-8"
+      ],
+      "cssPath": "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > circle.stoppable-spinner.ng-tns-c1913044297-8"
+    },
+    "payload": {
+      "tag": "circle",
+      "text": "",
+      "button": 0
+    }
+  }
+]

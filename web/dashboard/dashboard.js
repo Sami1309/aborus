@@ -136,6 +136,23 @@ function notifyExtensionSession(session, links) {
   }
 }
 
+function notifyExtensionRun(runPayload) {
+  if (!runPayload) return;
+  try {
+    window.postMessage(
+      {
+        source: 'modeler-dashboard',
+        type: 'modeler_run_preload',
+        apiBase: window.location.origin,
+        run: runPayload,
+      },
+      window.location.origin,
+    );
+  } catch (error) {
+    console.warn('Unable to notify extension about automation run', error);
+  }
+}
+
 function renderFeedback(data, originalUrl) {
   const { session, links } = data;
   sessionIdEl.textContent = session.session_id;
@@ -294,15 +311,48 @@ function setFlowchartStatus(message, tone = 'muted') {
   flowchartStatus.classList.add(tone);
 }
 
-function setFlowchartBusy(state) {
+function setFlowchartBusy(state, options = {}) {
+  const {
+    disableSessionSelect = true,
+    disableGenerate = true,
+    disableRefresh = true,
+    disableEdit = true,
+  } = options;
+
   flowchartBusy = state;
-  if (flowchartGenerateButton) flowchartGenerateButton.disabled = state;
-  if (flowchartRefreshButton) flowchartRefreshButton.disabled = state;
-  if (flowchartSessionSelect) flowchartSessionSelect.disabled = state;
+
+  if (flowchartSessionSelect) {
+    if (disableSessionSelect) {
+      flowchartSessionSelect.disabled = state;
+    } else if (!state) {
+      flowchartSessionSelect.disabled = false;
+    }
+  }
+
+  if (flowchartGenerateButton) {
+    if (disableGenerate) {
+      flowchartGenerateButton.disabled = state;
+    } else if (!state) {
+      flowchartGenerateButton.disabled = false;
+    }
+  }
+
+  if (flowchartRefreshButton) {
+    if (disableRefresh) {
+      flowchartRefreshButton.disabled = state;
+    } else if (!state) {
+      flowchartRefreshButton.disabled = false;
+    }
+  }
+
   if (flowchartEditForm) {
     const controls = flowchartEditForm.querySelectorAll('textarea, button');
     controls.forEach((control) => {
-      control.disabled = state;
+      if (disableEdit) {
+        control.disabled = state;
+      } else if (!state) {
+        control.disabled = false;
+      }
     });
   }
 }
@@ -534,6 +584,15 @@ async function loadSessions() {
   }
 }
 
+async function fetchSessionDetail(sessionId) {
+  const response = await fetchWithTimeout(`/sessions/${sessionId}`, { timeout: 6000 });
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || 'Unable to load session');
+  }
+  return response.json();
+}
+
 async function fetchSchema(sessionId) {
   const response = await fetchWithTimeout(`/sessions/${sessionId}/schema`, { timeout: 8000 });
   if (!response.ok) {
@@ -585,21 +644,67 @@ async function loadFlowchartForSession(sessionId, { autoGenerate = false } = {})
     return;
   }
 
-  setFlowchartBusy(true);
+  setFlowchartBusy(true, { disableGenerate: false, disableEdit: true, disableRefresh: true });
   resetFlowchartView({ clearRaw: false });
-  setFlowchartStatus('Loading session schema…', 'muted');
+  setFlowchartStatus('Preparing session details…', 'muted');
   setFlowchartRawSchema('Loading schema…');
 
-  try {
-    const schema = await fetchSchema(sessionId);
-    setFlowchartRawSchema(schema);
-  } catch (schemaError) {
-    console.error('Failed to load schema for flowchart view', schemaError);
-    const message = schemaError?.message || 'Unable to load schema';
-    setFlowchartRawSchema(`Error loading schema: ${message}`);
+  let schemaLoaded = false;
+  const detailTask = fetchSessionDetail(sessionId)
+    .then((detail) => ({ kind: 'detail', detail }))
+    .catch((error) => {
+      console.error('Failed to load session detail for flowchart view', error);
+      return { kind: 'detail', error };
+    });
+
+  const schemaTask = fetchSchema(sessionId)
+    .then((schema) => ({ kind: 'schema', schema }))
+    .catch((error) => ({ kind: 'schema', error }));
+
+  const handleDetailResult = (result) => {
+    if (result?.detail?.graph) {
+      setFlowchartRawSchema(result.detail.graph);
+      schemaLoaded = true;
+      setFlowchartStatus('Session schema ready.', 'muted');
+    } else if (result?.detail?.session) {
+      setFlowchartStatus('Session loaded. Fetching persisted schema…', 'muted');
+    }
+  };
+
+  const handleSchemaResult = (result) => {
+    if (result?.schema) {
+      setFlowchartRawSchema(result.schema);
+      schemaLoaded = true;
+      setFlowchartStatus('Schema loaded. Checking for flow chart…', 'muted');
+    } else if (result?.error) {
+      const message = result.error?.message || 'Unable to load schema';
+      setFlowchartRawSchema(`Error loading schema: ${message}`);
+      setFlowchartStatus('Schema not available yet. You can still generate a flow chart with Claude.', 'muted');
+    }
+  };
+
+  const firstResolved = await Promise.race([detailTask, schemaTask]);
+  if (firstResolved.kind === 'detail') {
+    handleDetailResult(firstResolved);
+  } else {
+    handleSchemaResult(firstResolved);
   }
 
-  setFlowchartStatus('Checking for Claude flow chart…', 'muted');
+  const remainingTask = firstResolved.kind === 'detail' ? schemaTask : detailTask;
+  remainingTask.then((result) => {
+    if (result.kind === 'detail') {
+      handleDetailResult(result);
+    } else {
+      handleSchemaResult(result);
+    }
+  });
+
+  setFlowchartBusy(false, {
+    disableGenerate: false,
+    disableEdit: false,
+    disableRefresh: false,
+    disableSessionSelect: false,
+  });
 
   try {
     const chart = await fetchFlowchart(sessionId);
@@ -746,6 +851,7 @@ async function queueAutomationRun(automationId, { engine } = {}) {
     throw new Error(text || 'Failed to queue automation run');
   }
   const data = await response.json();
+  notifyExtensionRun(data);
   try {
     await loadRuns();
   } catch (error) {
@@ -796,8 +902,12 @@ flowchartSessionSelect?.addEventListener('change', (event) => {
 
 flowchartGenerateButton?.addEventListener('click', async () => {
   const sessionId = flowchartSessionSelect?.value;
-  if (!sessionId || flowchartBusy) {
+  if (!sessionId) {
     setFlowchartStatus('Select a recording before asking Claude to generate.', 'error');
+    return;
+  }
+  if (flowchartGenerateButton?.disabled) {
+    setFlowchartStatus('Please wait for the current operation to finish.', 'muted');
     return;
   }
   setFlowchartBusy(true);

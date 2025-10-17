@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Iterable
 
 from .recorder import SessionRecorder
+from .config import load_server_resource_limits
 
 
 def _load_events(paths: Iterable[Path]) -> list[dict]:
@@ -46,8 +47,11 @@ def serve(host: str, port: int) -> None:
     except ModuleNotFoundError as exc:  # pragma: no cover - optional dependency
         raise RuntimeError("FastAPI + Pydantic are required to run the API server") from exc
 
-    service = ModelerService()
-    uvicorn.run(service.app, host=host, port=port)
+    limits = load_server_resource_limits()
+    service = ModelerService(resource_limits=limits)
+    uvicorn_kwargs = limits.merge_uvicorn_kwargs({})
+    uvicorn_kwargs = {key: value for key, value in uvicorn_kwargs.items() if value is not None}
+    uvicorn.run(service.app, host=host, port=port, **uvicorn_kwargs)
 
 
 def main(argv: list[str] | None = None) -> int:

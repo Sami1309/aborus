@@ -1,0 +1,100 @@
+{
+  "session_id": "94fe5ae8-f184-42d3-858d-fb810a5fc86f",
+  "generated_at": "2025-10-17T01:15:33.665728+00:00",
+  "model": "claude-sonnet-4-5",
+  "steps": [
+    {
+      "node_id": "65903a55-86c7-4d9f-a961-61a0c4acb481",
+      "order": 1,
+      "title": "Navigate to Google AI Studio",
+      "description": "Open Google AI Studio new chat page with specified session parameters.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [],
+      "hints": {
+        "user_value": "https://aistudio.google.com/prompts/new_chat?session=94fe5ae8-f184-42d3-858d-fb810a5fc86f&modeler_origin=http:%2F%2F127.0.0.1:8001"
+      },
+      "source": "llm"
+    },
+    {
+      "node_id": "9bfb8f25-816b-46b9-af03-5bc165e7e614",
+      "order": 2,
+      "title": "Click Prompt Input Field",
+      "description": "Focus on the main textarea to begin entering a prompt.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-untouched"
+      ],
+      "hints": {},
+      "source": "llm"
+    },
+    {
+      "node_id": "53f19a79-57ca-4fbd-8b0f-8e3c5042ccba",
+      "order": 12,
+      "title": "Execute Prompt via Run Button",
+      "description": "Click the Run button to submit the prompt for AI processing.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "getByText('Run\nkeyboard_command_key\nkeyboard_return')",
+        "div.prompt-input-wrapper-container.ng-star-inserted > div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8"
+      ],
+      "hints": {},
+      "source": "llm"
+    },
+    {
+      "node_id": "fbe06477-7240-4634-a73b-cc468c625208",
+      "order": 13,
+      "title": "Stop AI Generation",
+      "description": "Click the stop button to halt the running AI generation process.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1913044297-8:nth-child(2)"
+      ],
+      "hints": {},
+      "source": "llm"
+    }
+  ],
+  "edges": {
+    "65903a55-86c7-4d9f-a961-61a0c4acb481": [
+      "9bfb8f25-816b-46b9-af03-5bc165e7e614"
+    ],
+    "9bfb8f25-816b-46b9-af03-5bc165e7e614": [
+      "c96b2556-da51-4ec2-8c6c-bcfdbffd1852"
+    ],
+    "c96b2556-da51-4ec2-8c6c-bcfdbffd1852": [
+      "6242a203-fec0-4e46-8913-c2cb636b9525"
+    ],
+    "6242a203-fec0-4e46-8913-c2cb636b9525": [
+      "e0e8808b-ad07-4565-bec7-a2f64389bfc4"
+    ],
+    "e0e8808b-ad07-4565-bec7-a2f64389bfc4": [
+      "b31cd766-7838-406b-8683-c6da962e8930"
+    ],
+    "b31cd766-7838-406b-8683-c6da962e8930": [
+      "cd903cd1-3976-4cf7-9551-eaf39c1419a0"
+    ],
+    "cd903cd1-3976-4cf7-9551-eaf39c1419a0": [
+      "3eb22f48-3cf7-4108-9ce0-b2ac971844ca"
+    ],
+    "3eb22f48-3cf7-4108-9ce0-b2ac971844ca": [
+      "8716fcfd-86f8-4432-b6e5-bc4071061e46"
+    ],
+    "8716fcfd-86f8-4432-b6e5-bc4071061e46": [
+      "63980fca-5f58-45f6-90a3-774ca7d4ee8b"
+    ],
+    "63980fca-5f58-45f6-90a3-774ca7d4ee8b": [
+      "8cda2207-9f9c-426a-8a31-4f78c329e1c6"
+    ],
+    "8cda2207-9f9c-426a-8a31-4f78c329e1c6": [
+      "53f19a79-57ca-4fbd-8b0f-8e3c5042ccba"
+    ],
+    "53f19a79-57ca-4fbd-8b0f-8e3c5042ccba": [
+      "fbe06477-7240-4634-a73b-cc468c625208"
+    ],
+    "fbe06477-7240-4634-a73b-cc468c625208": []
+  },
+  "source": {
+    "type": "llm",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5"
+  }
+}

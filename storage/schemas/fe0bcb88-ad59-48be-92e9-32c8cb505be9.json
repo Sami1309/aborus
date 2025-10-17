@@ -1,0 +1,331 @@
+{
+  "entry": "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8",
+  "nodes": {
+    "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8": {
+      "node_id": "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8",
+      "event": {
+        "event_id": "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8",
+        "order": 1,
+        "type": "navigate",
+        "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "frame": null,
+        "title": "Google",
+        "payload": {
+          "title": "Google",
+          "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001"
+        }
+      },
+      "selectors": [
+        "html"
+      ],
+      "intent": {
+        "summary": "User navigated to Google homepage",
+        "semantic_action": "navigate",
+        "user_value": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "confidence": 1.0
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "html",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "18800859-e6a2-457c-a75b-d2c9757d19cd": {
+      "node_id": "18800859-e6a2-457c-a75b-d2c9757d19cd",
+      "event": {
+        "event_id": "18800859-e6a2-457c-a75b-d2c9757d19cd",
+        "order": 2,
+        "type": "input",
+        "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "frame": null,
+        "title": "Google",
+        "payload": {
+          "name": "q",
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "h",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "intent": {
+        "summary": "User began typing a search query in Google's search box, entering the letter 'h'",
+        "semantic_action": "search",
+        "user_value": "h",
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#APjFqb",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByRole('combobox', { name: 'Search' })",
+            "score": 0.9,
+            "origin": "aria_role"
+          },
+          {
+            "value": "textarea#APjFqb",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "4df6b1b5-6815-4cf7-998c-699cf4a7e59b": {
+      "node_id": "4df6b1b5-6815-4cf7-998c-699cf4a7e59b",
+      "event": {
+        "event_id": "4df6b1b5-6815-4cf7-998c-699cf4a7e59b",
+        "order": 3,
+        "type": "input",
+        "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "frame": null,
+        "title": "Google",
+        "payload": {
+          "name": "q",
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "hel",
+          "trigger": "input"
+        }
+      },
+      "selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "intent": {
+        "summary": "User typed 'hel' into the Google search box",
+        "semantic_action": "Enter 'hel' in search field",
+        "user_value": "hel",
+        "confidence": 0.99
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#APjFqb",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByRole('combobox', { name: 'Search' })",
+            "score": 0.9,
+            "origin": "aria_role"
+          },
+          {
+            "value": "textarea#APjFqb",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "af9b2ade-1fd2-4ac9-94cd-551284ed1e2d": {
+      "node_id": "af9b2ade-1fd2-4ac9-94cd-551284ed1e2d",
+      "event": {
+        "event_id": "af9b2ade-1fd2-4ac9-94cd-551284ed1e2d",
+        "order": 4,
+        "type": "other",
+        "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "frame": null,
+        "title": "Google",
+        "payload": {
+          "key": "Enter",
+          "code": "Enter",
+          "ctrl": false,
+          "meta": false,
+          "alt": false,
+          "shift": false
+        }
+      },
+      "selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "intent": {
+        "summary": "User pressed Enter key in the Google search box to submit a search query",
+        "semantic_action": "submit search",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#APjFqb",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByRole('combobox', { name: 'Search' })",
+            "score": 0.9,
+            "origin": "aria_role"
+          },
+          {
+            "value": "textarea#APjFqb",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "39be917f-0ff8-4302-a15e-3b7767ac6ccd": {
+      "node_id": "39be917f-0ff8-4302-a15e-3b7767ac6ccd",
+      "event": {
+        "event_id": "39be917f-0ff8-4302-a15e-3b7767ac6ccd",
+        "order": 5,
+        "type": "input",
+        "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "frame": null,
+        "title": "Google",
+        "payload": {
+          "name": "q",
+          "tag": "textarea",
+          "type": "textarea",
+          "value": "hello",
+          "trigger": "change"
+        }
+      },
+      "selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "intent": {
+        "summary": "User typed 'hello' into the Google search box",
+        "semantic_action": "search",
+        "user_value": "hello",
+        "confidence": 0.98
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#APjFqb",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByRole('combobox', { name: 'Search' })",
+            "score": 0.9,
+            "origin": "aria_role"
+          },
+          {
+            "value": "textarea#APjFqb",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "27e38679-e480-440d-b6a5-8fdb958a2680": {
+      "node_id": "27e38679-e480-440d-b6a5-8fdb958a2680",
+      "event": {
+        "event_id": "27e38679-e480-440d-b6a5-8fdb958a2680",
+        "order": 6,
+        "type": "navigate",
+        "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&automation_run=4dff9099-3797-4a81-a479-c31cb37fdea3&automation_id=ee7a8e4a-f850-4fda-a43c-2117b85a5262&automation_engine=deterministic",
+        "frame": null,
+        "title": "Google",
+        "payload": {
+          "title": "Google",
+          "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&automation_run=4dff9099-3797-4a81-a479-c31cb37fdea3&automation_id=ee7a8e4a-f850-4fda-a43c-2117b85a5262&automation_engine=deterministic"
+        }
+      },
+      "selectors": [
+        "html"
+      ],
+      "intent": {
+        "summary": "User navigated to Google homepage",
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "html",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    },
+    "48e06d62-6289-458b-a8bb-7155774431fe": {
+      "node_id": "48e06d62-6289-458b-a8bb-7155774431fe",
+      "event": {
+        "event_id": "48e06d62-6289-458b-a8bb-7155774431fe",
+        "order": 7,
+        "type": "click",
+        "url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&automation_run=4dff9099-3797-4a81-a479-c31cb37fdea3&automation_id=ee7a8e4a-f850-4fda-a43c-2117b85a5262&automation_engine=deterministic",
+        "frame": null,
+        "title": "Google",
+        "payload": {
+          "tag": "textarea",
+          "text": "",
+          "button": 0
+        }
+      },
+      "selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "intent": {
+        "summary": "User clicked on the Google search input box to begin a search",
+        "semantic_action": "click on search input",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "metadata": {
+        "selector_candidates": [
+          {
+            "value": "#APjFqb",
+            "score": 1.0,
+            "origin": "dom_id"
+          },
+          {
+            "value": "getByRole('combobox', { name: 'Search' })",
+            "score": 0.9,
+            "origin": "aria_role"
+          },
+          {
+            "value": "textarea#APjFqb",
+            "score": 0.3,
+            "origin": "css_path"
+          }
+        ]
+      }
+    }
+  },
+  "edges": {
+    "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8": [
+      "18800859-e6a2-457c-a75b-d2c9757d19cd"
+    ],
+    "18800859-e6a2-457c-a75b-d2c9757d19cd": [
+      "4df6b1b5-6815-4cf7-998c-699cf4a7e59b"
+    ],
+    "4df6b1b5-6815-4cf7-998c-699cf4a7e59b": [
+      "af9b2ade-1fd2-4ac9-94cd-551284ed1e2d"
+    ],
+    "af9b2ade-1fd2-4ac9-94cd-551284ed1e2d": [
+      "39be917f-0ff8-4302-a15e-3b7767ac6ccd"
+    ],
+    "39be917f-0ff8-4302-a15e-3b7767ac6ccd": [
+      "27e38679-e480-440d-b6a5-8fdb958a2680"
+    ],
+    "27e38679-e480-440d-b6a5-8fdb958a2680": [
+      "48e06d62-6289-458b-a8bb-7155774431fe"
+    ],
+    "48e06d62-6289-458b-a8bb-7155774431fe": []
+  }
+}

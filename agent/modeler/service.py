@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-import json
+import asyncio
+import concurrent.futures
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -25,11 +26,18 @@ except ModuleNotFoundError:  # pragma: no cover - optional dependency
 from pydantic import BaseModel, Field
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
+from .config import ServerResourceLimits
 from .events import FlowIntent
 from .llm import FlowAnnotator, FlowChartGenerator, FlowChartEditor
 from .recorder import SessionRecorder
 from .selectors import SelectorMiner
 from .session_manager import SessionManager
+
+try:
+    from .browser_executor import BrowserUseExecutor, BROWSER_USE_AVAILABLE
+except ImportError:
+    BROWSER_USE_AVAILABLE = False
+    BrowserUseExecutor = None  # type: ignore
 
 
 logger = logging.getLogger(__name__)
@@ -94,6 +102,11 @@ class RunProgressIn(BaseModel):
     details: Optional[Dict[str, Any]] = None
 
 
+class LLMStepExecuteIn(BaseModel):
+    step: Dict[str, Any]
+    context: Optional[Dict[str, Any]] = None
+
+
 class ModelerService:
     """Encapsulates the FastAPI app and recording lifecycle."""
 
@@ -105,6 +118,7 @@ class ModelerService:
         session_manager: Optional[SessionManager] = None,
         flowchart_generator: Optional[FlowChartGenerator] = None,
         flowchart_editor: Optional[FlowChartEditor] = None,
+        resource_limits: Optional[ServerResourceLimits] = None,
     ) -> None:
         if FastAPI is None:
             raise RuntimeError("FastAPI is required to build the ModelerService app")
@@ -119,6 +133,8 @@ class ModelerService:
         flowchart_config = annotator.config if annotator else None
         self.flowchart_generator = flowchart_generator or FlowChartGenerator(config=flowchart_config)
         self.flowchart_editor = flowchart_editor or FlowChartEditor(config=self.flowchart_generator.config)
+        self.resource_limits = resource_limits or ServerResourceLimits()
+        self._executor: Optional[concurrent.futures.Executor] = None
         self.app = self._create_app()
 
     def _legacy_session(self) -> str:
@@ -129,6 +145,25 @@ class ModelerService:
 
     def _create_app(self) -> "FastAPI":
         app = FastAPI(title="Automation Modeler", version="0.2.0")
+
+        if self.resource_limits.threadpool_workers:
+            max_workers = max(1, self.resource_limits.threadpool_workers)
+
+            @app.on_event("startup")
+            async def _configure_executor() -> None:
+                loop = asyncio.get_running_loop()
+                executor = concurrent.futures.ThreadPoolExecutor(
+                    max_workers=max_workers,
+                    thread_name_prefix="modeler-worker",
+                )
+                loop.set_default_executor(executor)
+                self._executor = executor
+
+            @app.on_event("shutdown")
+            async def _shutdown_executor() -> None:
+                if self._executor:
+                    self._executor.shutdown(wait=False)
+                    self._executor = None
 
         web_root = Path(__file__).resolve().parents[2] / "web"
         if StaticFiles is not None and web_root.exists():
@@ -189,6 +224,7 @@ class ModelerService:
             api_base = str(request.base_url).rstrip("/")
             target_url = record.metadata.url
             recording_page = self._build_recording_url(target_url, session_id, api_base)
+            # Serve graph from memory for instant access
             return {
                 "session": record.metadata.to_dict(),
                 "links": {
@@ -213,24 +249,22 @@ class ModelerService:
         @app.get("/sessions/{session_id}/schema")
         async def session_schema(session_id: str) -> Dict[str, Any]:
             try:
-                path = self.sessions.schema_path(session_id)
+                record = self.sessions.get_session(session_id)
             except KeyError:
                 raise HTTPException(status_code=404, detail="Session not found")
-            if not path.exists():
-                raise HTTPException(status_code=404, detail="Schema not found")
-            return json.loads(path.read_text(encoding="utf-8"))
+            # Serve schema from memory instead of disk for instant access
+            return record.recorder.flow().to_dict()
 
         @app.get("/sessions/{session_id}/events")
         async def session_events(session_id: str) -> Dict[str, Any]:
             try:
-                path = self.sessions.recording_path(session_id)
+                record = self.sessions.get_session(session_id)
             except KeyError:
                 raise HTTPException(status_code=404, detail="Session not found")
-            if not path.exists():
-                raise HTTPException(status_code=404, detail="Recording not found")
+            # Serve events from memory for better performance
             return {
                 "session_id": session_id,
-                "events": json.loads(path.read_text(encoding="utf-8")),
+                "events": record.events,
             }
 
         @app.get("/sessions/{session_id}/flowchart")
@@ -252,6 +286,8 @@ class ModelerService:
             existing = self.sessions.get_flowchart(session_id)
             if existing and not (body and body.regenerate):
                 return existing
+            # Persist schema before flowchart generation
+            self.sessions.persist_schema(session_id)
             chart = self.flowchart_generator.generate(session_id, record.recorder.flow())
             self.sessions.save_flowchart(session_id, chart)
             return chart
@@ -325,6 +361,8 @@ class ModelerService:
                 session_record = self.sessions.get_session(body.session_id)
             except KeyError:
                 raise HTTPException(status_code=404, detail="Session not found")
+            # Persist schema before automation creation
+            self.sessions.persist_schema(body.session_id)
             automation = self.sessions.create_automation(
                 {
                     "session_id": body.session_id,
@@ -391,6 +429,25 @@ class ModelerService:
             except IndexError as error:
                 raise HTTPException(status_code=400, detail=str(error))
             return {'run': updated}
+
+        @app.post("/execute/llm-step")
+        async def execute_llm_step_endpoint(body: LLMStepExecuteIn) -> Dict[str, Any]:
+            """Execute a single automation step using browser-use LLM agent."""
+            if not BROWSER_USE_AVAILABLE:
+                raise HTTPException(
+                    status_code=501,
+                    detail="Browser-use is not available. Install with: uv pip install browser-use langchain-anthropic"
+                )
+
+            try:
+                executor = BrowserUseExecutor()
+                result = await executor.execute_step(body.step, body.context)
+                return {"result": result}
+            except ValueError as error:
+                raise HTTPException(status_code=400, detail=str(error))
+            except Exception as error:
+                logger.exception("LLM step execution failed")
+                raise HTTPException(status_code=500, detail=str(error))
 
         return app
 

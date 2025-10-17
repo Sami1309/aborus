@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class LlmClientConfig:
     provider: str = "anthropic"
-    model: str = "claude-sonnet-4-5-20250929"
+    model: str = "claude-haiku-4-5"
     api_key_env: str = "ANTHROPIC_API_KEY"
     model_env: str = "ANTHROPIC_MODEL"
     flowchart_model_env: str = "ANTHROPIC_FLOWCHART_MODEL"

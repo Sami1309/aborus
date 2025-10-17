@@ -1,0 +1,255 @@
+[
+  {
+    "event_id": "9072c1d0-3118-4dec-927c-d571cd5440db",
+    "timestamp": "2025-10-17T02:06:36.380Z",
+    "category": "navigate",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": null,
+    "payload": {
+      "title": "Google",
+      "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001"
+    }
+  },
+  {
+    "event_id": "60dc940b-c589-462f-8e7c-fc124b0bc47e",
+    "timestamp": "2025-10-17T02:06:39.490Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "S",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "0b6a73db-70a9-4662-b324-b1e5bd1177a9",
+    "timestamp": "2025-10-17T02:06:39.956Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "Some ",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "ffd0f71d-ac49-4d48-970a-08513a01e237",
+    "timestamp": "2025-10-17T02:06:40.548Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "Some ran",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "1aa3234a-9d4f-45c8-b70e-38c8714d0080",
+    "timestamp": "2025-10-17T02:06:41.023Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "Some random ",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "f3d49e22-2c11-4af3-bfc2-203be9b2ebeb",
+    "timestamp": "2025-10-17T02:06:41.502Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "Some random se",
+      "trigger": "input"
+    }
+  },
+  {
+    "event_id": "0aa71e52-f952-4ee1-b910-e15a30745cb6",
+    "timestamp": "2025-10-17T02:06:42.502Z",
+    "category": "key",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "key": "Enter",
+      "code": "Enter",
+      "ctrl": false,
+      "meta": false,
+      "alt": false,
+      "shift": false
+    }
+  },
+  {
+    "event_id": "d1928e89-f18e-4c51-a3da-193143e71a49",
+    "timestamp": "2025-10-17T02:06:42.634Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "Some random search",
+      "trigger": "change"
+    }
+  },
+  {
+    "event_id": "c1f9b198-86af-4b8e-9900-71709a447727",
+    "timestamp": "2025-10-17T02:06:43.316Z",
+    "category": "navigate",
+    "url": "https://www.google.com/search?q=Some+random+search&sca_esv=4b752b0057153c0c&sxsrf=AE3TifOGEOAuFq9gAktykSJW_d5Rfx_oCQ%3A1760666795934&source=hp&ei=q6TxaLKsN5XbkPIPyMSgqQk&iflsig=AOw8s4IAAAAAaPGyu1qBATxZrLMiy0clnA2w1P0CIXvn&ved=0ahUKEwjyrcD3kqqQAxWVLUQIHUgiKJUQ4dUDCBo&uact=5&oq=Some+random+search&gs_lp=Egdnd3Mtd2l6IhJTb21lIHJhbmRvbSBzZWFyY2gyBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIIEAAYgAQYogQyCBAAGKIEGIkFMggQABiiBBiJBTIIEAAYgAQYogQyCBAAGIAEGKIESMQXUABY0hRwAHgAkAEAmAGhAaABgw-qAQQ4LjEwuAEDyAEA-AEBmAISoAKfD8ICChAjGIAEGCcYigXCAhAQLhiABBjRAxhDGMcBGIoFwgIKEAAYgAQYQxiKBcICChAuGIAEGCcYigXCAhEQLhiABBiRAhjRAxjHARiKBcICERAuGIAEGJECGMcBGIoFGK8BwgILEC4YgAQY0QMYxwHCAg4QLhiABBixAxjRAxjHAcICEBAjGPAFGIAEGCcYyQIYigXCAgsQLhiABBixAxiDAcICDhAuGIAEGLEDGIMBGIoFwgIIEAAYgAQYsQPCAgUQABiABMICCBAuGIAEGLEDwgIOEC4YgAQYsQMYgwEY1ALCAgsQLhiABBixAxjUAsICBRAuGIAEwgIEEAAYA8ICDhAAGIAEGLEDGIMBGIoFwgILEC4YgAQYxwEYrwHCAgsQABiABBiGAxiKBcICBRAAGO8FmAMAkgcEOC4xMKAH4MsBsgcEOC4xMLgHnw_CBwQxMC44yAcS&sclient=gws-wiz",
+    "title": "Some random search - Google Search",
+    "dom": null,
+    "payload": {
+      "title": "Some random search - Google Search",
+      "url": "https://www.google.com/search?q=Some+random+search&sca_esv=4b752b0057153c0c&sxsrf=AE3TifOGEOAuFq9gAktykSJW_d5Rfx_oCQ%3A1760666795934&source=hp&ei=q6TxaLKsN5XbkPIPyMSgqQk&iflsig=AOw8s4IAAAAAaPGyu1qBATxZrLMiy0clnA2w1P0CIXvn&ved=0ahUKEwjyrcD3kqqQAxWVLUQIHUgiKJUQ4dUDCBo&uact=5&oq=Some+random+search&gs_lp=Egdnd3Mtd2l6IhJTb21lIHJhbmRvbSBzZWFyY2gyBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIIEAAYgAQYogQyCBAAGKIEGIkFMggQABiiBBiJBTIIEAAYgAQYogQyCBAAGIAEGKIESMQXUABY0hRwAHgAkAEAmAGhAaABgw-qAQQ4LjEwuAEDyAEA-AEBmAISoAKfD8ICChAjGIAEGCcYigXCAhAQLhiABBjRAxhDGMcBGIoFwgIKEAAYgAQYQxiKBcICChAuGIAEGCcYigXCAhEQLhiABBiRAhjRAxjHARiKBcICERAuGIAEGJECGMcBGIoFGK8BwgILEC4YgAQY0QMYxwHCAg4QLhiABBixAxjRAxjHAcICEBAjGPAFGIAEGCcYyQIYigXCAgsQLhiABBixAxiDAcICDhAuGIAEGLEDGIMBGIoFwgIIEAAYgAQYsQPCAgUQABiABMICCBAuGIAEGLEDwgIOEC4YgAQYsQMYgwEY1ALCAgsQLhiABBixAxjUAsICBRAuGIAEwgIEEAAYA8ICDhAAGIAEGLEDGIMBGIoFwgILEC4YgAQYxwEYrwHCAgsQABiABBiGAxiKBcICBRAAGO8FmAMAkgcEOC4xMKAH4MsBsgcEOC4xMLgHnw_CBwQxMC44yAcS&sclient=gws-wiz"
+    }
+  },
+  {
+    "event_id": "f5f13b9a-8b84-4e30-b88b-2e8ac05b8a81",
+    "timestamp": "2025-10-17T02:06:50.944Z",
+    "category": "navigate",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": null,
+    "payload": {
+      "title": "Google",
+      "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001"
+    }
+  },
+  {
+    "event_id": "8ebbc0e1-b1fc-4910-82cd-f3214e235448",
+    "timestamp": "2025-10-17T02:06:41.982Z",
+    "category": "input",
+    "url": "https://www.google.com/?session=1adbb48d-e081-4da3-9c5d-0674390bd3fe&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+    "title": "Google",
+    "dom": {
+      "tag": "textarea",
+      "attributes": {
+        "id": "APjFqb",
+        "role": "combobox"
+      },
+      "accessibleName": "Search",
+      "innerText": "",
+      "classList": [
+        "gLFyf"
+      ],
+      "cssPath": "textarea#APjFqb"
+    },
+    "payload": {
+      "name": "q",
+      "tag": "textarea",
+      "type": "textarea",
+      "value": "Some random searc",
+      "trigger": "input"
+    }
+  }
+]

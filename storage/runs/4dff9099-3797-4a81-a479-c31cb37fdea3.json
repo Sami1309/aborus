@@ -1,0 +1,152 @@
+{
+  "run_id": "4dff9099-3797-4a81-a479-c31cb37fdea3",
+  "automation_id": "ee7a8e4a-f850-4fda-a43c-2117b85a5262",
+  "session_id": "fe0bcb88-ad59-48be-92e9-32c8cb505be9",
+  "engine": "deterministic",
+  "status": "succeeded",
+  "created_at": "2025-10-17T00:14:23.696159+00:00",
+  "started_at": "2025-10-17T00:14:23.696159+00:00",
+  "completed_at": "2025-10-17T00:14:31.638131+00:00",
+  "target_url": "https://www.google.com/",
+  "launch_url": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&automation_run=4dff9099-3797-4a81-a479-c31cb37fdea3&automation_id=ee7a8e4a-f850-4fda-a43c-2117b85a5262&automation_engine=deterministic",
+  "steps_planned": 2,
+  "steps_executed": 2,
+  "deterministic_steps": 2,
+  "llm_steps": 0,
+  "hybrid_steps": 0,
+  "message": "Automation completed successfully.",
+  "logs": [
+    {
+      "timestamp": "2025-10-17T00:14:23.696159+00:00",
+      "level": "info",
+      "message": "Automation initialised with 2 steps."
+    },
+    {
+      "timestamp": "2025-10-17T00:14:29.998036+00:00",
+      "level": "info",
+      "message": "Starting Navigate to Google Homepage",
+      "details": {
+        "description": "Opens the Google search homepage in the browser."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:30.811339+00:00",
+      "level": "info",
+      "message": "Executed step via html (deterministic).",
+      "details": {
+        "selector": "html"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:30.816312+00:00",
+      "level": "info",
+      "message": "Starting Search for Term",
+      "details": {
+        "description": "Enters the search query 'hello' into Google's search box and submits the search."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:31.630846+00:00",
+      "level": "info",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:31.638131+00:00",
+      "level": "info",
+      "message": "Automation completed successfully.",
+      "details": {}
+    }
+  ],
+  "result": {
+    "success": true,
+    "summary": "Automation completed successfully."
+  },
+  "steps": [
+    {
+      "node_id": "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "html"
+      ],
+      "title": "Navigate to Google Homepage",
+      "description": "Opens the Google search homepage in the browser.",
+      "hints": {
+        "user_value": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001"
+      },
+      "order": 1,
+      "status": "succeeded"
+    },
+    {
+      "node_id": "39be917f-0ff8-4302-a15e-3b7767ac6ccd",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Search for Term",
+      "description": "Enters the search query 'hello' into Google's search box and submits the search.",
+      "hints": {
+        "user_value": "hello",
+        "notes": "This step consolidates typing and submission actions into a single search operation"
+      },
+      "order": 2,
+      "status": "succeeded"
+    }
+  ],
+  "progress": [
+    {
+      "timestamp": "2025-10-17T00:14:29.998036+00:00",
+      "step_index": 0,
+      "status": "started",
+      "message": "Starting Navigate to Google Homepage",
+      "details": {
+        "description": "Opens the Google search homepage in the browser."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:30.811339+00:00",
+      "step_index": 0,
+      "status": "succeeded",
+      "message": "Executed step via html (deterministic).",
+      "details": {
+        "selector": "html"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:30.816312+00:00",
+      "step_index": 1,
+      "status": "started",
+      "message": "Starting Search for Term",
+      "details": {
+        "description": "Enters the search query 'hello' into Google's search box and submits the search."
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:31.630846+00:00",
+      "step_index": 1,
+      "status": "succeeded",
+      "message": "Executed step via #APjFqb (deterministic).",
+      "details": {
+        "selector": "#APjFqb"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T00:14:31.638131+00:00",
+      "step_index": 1,
+      "status": "completed",
+      "message": "Automation completed successfully.",
+      "details": {}
+    }
+  ],
+  "current_step_index": null,
+  "completed_steps": [
+    0,
+    1
+  ],
+  "automation_name": "hhgh",
+  "name": "hhgh"
+}

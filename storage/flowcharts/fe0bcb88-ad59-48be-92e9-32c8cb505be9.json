@@ -1,0 +1,58 @@
+{
+  "session_id": "fe0bcb88-ad59-48be-92e9-32c8cb505be9",
+  "generated_at": "2025-10-17T00:14:04.220725+00:00",
+  "model": "claude-sonnet-4-5",
+  "steps": [
+    {
+      "node_id": "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8",
+      "order": 1,
+      "title": "Navigate to Google Homepage",
+      "description": "Opens the Google search homepage in the browser.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "html"
+      ],
+      "hints": {
+        "user_value": "https://www.google.com/?session=fe0bcb88-ad59-48be-92e9-32c8cb505be9&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001"
+      },
+      "source": "llm"
+    },
+    {
+      "node_id": "39be917f-0ff8-4302-a15e-3b7767ac6ccd",
+      "order": 5,
+      "title": "Search for Term",
+      "description": "Enters the search query 'hello' into Google's search box and submits the search.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "hints": {
+        "user_value": "hello",
+        "notes": "This step consolidates typing and submission actions into a single search operation"
+      },
+      "source": "llm"
+    }
+  ],
+  "edges": {
+    "d880b70a-1dc5-4e8d-b6c8-c6f3feb196b8": [
+      "18800859-e6a2-457c-a75b-d2c9757d19cd"
+    ],
+    "18800859-e6a2-457c-a75b-d2c9757d19cd": [
+      "4df6b1b5-6815-4cf7-998c-699cf4a7e59b"
+    ],
+    "4df6b1b5-6815-4cf7-998c-699cf4a7e59b": [
+      "af9b2ade-1fd2-4ac9-94cd-551284ed1e2d"
+    ],
+    "af9b2ade-1fd2-4ac9-94cd-551284ed1e2d": [
+      "39be917f-0ff8-4302-a15e-3b7767ac6ccd"
+    ],
+    "39be917f-0ff8-4302-a15e-3b7767ac6ccd": []
+  },
+  "source": {
+    "type": "llm",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5"
+  }
+}
