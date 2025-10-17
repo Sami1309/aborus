@@ -1,4 +1,5 @@
-# Aborus
+
+<img width="1240" height="530" alt="Screenshot 2025-10-17 at 1 45 28 AM" src="https://github.com/user-attachments/assets/6352c73e-3519-4e99-b3d0-8065d5a32b09" />
 
 **Dead-simple AI browser automation to speedily deploy workflows at scale**
 
