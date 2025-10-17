@@ -198,6 +198,12 @@
   color: rgba(191, 219, 254, 0.95);
 }
 
+.modeler-automation-highlight {
+  outline: 3px solid rgba(56, 189, 248, 0.9) !important;
+  outline-offset: 2px !important;
+  transition: outline 0.2s ease;
+}
+
 #modeler-recorder-sidebar .status-pill[data-status='running'] {
   background: rgba(59, 130, 246, 0.35);
 }

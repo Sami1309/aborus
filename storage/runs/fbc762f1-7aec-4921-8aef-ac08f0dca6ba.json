@@ -1,0 +1,81 @@
+{
+  "run_id": "fbc762f1-7aec-4921-8aef-ac08f0dca6ba",
+  "automation_id": "fd239b48-95e7-4e29-92e1-2fd7d99ee563",
+  "session_id": "fcea63cd-4690-4dc7-b99d-85f73b3dd9bd",
+  "engine": "deterministic",
+  "status": "running",
+  "created_at": "2025-10-16T23:44:02.286087+00:00",
+  "started_at": "2025-10-16T23:44:02.286087+00:00",
+  "completed_at": null,
+  "target_url": "https://www.google.com/",
+  "launch_url": "https://www.google.com/?session=fcea63cd-4690-4dc7-b99d-85f73b3dd9bd&automation_run=fbc762f1-7aec-4921-8aef-ac08f0dca6ba&automation_id=fd239b48-95e7-4e29-92e1-2fd7d99ee563&automation_engine=deterministic",
+  "steps_planned": 3,
+  "steps_executed": 0,
+  "deterministic_steps": 3,
+  "llm_steps": 0,
+  "hybrid_steps": 0,
+  "message": "Automation initialised with 3 steps.",
+  "logs": [
+    {
+      "timestamp": "2025-10-16T23:44:02.286087+00:00",
+      "level": "info",
+      "message": "Automation initialised with 3 steps."
+    }
+  ],
+  "result": null,
+  "steps": [
+    {
+      "node_id": "c2032bcc-215c-42fa-81f6-7fd2d4374f5d",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "html"
+      ],
+      "title": "Navigate to Google Homepage",
+      "description": "Open Google's homepage in the browser to begin the search workflow.",
+      "hints": {
+        "user_value": "https://www.google.com/?session=fcea63cd-4690-4dc7-b99d-85f73b3dd9bd&modeler_origin=http%3A%2F%2F127.0.0.1%3A8001",
+        "notes": "Navigation action to initialize the session"
+      },
+      "order": 1,
+      "status": "pending"
+    },
+    {
+      "node_id": "66efcdf8-163f-4402-b3ce-9d0ff6544e38",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Submit Search Query",
+      "description": "Press Enter key to submit the search and navigate to results page.",
+      "hints": {
+        "notes": "Keyboard action to trigger search submission"
+      },
+      "order": 2,
+      "status": "pending"
+    },
+    {
+      "node_id": "8f98c477-55f8-4b1a-a36b-aa0fc8dd7536",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Enter Search Query",
+      "description": "Type the complete search query 'SOme random stuff' into the Google search box.",
+      "hints": {
+        "user_value": "SOme random stuff",
+        "notes": "Consolidated typing action representing the final search text"
+      },
+      "order": 3,
+      "status": "pending"
+    }
+  ],
+  "progress": [],
+  "current_step_index": null,
+  "completed_steps": [],
+  "automation_name": "ttt",
+  "name": "ttt"
+}

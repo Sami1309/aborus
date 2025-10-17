@@ -35,6 +35,7 @@
         <h2>Recording Ready</h2>
         <p>Session <code id="session-id"></code> created.</p>
         <ul>
+          <li hidden><a id="recording-target-link" href="#" target="_blank">Open recorded page</a></li>
           <li><a id="demo-link" href="#" target="_blank">Open instrumented demo page</a></li>
           <li><a id="schema-link" href="#" target="_blank">View schema JSON</a></li>
           <li><a id="recording-link" href="#" target="_blank">View raw recording</a></li>
@@ -77,6 +78,13 @@
             <p class="muted">Select a step to inspect selectors, hints, and execution mode.</p>
           </aside>
         </div>
+
+        <section class="flowchart-raw">
+          <details id="flowchart-raw" open>
+            <summary>Raw schema</summary>
+            <pre id="flowchart-raw-body" class="raw-schema-body">Select a recording to preview its schema.</pre>
+          </details>
+        </section>
 
         <section class="flowchart-edit">
           <h2>Refine Flow With Claude</h2>
@@ -147,6 +155,17 @@
   <footer class="footer">
     <p>Need help? Open the demo page, interact with it, then return here to inspect the generated schema.</p>
   </footer>
+
+  <div id="automation-schema-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-modal-dismiss="automation-schema-modal"></div>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="automation-schema-title">
+      <header class="modal-header">
+        <h2 id="automation-schema-title">Automation schema</h2>
+        <button type="button" class="modal-close" aria-label="Close schema viewer" data-modal-dismiss="automation-schema-modal">×</button>
+      </header>
+      <pre id="automation-schema-body" class="modal-body">Loading…</pre>
+    </div>
+  </div>
 
   <script src="/web/dashboard/dashboard.js" type="module"></script>
 </body>

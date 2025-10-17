@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 try:
-    from fastapi import FastAPI, HTTPException
+    from fastapi import FastAPI, HTTPException, Request
     from fastapi.responses import HTMLResponse
     from fastapi.staticfiles import StaticFiles
 except ModuleNotFoundError:  # pragma: no cover - optional dependency
@@ -23,6 +23,7 @@ except ModuleNotFoundError:  # pragma: no cover - optional dependency
             self.detail = detail
 
 from pydantic import BaseModel, Field
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from .events import FlowIntent
 from .llm import FlowAnnotator, FlowChartGenerator, FlowChartEditor
@@ -140,24 +141,30 @@ class ModelerService:
                     return HTMLResponse(dashboard.read_text(encoding="utf-8"))
 
         @app.post("/sessions")
-        async def create_session(body: SessionCreateIn) -> Dict[str, Any]:
+        async def create_session(body: SessionCreateIn, request: "Request") -> Dict[str, Any]:
             meta = self.sessions.create_session(body.url)
             session_id = meta.session_id
+            api_base = str(request.base_url).rstrip("/")
+            recording_page = self._build_recording_url(body.url, session_id, api_base)
             return {
                 "session": meta.to_dict(),
                 "links": {
                     "schema": f"/sessions/{session_id}/schema",
                     "recording": f"/sessions/{session_id}/events",
                     "demo_page": f"/web/test-page.html?session={session_id}",
+                    "recording_page": recording_page,
                     "flowchart": f"/sessions/{session_id}/flowchart",
                 },
             }
 
         @app.get("/sessions")
-        async def list_sessions() -> Dict[str, Any]:
+        async def list_sessions(request: "Request") -> Dict[str, Any]:
             sessions = []
+            api_base = str(request.base_url).rstrip("/")
             for meta in self.sessions.list_sessions():
                 session_id = meta["session_id"]
+                target_url = meta.get("url")
+                recording_page = self._build_recording_url(target_url, session_id, api_base) if target_url else None
                 sessions.append(
                     {
                         **meta,
@@ -166,6 +173,7 @@ class ModelerService:
                             "schema": f"/sessions/{session_id}/schema",
                             "recording": f"/sessions/{session_id}/events",
                             "demo_page": f"/web/test-page.html?session={session_id}",
+                            "recording_page": recording_page,
                             "flowchart": f"/sessions/{session_id}/flowchart",
                         },
                     }
@@ -173,17 +181,21 @@ class ModelerService:
             return {"sessions": sessions}
 
         @app.get("/sessions/{session_id}")
-        async def session_detail(session_id: str) -> Dict[str, Any]:
+        async def session_detail(session_id: str, request: "Request") -> Dict[str, Any]:
             try:
                 record = self.sessions.get_session(session_id)
             except KeyError:
                 raise HTTPException(status_code=404, detail="Session not found")
+            api_base = str(request.base_url).rstrip("/")
+            target_url = record.metadata.url
+            recording_page = self._build_recording_url(target_url, session_id, api_base)
             return {
                 "session": record.metadata.to_dict(),
                 "links": {
                     "schema": f"/sessions/{session_id}/schema",
                     "recording": f"/sessions/{session_id}/events",
                     "demo_page": f"/web/test-page.html?session={session_id}",
+                    "recording_page": recording_page,
                     "flowchart": f"/sessions/{session_id}/flowchart",
                 },
                 "graph": record.recorder.flow().to_dict(),
@@ -381,3 +393,20 @@ class ModelerService:
             return {'run': updated}
 
         return app
+
+    @staticmethod
+    def _build_recording_url(target_url: Optional[str], session_id: str, api_base: Optional[str]) -> Optional[str]:
+        if not target_url:
+            return None
+        try:
+            parsed = urlparse(target_url)
+        except Exception:
+            return target_url
+
+        query = parse_qs(parsed.query, keep_blank_values=True)
+        query["session"] = [session_id]
+        if api_base:
+            query["modeler_origin"] = [api_base]
+
+        encoded_query = urlencode(query, doseq=True)
+        return urlunparse(parsed._replace(query=encoded_query))

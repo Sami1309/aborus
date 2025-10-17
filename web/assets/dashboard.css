@@ -177,6 +177,30 @@ main {
   gap: 1.5rem;
 }
 
+.flowchart-raw details {
+  border: 1px solid rgba(31, 37, 50, 0.12);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: rgba(248, 249, 255, 0.9);
+}
+
+.flowchart-raw summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #1f2532;
+}
+
+.raw-schema-body {
+  margin: 0.75rem 0 0;
+  max-height: 18rem;
+  overflow: auto;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(31, 37, 50, 0.04);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
 .flowchart-edit h2 {
   margin: 0 0 0.75rem;
 }
@@ -449,6 +473,16 @@ main {
   align-items: center;
 }
 
+.automation-schema-trigger {
+  padding: 0.45rem 0.95rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(47, 61, 246, 0.32);
+  background: transparent;
+  color: #2f3df6;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .automation-run-trigger {
   padding: 0.45rem 1.1rem;
   border-radius: 0.65rem;
@@ -529,6 +563,76 @@ main {
   padding: 1rem 2rem 2rem;
   color: rgba(31, 37, 50, 0.65);
   font-size: 0.9rem;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.modal-content {
+  position: relative;
+  max-width: 720px;
+  width: calc(100% - 3rem);
+  max-height: calc(100% - 3rem);
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(31, 37, 50, 0.08);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: rgba(31, 37, 50, 0.65);
+}
+
+.modal-body {
+  margin: 0;
+  padding: 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow: auto;
+  background: #0f172a;
+  color: #e2e8f0;
+  border: none;
+}
+
+.modal-body code,
+.modal-body pre {
+  font-family: "SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", monospace;
 }
 
 code {

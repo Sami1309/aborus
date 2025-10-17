@@ -1,0 +1,175 @@
+{
+  "automation_id": "c0d282b6-a427-469c-b6b3-db36d3ee6e8e",
+  "created_at": "2025-10-17T00:00:59.037686+00:00",
+  "updated_at": "2025-10-17T00:01:14.958160+00:00",
+  "session_id": "dc8756d2-9cf8-4613-979d-082a35de4caa",
+  "name": "bvbv",
+  "engine": "deterministic",
+  "description": null,
+  "steps": [
+    {
+      "node_id": "f6bfdb9d-8a84-4caa-9823-added6f8c6ef",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "html"
+      ],
+      "title": "Navigate to Google Homepage",
+      "description": "Open Google's homepage to begin the search process.",
+      "hints": {
+        "notes": "Initial navigation to Google search engine"
+      }
+    },
+    {
+      "node_id": "dd9a978c-43ae-4e9c-9013-112ca5ca0ad2",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Focus Search Box",
+      "description": "Click on the Google search input field to prepare for text entry.",
+      "hints": {
+        "notes": "Activate search field for user input"
+      }
+    },
+    {
+      "node_id": "13806b2b-4c62-4949-aec0-5b6090ae10ca",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Enter Search Query",
+      "description": "Type the complete search term into the Google search box.",
+      "hints": {
+        "user_value": "some random stuff",
+        "notes": "Consolidated incremental typing actions into single input step"
+      }
+    },
+    {
+      "node_id": "4840ccbc-312c-4328-b82f-8cd697c8d0e7",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "#APjFqb",
+        "getByRole('combobox', { name: 'Search' })",
+        "textarea#APjFqb"
+      ],
+      "title": "Submit Search",
+      "description": "Press Enter to execute the search query and display results.",
+      "hints": {
+        "notes": "Keyboard submission via Enter key"
+      }
+    }
+  ],
+  "flowchart_snapshot": {
+    "session_id": "dc8756d2-9cf8-4613-979d-082a35de4caa",
+    "generated_at": "2025-10-17T00:00:41.429892+00:00",
+    "model": "claude-sonnet-4-5",
+    "steps": [
+      {
+        "node_id": "f6bfdb9d-8a84-4caa-9823-added6f8c6ef",
+        "order": 1,
+        "title": "Navigate to Google Homepage",
+        "description": "Open Google's homepage to begin the search process.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "html"
+        ],
+        "hints": {
+          "notes": "Initial navigation to Google search engine"
+        },
+        "source": "llm"
+      },
+      {
+        "node_id": "dd9a978c-43ae-4e9c-9013-112ca5ca0ad2",
+        "order": 2,
+        "title": "Focus Search Box",
+        "description": "Click on the Google search input field to prepare for text entry.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "#APjFqb",
+          "getByRole('combobox', { name: 'Search' })",
+          "textarea#APjFqb"
+        ],
+        "hints": {
+          "notes": "Activate search field for user input"
+        },
+        "source": "llm"
+      },
+      {
+        "node_id": "13806b2b-4c62-4949-aec0-5b6090ae10ca",
+        "order": 8,
+        "title": "Enter Search Query",
+        "description": "Type the complete search term into the Google search box.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "#APjFqb",
+          "getByRole('combobox', { name: 'Search' })",
+          "textarea#APjFqb"
+        ],
+        "hints": {
+          "user_value": "some random stuff",
+          "notes": "Consolidated incremental typing actions into single input step"
+        },
+        "source": "llm"
+      },
+      {
+        "node_id": "4840ccbc-312c-4328-b82f-8cd697c8d0e7",
+        "order": 9,
+        "title": "Submit Search",
+        "description": "Press Enter to execute the search query and display results.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "#APjFqb",
+          "getByRole('combobox', { name: 'Search' })",
+          "textarea#APjFqb"
+        ],
+        "hints": {
+          "notes": "Keyboard submission via Enter key"
+        },
+        "source": "llm"
+      }
+    ],
+    "edges": {
+      "f6bfdb9d-8a84-4caa-9823-added6f8c6ef": [
+        "dd9a978c-43ae-4e9c-9013-112ca5ca0ad2"
+      ],
+      "dd9a978c-43ae-4e9c-9013-112ca5ca0ad2": [
+        "ed5fbb66-4794-486d-b04f-e4080b073769"
+      ],
+      "ed5fbb66-4794-486d-b04f-e4080b073769": [
+        "60656a30-c43d-42f0-903d-d7221c9acca2"
+      ],
+      "60656a30-c43d-42f0-903d-d7221c9acca2": [
+        "e1a92b03-cf5e-467d-a76f-5afe4c9ab966"
+      ],
+      "e1a92b03-cf5e-467d-a76f-5afe4c9ab966": [
+        "49984c4d-ac70-4bdc-8a0d-ecf5064754be"
+      ],
+      "49984c4d-ac70-4bdc-8a0d-ecf5064754be": [
+        "f33e89ed-bd0c-4260-ac05-2d975cdb2aff"
+      ],
+      "f33e89ed-bd0c-4260-ac05-2d975cdb2aff": [
+        "13806b2b-4c62-4949-aec0-5b6090ae10ca"
+      ],
+      "13806b2b-4c62-4949-aec0-5b6090ae10ca": [
+        "4840ccbc-312c-4328-b82f-8cd697c8d0e7"
+      ],
+      "4840ccbc-312c-4328-b82f-8cd697c8d0e7": [
+        "e2324254-e350-4f93-bc18-891f8ea86419"
+      ],
+      "e2324254-e350-4f93-bc18-891f8ea86419": []
+    },
+    "source": {
+      "type": "llm",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5"
+    }
+  },
+  "target_url": "https://www.google.com/",
+  "session_created_at": "2025-10-16T23:59:38.413201+00:00",
+  "last_run_id": "5983a745-0e8d-421c-87b4-ac93e6200280",
+  "last_run_status": "succeeded"
+}

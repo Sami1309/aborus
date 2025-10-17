@@ -56,6 +56,10 @@ class ModelerServiceTests(unittest.TestCase):
         create_response = client.post("/sessions", json={"url": "https://example.com"})
         self.assertEqual(create_response.status_code, 200)
         session_id = create_response.json()["session"]["session_id"]
+        links = create_response.json().get("links", {})
+        self.assertIn("recording_page", links)
+        self.assertTrue(links["recording_page"].startswith("https://example.com"))
+        self.assertIn("session=", links["recording_page"])
 
         record_response = client.post(f"/sessions/{session_id}/events", json={"payload": SAMPLE_EVENT})
         self.assertEqual(record_response.status_code, 200)
@@ -116,6 +120,9 @@ class ModelerServiceTests(unittest.TestCase):
         create_response = client.post("/sessions", json={"url": "https://example.com"})
         self.assertEqual(create_response.status_code, 200)
         session_id = create_response.json()["session"]["session_id"]
+        recording_link = create_response.json().get("links", {}).get("recording_page")
+        self.assertIsNotNone(recording_link)
+        self.assertTrue(recording_link.startswith("https://example.com"))
 
         record_response = client.post(f"/sessions/{session_id}/events", json={"payload": SAMPLE_EVENT})
         self.assertEqual(record_response.status_code, 200)

@@ -1,0 +1,259 @@
+{
+  "session_id": "978188f3-ea43-443b-8aea-a0411735fa33",
+  "generated_at": "2025-10-17T00:02:37.309888+00:00",
+  "model": "claude-sonnet-4-5",
+  "steps": [
+    {
+      "node_id": "f9a07d51-fa54-4a67-8a35-6c3f77a94d72",
+      "order": 1,
+      "title": "User navigated to Google AI Studio's new chat page for creating AI prompts",
+      "description": "User navigated to Google AI Studio's new chat page for creating AI prompts.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "html"
+      ],
+      "hints": {
+        "semantic_action": "navigate",
+        "user_value": "https://aistudio.google.com/prompts/new_chat?session=978188f3-ea43-443b-8aea-a0411735fa33&modeler_origin=http:%2F%2F127.0.0.1:8001",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "fc12f879-6302-4b15-8088-9037669e3b80",
+      "order": 2,
+      "title": "User adjusted a slider input control to set a value of 0.9, likely configuring a parameter such as temperature, confidence threshold, or another numerical setting in the AI Studio chat interface.",
+      "description": "User adjusted a slider input control to set a value of 0.9, likely configuring a parameter such as temperature, confidence threshold, or another numerical setting in the AI Studio chat interface.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+      ],
+      "hints": {
+        "semantic_action": "Set slider value to 0.9",
+        "user_value": "0.9",
+        "confidence": 0.9
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "de086f5f-4b10-4a4c-bef6-fbf57b2d5d33",
+      "order": 3,
+      "title": "User adjusted a slider control to value 0",
+      "description": "User adjusted a slider control to value 0.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+      ],
+      "hints": {
+        "semantic_action": "Set slider to minimum value (0)",
+        "user_value": "0",
+        "confidence": 0.85
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "2328a126-0fdb-4e14-906b-ab0ccd8abc28",
+      "order": 4,
+      "title": "User clicked on a slider input control, likely to adjust a numerical parameter or setting in the Google AI Studio chat interface",
+      "description": "User clicked on a slider input control, likely to adjust a numerical parameter or setting in the Google AI Studio chat interface.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+      ],
+      "hints": {
+        "semantic_action": "adjust slider",
+        "user_value": null,
+        "confidence": 0.85
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "5288be85-7948-4a37-a213-f9df9925eae6",
+      "order": 5,
+      "title": "User clicked on the main prompt input textarea in Google AI Studio to begin composing a prompt",
+      "description": "User clicked on the main prompt input textarea in Google AI Studio to begin composing a prompt.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+      ],
+      "hints": {
+        "semantic_action": "Click the prompt input field to start typing a new prompt",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "0934b054-c112-4ff1-a7a0-d7e4d8115a3a",
+      "order": 6,
+      "title": "User is typing a message 'I love b' into the chat/prompt textarea in Google AI Studio",
+      "description": "User is typing a message 'I love b' into the chat/prompt textarea in Google AI Studio.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "hints": {
+        "semantic_action": "Type into chat input field",
+        "user_value": "I love b",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "5572af5f-e6bf-4f2a-9c1d-2a3c6176fb7c",
+      "order": 7,
+      "title": "User typed 'I love banan' into a textarea input field in a chat interface",
+      "description": "User typed 'I love banan' into a textarea input field in a chat interface.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "hints": {
+        "semantic_action": "type into chat message input",
+        "user_value": "I love banan",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "35463ac4-fb1d-4d5f-b41c-99901a421613",
+      "order": 8,
+      "title": "User typed 'I love bananas' into the chat prompt textarea",
+      "description": "User typed 'I love bananas' into the chat prompt textarea.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "hints": {
+        "semantic_action": "Type 'I love bananas' into the chat prompt input field",
+        "user_value": "I love bananas",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "be0fead6-ef27-4e3d-910b-a0328284b954",
+      "order": 9,
+      "title": "User typed 'I love bananas' into a textarea input field for entering prompts/messages",
+      "description": "User typed 'I love bananas' into a textarea input field for entering prompts/messages.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "hints": {
+        "semantic_action": "Enter text into chat/prompt input field",
+        "user_value": "I love bananas",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "d2c29693-13d0-4060-97fa-d7fbc88f3eca",
+      "order": 10,
+      "title": "User clicked the 'Run' button to execute or process the current prompt/query in Google AI Studio",
+      "description": "User clicked the 'Run' button to execute or process the current prompt/query in Google AI Studio.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "getByText('Run')",
+        "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > span.run-button-content.ng-tns-c1913044297-8 > span.label.ng-tns-c1913044297-8"
+      ],
+      "hints": {
+        "semantic_action": "Click the 'Run' button to execute the prompt",
+        "user_value": null,
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "bd83e428-b368-4b6b-8206-34f48aa01e70",
+      "order": 11,
+      "title": "User begins typing 'I' into the main chat input textarea",
+      "description": "User begins typing 'I' into the main chat input textarea.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+      ],
+      "hints": {
+        "semantic_action": "Type text into chat prompt input",
+        "user_value": "I",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "2ae2dd1b-12e8-42f4-b9e5-a687650e3802",
+      "order": 12,
+      "title": "User is typing text 'I l' into a textarea input field for chat/prompt entry",
+      "description": "User is typing text 'I l' into a textarea input field for chat/prompt entry.",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "hints": {
+        "semantic_action": "Enter text in chat input",
+        "user_value": "I l",
+        "confidence": 0.95
+      },
+      "source": "llm-error"
+    },
+    {
+      "node_id": "83d8c07b-0d9a-41b9-a1de-23c76cee821d",
+      "order": 13,
+      "title": "User clicked on an SVG element in the Google AI Studio new chat interface.",
+      "description": "User clicked on an SVG element in the Google AI Studio new chat interface.",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "div.prompt-input-wrapper-container.ng-star-inserted > div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1913044297-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1913044297-8:nth-child(2) > svg.ng-tns-c1913044297-8.ng-star-inserted"
+      ],
+      "hints": {
+        "semantic_action": null,
+        "user_value": null,
+        "confidence": 0.3
+      },
+      "source": "llm-error"
+    }
+  ],
+  "edges": {
+    "f9a07d51-fa54-4a67-8a35-6c3f77a94d72": [
+      "fc12f879-6302-4b15-8088-9037669e3b80"
+    ],
+    "fc12f879-6302-4b15-8088-9037669e3b80": [
+      "de086f5f-4b10-4a4c-bef6-fbf57b2d5d33"
+    ],
+    "de086f5f-4b10-4a4c-bef6-fbf57b2d5d33": [
+      "2328a126-0fdb-4e14-906b-ab0ccd8abc28"
+    ],
+    "2328a126-0fdb-4e14-906b-ab0ccd8abc28": [
+      "5288be85-7948-4a37-a213-f9df9925eae6"
+    ],
+    "5288be85-7948-4a37-a213-f9df9925eae6": [
+      "0934b054-c112-4ff1-a7a0-d7e4d8115a3a"
+    ],
+    "0934b054-c112-4ff1-a7a0-d7e4d8115a3a": [
+      "5572af5f-e6bf-4f2a-9c1d-2a3c6176fb7c"
+    ],
+    "5572af5f-e6bf-4f2a-9c1d-2a3c6176fb7c": [
+      "35463ac4-fb1d-4d5f-b41c-99901a421613"
+    ],
+    "35463ac4-fb1d-4d5f-b41c-99901a421613": [
+      "be0fead6-ef27-4e3d-910b-a0328284b954"
+    ],
+    "be0fead6-ef27-4e3d-910b-a0328284b954": [
+      "d2c29693-13d0-4060-97fa-d7fbc88f3eca"
+    ],
+    "d2c29693-13d0-4060-97fa-d7fbc88f3eca": [
+      "bd83e428-b368-4b6b-8206-34f48aa01e70"
+    ],
+    "bd83e428-b368-4b6b-8206-34f48aa01e70": [
+      "2ae2dd1b-12e8-42f4-b9e5-a687650e3802"
+    ],
+    "2ae2dd1b-12e8-42f4-b9e5-a687650e3802": [
+      "83d8c07b-0d9a-41b9-a1de-23c76cee821d"
+    ],
+    "83d8c07b-0d9a-41b9-a1de-23c76cee821d": []
+  },
+  "source": {
+    "type": "heuristic",
+    "reason": "llm-error"
+  }
+}

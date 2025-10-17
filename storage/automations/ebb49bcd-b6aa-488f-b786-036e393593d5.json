@@ -1,0 +1,498 @@
+{
+  "automation_id": "ebb49bcd-b6aa-488f-b786-036e393593d5",
+  "created_at": "2025-10-16T08:51:23.030447+00:00",
+  "updated_at": "2025-10-16T08:51:47.375988+00:00",
+  "session_id": "3195e1c8-25cb-44d3-93e1-2fa86ea7b8eb",
+  "name": "bigno",
+  "engine": "deterministic",
+  "description": null,
+  "steps": [
+    {
+      "node_id": "d50f435a-2088-49cb-a99b-82ae43af4d38",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "html"
+      ],
+      "title": "User navigated to Google AI Studio's new chat prompt page",
+      "description": "User navigated to Google AI Studio's new chat prompt page.",
+      "hints": {
+        "semantic_action": "navigate to Google AI Studio new chat interface",
+        "user_value": null,
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "04f06248-f17a-4538-baed-06f51ce29343",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+      ],
+      "title": "User adjusted a slider control to value 0.95, likely modifying a numeric parameter such as temperature, confidence threshold, or similar model configuration setting",
+      "description": "User adjusted a slider control to value 0.95, likely modifying a numeric parameter such as temperature, confidence threshold, or similar model configuration setting.",
+      "hints": {
+        "semantic_action": "Adjust slider to 0.95",
+        "user_value": "0.95",
+        "confidence": 0.88
+      }
+    },
+    {
+      "node_id": "839fb2aa-cfda-476c-b66b-38024721bef7",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+      ],
+      "title": "User adjusted a slider control to zero (minimum value) on the AI Studio new chat interface.",
+      "description": "User adjusted a slider control to zero (minimum value) on the AI Studio new chat interface.",
+      "hints": {
+        "semantic_action": "set slider to 0",
+        "user_value": "0",
+        "confidence": 0.9
+      }
+    },
+    {
+      "node_id": "ca43a192-882a-441f-917a-f3f97183463c",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+      ],
+      "title": "User clicked on a slider input control",
+      "description": "User clicked on a slider input control.",
+      "hints": {
+        "semantic_action": "adjust slider",
+        "user_value": null,
+        "confidence": 0.85
+      }
+    },
+    {
+      "node_id": "8f021987-fd70-42eb-a912-0e7eaf1ec9c9",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+      ],
+      "title": "User clicked on the text input area to begin composing a prompt in Google AI Studio's new chat interface",
+      "description": "User clicked on the text input area to begin composing a prompt in Google AI Studio's new chat interface.",
+      "hints": {
+        "semantic_action": "Click on the main prompt input textarea",
+        "user_value": null,
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "c46dfb67-48ef-4745-bc91-d329461376f0",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "title": "User is typing a message 'A pic' into a textarea input field, likely composing a chat message or prompt in Google AI Studio",
+      "description": "User is typing a message 'A pic' into a textarea input field, likely composing a chat message or prompt in Google AI Studio.",
+      "hints": {
+        "semantic_action": "Enter text into message input field",
+        "user_value": "A pic",
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "01e60f41-e28d-4d49-8a50-8a7b6df9d625",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "title": "User is typing text into a prompt textarea in Google AI Studio chat interface",
+      "description": "User is typing text into a prompt textarea in Google AI Studio chat interface.",
+      "hints": {
+        "semantic_action": "Enter text in chat prompt field",
+        "user_value": "A picture ",
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "9984fa66-9a06-4d38-b04f-0c15fd55c2b0",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "title": "User is typing a prompt in the chat input textarea, entering the text 'A picture of a '",
+      "description": "User is typing a prompt in the chat input textarea, entering the text 'A picture of a '.",
+      "hints": {
+        "semantic_action": "Type text into chat prompt input",
+        "user_value": "A picture of a ",
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "0bb9872c-a05f-4ac5-ad85-b4f1a1318af0",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "title": "User is typing a prompt about a picture of a flower in a textarea input field on an AI Studio chat interface",
+      "description": "User is typing a prompt about a picture of a flower in a textarea input field on an AI Studio chat interface.",
+      "hints": {
+        "semantic_action": "Enter text in the chat prompt textarea",
+        "user_value": "A picture of a flo",
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "f3feed93-511c-4b59-a620-db4abad88cad",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "title": "User typed 'A picture of a flower' into a chat/prompt textarea input field",
+      "description": "User typed 'A picture of a flower' into a chat/prompt textarea input field.",
+      "hints": {
+        "semantic_action": "enter text in chat prompt input",
+        "user_value": "A picture of a flower",
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "4e828e63-4cc8-43c9-a49b-64f4bebc24e3",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+      ],
+      "title": "User is typing text 'A' into the main chat input textarea on Google AI Studio's new chat prompt page",
+      "description": "User is typing text 'A' into the main chat input textarea on Google AI Studio's new chat prompt page.",
+      "hints": {
+        "semantic_action": "type into chat input",
+        "user_value": "A",
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "db6e89e1-837d-4db2-8283-30bf59f6610a",
+      "execution_mode": "llm",
+      "dom_selectors": [
+        "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+      ],
+      "title": "User typing text 'A ' into the chat input textarea in AI Studio",
+      "description": "User typing text 'A ' into the chat input textarea in AI Studio.",
+      "hints": {
+        "semantic_action": "type into chat message input",
+        "user_value": "A ",
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "e86ac2a9-5b47-463b-84d2-4c0189410654",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "getByText('Run')",
+        "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1962442242-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1962442242-8:nth-child(2) > span.run-button-content.ng-tns-c1962442242-8 > span.label.ng-tns-c1962442242-8"
+      ],
+      "title": "User clicked the 'Run' button in Google AI Studio to execute a prompt or model.",
+      "description": "User clicked the 'Run' button in Google AI Studio to execute a prompt or model.",
+      "hints": {
+        "semantic_action": "Click the 'Run' button to execute the current prompt",
+        "user_value": null,
+        "confidence": 0.95
+      }
+    },
+    {
+      "node_id": "50b9b09c-c3c2-461f-842f-6b0353d237c8",
+      "execution_mode": "deterministic",
+      "dom_selectors": [
+        "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1962442242-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1962442242-8:nth-child(2) > svg.ng-tns-c1962442242-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1962442242-8:nth-child(2)"
+      ],
+      "title": "User clicked a stop button (rectangle element) likely to halt an ongoing operation or process in Google AI Studio",
+      "description": "User clicked a stop button (rectangle element) likely to halt an ongoing operation or process in Google AI Studio.",
+      "hints": {
+        "semantic_action": "Click stop button",
+        "user_value": null,
+        "confidence": 0.85
+      }
+    }
+  ],
+  "flowchart_snapshot": {
+    "session_id": "3195e1c8-25cb-44d3-93e1-2fa86ea7b8eb",
+    "generated_at": "2025-10-16T08:47:47.238978+00:00",
+    "model": "claude-sonnet-4-5",
+    "steps": [
+      {
+        "node_id": "d50f435a-2088-49cb-a99b-82ae43af4d38",
+        "order": 1,
+        "title": "User navigated to Google AI Studio's new chat prompt page",
+        "description": "User navigated to Google AI Studio's new chat prompt page.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "html"
+        ],
+        "hints": {
+          "semantic_action": "navigate to Google AI Studio new chat interface",
+          "user_value": null,
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "04f06248-f17a-4538-baed-06f51ce29343",
+        "order": 2,
+        "title": "User adjusted a slider control to value 0.95, likely modifying a numeric parameter such as temperature, confidence threshold, or similar model configuration setting",
+        "description": "User adjusted a slider control to value 0.95, likely modifying a numeric parameter such as temperature, confidence threshold, or similar model configuration setting.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+        ],
+        "hints": {
+          "semantic_action": "Adjust slider to 0.95",
+          "user_value": "0.95",
+          "confidence": 0.88
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "839fb2aa-cfda-476c-b66b-38024721bef7",
+        "order": 3,
+        "title": "User adjusted a slider control to zero (minimum value) on the AI Studio new chat interface.",
+        "description": "User adjusted a slider control to zero (minimum value) on the AI Studio new chat interface.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+        ],
+        "hints": {
+          "semantic_action": "set slider to 0",
+          "user_value": "0",
+          "confidence": 0.9
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "ca43a192-882a-441f-917a-f3f97183463c",
+        "order": 4,
+        "title": "User clicked on a slider input control",
+        "description": "User clicked on a slider input control.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "div.mat-mdc-tooltip-trigger.settings-item-column:nth-child(4) > div.item-input:nth-child(2) > ms-slider.item-input-slider > div.mat-mdc-tooltip-trigger.ms-slider > mat-slider.mat-mdc-slider.mdc-slider > input.mdc-slider__input"
+        ],
+        "hints": {
+          "semantic_action": "adjust slider",
+          "user_value": null,
+          "confidence": 0.85
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "8f021987-fd70-42eb-a912-0e7eaf1ec9c9",
+        "order": 5,
+        "title": "User clicked on the text input area to begin composing a prompt in Google AI Studio's new chat interface",
+        "description": "User clicked on the text input area to begin composing a prompt in Google AI Studio's new chat interface.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+        ],
+        "hints": {
+          "semantic_action": "Click on the main prompt input textarea",
+          "user_value": null,
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "c46dfb67-48ef-4745-bc91-d329461376f0",
+        "order": 6,
+        "title": "User is typing a message 'A pic' into a textarea input field, likely composing a chat message or prompt in Google AI Studio",
+        "description": "User is typing a message 'A pic' into a textarea input field, likely composing a chat message or prompt in Google AI Studio.",
+        "execution_mode": "llm",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+        ],
+        "hints": {
+          "semantic_action": "Enter text into message input field",
+          "user_value": "A pic",
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "01e60f41-e28d-4d49-8a50-8a7b6df9d625",
+        "order": 7,
+        "title": "User is typing text into a prompt textarea in Google AI Studio chat interface",
+        "description": "User is typing text into a prompt textarea in Google AI Studio chat interface.",
+        "execution_mode": "llm",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+        ],
+        "hints": {
+          "semantic_action": "Enter text in chat prompt field",
+          "user_value": "A picture ",
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "9984fa66-9a06-4d38-b04f-0c15fd55c2b0",
+        "order": 8,
+        "title": "User is typing a prompt in the chat input textarea, entering the text 'A picture of a '",
+        "description": "User is typing a prompt in the chat input textarea, entering the text 'A picture of a '.",
+        "execution_mode": "llm",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+        ],
+        "hints": {
+          "semantic_action": "Type text into chat prompt input",
+          "user_value": "A picture of a ",
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "0bb9872c-a05f-4ac5-ad85-b4f1a1318af0",
+        "order": 9,
+        "title": "User is typing a prompt about a picture of a flower in a textarea input field on an AI Studio chat interface",
+        "description": "User is typing a prompt about a picture of a flower in a textarea input field on an AI Studio chat interface.",
+        "execution_mode": "llm",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+        ],
+        "hints": {
+          "semantic_action": "Enter text in the chat prompt textarea",
+          "user_value": "A picture of a flo",
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "f3feed93-511c-4b59-a620-db4abad88cad",
+        "order": 10,
+        "title": "User typed 'A picture of a flower' into a chat/prompt textarea input field",
+        "description": "User typed 'A picture of a flower' into a chat/prompt textarea input field.",
+        "execution_mode": "llm",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+        ],
+        "hints": {
+          "semantic_action": "enter text in chat prompt input",
+          "user_value": "A picture of a flower",
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "4e828e63-4cc8-43c9-a49b-64f4bebc24e3",
+        "order": 11,
+        "title": "User is typing text 'A' into the main chat input textarea on Google AI Studio's new chat prompt page",
+        "description": "User is typing text 'A' into the main chat input textarea on Google AI Studio's new chat prompt page.",
+        "execution_mode": "llm",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-pristine"
+        ],
+        "hints": {
+          "semantic_action": "type into chat input",
+          "user_value": "A",
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "db6e89e1-837d-4db2-8283-30bf59f6610a",
+        "order": 12,
+        "title": "User typing text 'A ' into the chat input textarea in AI Studio",
+        "description": "User typing text 'A ' into the chat input textarea in AI Studio.",
+        "execution_mode": "llm",
+        "dom_selectors": [
+          "ms-chunk-input > section.text-and-attachments-wrapper > div.text-input-wrapper > ms-text-chunk > ms-autosize-textarea.ng-star-inserted > textarea.textarea.ng-valid"
+        ],
+        "hints": {
+          "semantic_action": "type into chat message input",
+          "user_value": "A ",
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "e86ac2a9-5b47-463b-84d2-4c0189410654",
+        "order": 13,
+        "title": "User clicked the 'Run' button in Google AI Studio to execute a prompt or model.",
+        "description": "User clicked the 'Run' button in Google AI Studio to execute a prompt or model.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "getByText('Run')",
+          "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1962442242-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1962442242-8:nth-child(2) > span.run-button-content.ng-tns-c1962442242-8 > span.label.ng-tns-c1962442242-8"
+        ],
+        "hints": {
+          "semantic_action": "Click the 'Run' button to execute the current prompt",
+          "user_value": null,
+          "confidence": 0.95
+        },
+        "source": "llm-error"
+      },
+      {
+        "node_id": "50b9b09c-c3c2-461f-842f-6b0353d237c8",
+        "order": 14,
+        "title": "User clicked a stop button (rectangle element) likely to halt an ongoing operation or process in Google AI Studio",
+        "description": "User clicked a stop button (rectangle element) likely to halt an ongoing operation or process in Google AI Studio.",
+        "execution_mode": "deterministic",
+        "dom_selectors": [
+          "div.button-wrapper:nth-child(3) > ms-run-button.ng-tns-c1962442242-8.ng-star-inserted > button.mat-mdc-tooltip-trigger.run-button > div.inner.ng-tns-c1962442242-8:nth-child(2) > svg.ng-tns-c1962442242-8.ng-star-inserted > rect.stoppable-stop.ng-tns-c1962442242-8:nth-child(2)"
+        ],
+        "hints": {
+          "semantic_action": "Click stop button",
+          "user_value": null,
+          "confidence": 0.85
+        },
+        "source": "llm-error"
+      }
+    ],
+    "edges": {
+      "d50f435a-2088-49cb-a99b-82ae43af4d38": [
+        "04f06248-f17a-4538-baed-06f51ce29343"
+      ],
+      "04f06248-f17a-4538-baed-06f51ce29343": [
+        "839fb2aa-cfda-476c-b66b-38024721bef7"
+      ],
+      "839fb2aa-cfda-476c-b66b-38024721bef7": [
+        "ca43a192-882a-441f-917a-f3f97183463c"
+      ],
+      "ca43a192-882a-441f-917a-f3f97183463c": [
+        "8f021987-fd70-42eb-a912-0e7eaf1ec9c9"
+      ],
+      "8f021987-fd70-42eb-a912-0e7eaf1ec9c9": [
+        "c46dfb67-48ef-4745-bc91-d329461376f0"
+      ],
+      "c46dfb67-48ef-4745-bc91-d329461376f0": [
+        "01e60f41-e28d-4d49-8a50-8a7b6df9d625"
+      ],
+      "01e60f41-e28d-4d49-8a50-8a7b6df9d625": [
+        "9984fa66-9a06-4d38-b04f-0c15fd55c2b0"
+      ],
+      "9984fa66-9a06-4d38-b04f-0c15fd55c2b0": [
+        "0bb9872c-a05f-4ac5-ad85-b4f1a1318af0"
+      ],
+      "0bb9872c-a05f-4ac5-ad85-b4f1a1318af0": [
+        "f3feed93-511c-4b59-a620-db4abad88cad"
+      ],
+      "f3feed93-511c-4b59-a620-db4abad88cad": [
+        "4e828e63-4cc8-43c9-a49b-64f4bebc24e3"
+      ],
+      "4e828e63-4cc8-43c9-a49b-64f4bebc24e3": [
+        "db6e89e1-837d-4db2-8283-30bf59f6610a"
+      ],
+      "db6e89e1-837d-4db2-8283-30bf59f6610a": [
+        "e86ac2a9-5b47-463b-84d2-4c0189410654"
+      ],
+      "e86ac2a9-5b47-463b-84d2-4c0189410654": [
+        "50b9b09c-c3c2-461f-842f-6b0353d237c8"
+      ],
+      "50b9b09c-c3c2-461f-842f-6b0353d237c8": []
+    },
+    "source": {
+      "type": "heuristic",
+      "reason": "llm-error",
+      "operation": "edit"
+    },
+    "history": [
+      {
+        "timestamp": "2025-10-16T08:47:47.238978+00:00",
+        "instructions": "Compress all \"user typing\" nodes into a single one which is \"user types the prompt \"a picture of a flower\"",
+        "status": "fallback",
+        "reason": "llm-error"
+      }
+    ]
+  },
+  "target_url": "https://aistudio.google.com/prompts/new_chat",
+  "session_created_at": "2025-10-16T08:43:59.529305+00:00",
+  "last_run_id": "ce9d5f04-369a-4c8e-ae12-cb7d1df0354c"
+}

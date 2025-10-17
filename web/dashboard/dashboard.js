@@ -5,6 +5,7 @@ const urlInput = document.getElementById('record-url');
 const feedbackCard = document.getElementById('record-feedback');
 const sessionIdEl = document.getElementById('session-id');
 const demoLink = document.getElementById('demo-link');
+const targetLink = document.getElementById('recording-target-link');
 const schemaLink = document.getElementById('schema-link');
 const recordingLink = document.getElementById('recording-link');
 const schemasList = document.getElementById('schemas-list');
@@ -15,6 +16,8 @@ const flowchartRefreshButton = document.getElementById('flowchart-refresh');
 const flowchartStatus = document.getElementById('flowchart-status');
 const flowchartStepsContainer = document.getElementById('flowchart-steps');
 const flowchartDetail = document.getElementById('flowchart-detail');
+const flowchartRawDetails = document.getElementById('flowchart-raw');
+const flowchartRawBody = document.getElementById('flowchart-raw-body');
 const automationForm = document.getElementById('automation-form');
 const automationNameInput = document.getElementById('automation-name');
 const automationEngineSelect = document.getElementById('automation-engine');
@@ -26,6 +29,9 @@ const flowchartEditForm = document.getElementById('flowchart-edit-form');
 const flowchartEditInput = document.getElementById('flowchart-edit-text');
 const refreshRunsButton = document.getElementById('refresh-runs');
 const runsList = document.getElementById('runs-list');
+const automationSchemaModal = document.getElementById('automation-schema-modal');
+const automationSchemaBody = document.getElementById('automation-schema-body');
+const automationSchemaTitle = document.getElementById('automation-schema-title');
 
 let cachedSessions = [];
 let cachedAutomations = [];
@@ -34,6 +40,7 @@ let currentFlowchart = null;
 let selectedStepId = null;
 let flowchartBusy = false;
 let lastAutomationId = null;
+let activeSchemaAutomationId = null;
 
 function markSessionFlowchartReady(sessionId) {
   if (!sessionId) return;
@@ -56,6 +63,48 @@ tabs.forEach((btn) => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
 
+async function fetchWithTimeout(url, options = {}) {
+  const { timeout = 8000, ...rest } = options;
+  const controller = rest.signal ? null : new AbortController();
+  let timer = null;
+  if (controller) {
+    timer = setTimeout(() => controller.abort(), timeout);
+    rest.signal = controller.signal;
+  }
+  try {
+    const response = await fetch(url, rest);
+    return response;
+  } catch (error) {
+    if (controller && error.name === 'AbortError') {
+      const timeoutError = new Error('Request timed out while contacting the server.');
+      timeoutError.code = 'timeout';
+      throw timeoutError;
+    }
+    throw error;
+  } finally {
+    if (timer) {
+      clearTimeout(timer);
+    }
+  }
+}
+
+function setFlowchartRawSchema(payload) {
+  if (!flowchartRawBody) return;
+  if (payload === null) {
+    flowchartRawBody.textContent = 'Select a recording to preview its schema.';
+    return;
+  }
+  if (typeof payload === 'string') {
+    flowchartRawBody.textContent = payload;
+    return;
+  }
+  try {
+    flowchartRawBody.textContent = JSON.stringify(payload, null, 2);
+  } catch (error) {
+    flowchartRawBody.textContent = 'Unable to display schema JSON.';
+  }
+}
+
 async function createSession(url) {
   const response = await fetch('/sessions', {
     method: 'POST',
@@ -69,33 +118,57 @@ async function createSession(url) {
   return response.json();
 }
 
-function shouldOpenOriginal(originalUrl, sessionUrl) {
+function notifyExtensionSession(session, links) {
   try {
-    const original = new URL(originalUrl, window.location.origin);
-    const session = new URL(sessionUrl, window.location.origin);
-    if (original.origin === session.origin && original.pathname === session.pathname) {
-      return false;
-    }
-    return true;
+    window.postMessage(
+      {
+        source: 'modeler-dashboard',
+        type: 'modeler_session_created',
+        sessionId: session?.session_id,
+        url: session?.url,
+        links,
+        apiBase: window.location.origin,
+      },
+      window.location.origin,
+    );
   } catch (error) {
-    return true;
+    console.warn('Unable to notify extension about session', error);
   }
 }
 
 function renderFeedback(data, originalUrl) {
   const { session, links } = data;
   sessionIdEl.textContent = session.session_id;
-  demoLink.href = links.demo_page;
-  schemaLink.href = links.schema;
-  recordingLink.href = links.recording;
+  if (demoLink) demoLink.href = links.demo_page;
+  if (schemaLink) schemaLink.href = links.schema;
+  if (recordingLink) recordingLink.href = links.recording;
+  const instrumentedTarget = links.recording_page || '';
+  const effectiveTarget = instrumentedTarget || originalUrl || session.url;
+  if (targetLink) {
+    if (effectiveTarget) {
+      targetLink.href = effectiveTarget;
+      targetLink.parentElement?.removeAttribute('hidden');
+    } else {
+      targetLink.removeAttribute('href');
+      targetLink.parentElement?.setAttribute('hidden', '');
+    }
+  }
   feedbackCard.hidden = false;
 
   const originalTarget = originalUrl || session.url;
-  if (links.demo_page) {
-    window.open(links.demo_page, '_blank', 'noopener');
+  notifyExtensionSession(session, { ...links, recording_page: instrumentedTarget, original_url: originalTarget });
+
+  const opened = new Set();
+  if (effectiveTarget) {
+    window.open(effectiveTarget, '_blank', 'noopener');
+    opened.add(new URL(effectiveTarget, window.location.href).href);
   }
-  if (originalTarget && links.demo_page && shouldOpenOriginal(originalTarget, links.demo_page)) {
-    window.open(originalTarget, '_blank', 'noopener');
+  if (links.demo_page) {
+    const demoHref = new URL(links.demo_page, window.location.href).href;
+    if (!opened.has(demoHref)) {
+      window.open(links.demo_page, '_blank', 'noopener');
+      opened.add(demoHref);
+    }
   }
 }
 
@@ -105,6 +178,65 @@ function formatDate(iso) {
     return date.toLocaleString();
   } catch (error) {
     return iso;
+  }
+}
+
+function closeAutomationSchemaViewer() {
+  if (!automationSchemaModal) return;
+  automationSchemaModal.hidden = true;
+  document.body.style.removeProperty('overflow');
+  activeSchemaAutomationId = null;
+}
+
+function openAutomationSchemaViewer(automation) {
+  if (!automationSchemaModal || !automationSchemaBody) return;
+  const payload = {
+    automation_id: automation.automation_id,
+    name: automation.name || null,
+    engine: automation.engine || null,
+    description: automation.description || null,
+    target_url: automation.target_url || null,
+    steps: automation.steps || [],
+    flowchart_snapshot: automation.flowchart_snapshot || null,
+  };
+  const title = automation.name || 'Automation schema';
+  if (automationSchemaTitle) {
+    automationSchemaTitle.textContent = title;
+  }
+  automationSchemaBody.textContent = JSON.stringify(payload, null, 2);
+  automationSchemaModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  activeSchemaAutomationId = automation.automation_id;
+}
+
+async function viewAutomationSchemaById(automationId) {
+  if (!automationId) return;
+  let automation = cachedAutomations.find((item) => item.automation_id === automationId);
+  if (!automation) {
+    if (automationSchemaBody) {
+      automationSchemaBody.textContent = 'Loading…';
+    }
+    if (automationSchemaModal && automationSchemaModal.hidden) {
+      automationSchemaModal.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    try {
+      const response = await fetch(`/automations/${automationId}`);
+      if (!response.ok) {
+        throw new Error('Unable to load automation schema');
+      }
+      const data = await response.json();
+      automation = data.automation || null;
+    } catch (error) {
+      console.error(error);
+      if (automationSchemaBody) {
+        automationSchemaBody.textContent = error.message || 'Failed to load automation schema.';
+      }
+      return;
+    }
+  }
+  if (automation) {
+    openAutomationSchemaViewer(automation);
   }
 }
 
@@ -175,7 +307,8 @@ function setFlowchartBusy(state) {
   }
 }
 
-function resetFlowchartView() {
+function resetFlowchartView(options = {}) {
+  const { clearRaw = true } = options;
   currentFlowchart = null;
   selectedStepId = null;
   if (flowchartStepsContainer) {
@@ -194,6 +327,9 @@ function resetFlowchartView() {
     controls.forEach((control) => {
       control.disabled = false;
     });
+  }
+  if (clearRaw) {
+    setFlowchartRawSchema(null);
   }
 }
 
@@ -398,8 +534,25 @@ async function loadSessions() {
   }
 }
 
+async function fetchSchema(sessionId) {
+  const response = await fetchWithTimeout(`/sessions/${sessionId}/schema`, { timeout: 8000 });
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || 'Unable to load schema');
+  }
+  return response.json();
+}
+
 async function fetchFlowchart(sessionId) {
-  const response = await fetch(`/sessions/${sessionId}/flowchart`);
+  let response;
+  try {
+    response = await fetchWithTimeout(`/sessions/${sessionId}/flowchart`, { timeout: 6000 });
+  } catch (error) {
+    if (error.code === 'timeout') {
+      error.status = 504;
+    }
+    throw error;
+  }
   if (response.status === 404) {
     const error = new Error('No flow chart yet. Ask Claude to generate one.');
     error.status = 404;
@@ -431,24 +584,42 @@ async function loadFlowchartForSession(sessionId, { autoGenerate = false } = {})
     setFlowchartStatus('Pick a recorded session to build a flow chart.', 'muted');
     return;
   }
+
   setFlowchartBusy(true);
-  setFlowchartStatus('Loading flow chart…');
+  resetFlowchartView({ clearRaw: false });
+  setFlowchartStatus('Loading session schema…', 'muted');
+  setFlowchartRawSchema('Loading schema…');
+
+  try {
+    const schema = await fetchSchema(sessionId);
+    setFlowchartRawSchema(schema);
+  } catch (schemaError) {
+    console.error('Failed to load schema for flowchart view', schemaError);
+    const message = schemaError?.message || 'Unable to load schema';
+    setFlowchartRawSchema(`Error loading schema: ${message}`);
+  }
+
+  setFlowchartStatus('Checking for Claude flow chart…', 'muted');
+
   try {
     const chart = await fetchFlowchart(sessionId);
     renderFlowchart(chart);
   } catch (error) {
-    if (error.status === 404 && autoGenerate) {
-      try {
-        setFlowchartStatus('Generating fresh flow chart with Claude Sonnet 4.5…');
-        const chart = await generateFlowchartForSession(sessionId, { regenerate: true });
-        renderFlowchart(chart);
-      } catch (innerError) {
-        setFlowchartStatus(innerError.message || 'Unable to generate flow chart', 'error');
-        resetFlowchartView();
+    if (error.status === 404) {
+      setFlowchartStatus('Raw schema ready. Ask Claude to generate a flow chart.', 'muted');
+      if (autoGenerate) {
+        try {
+          setFlowchartStatus('Generating fresh flow chart with Claude Sonnet 4.5…');
+          const regenerated = await generateFlowchartForSession(sessionId, { regenerate: true });
+          renderFlowchart(regenerated);
+        } catch (innerError) {
+          setFlowchartStatus(innerError.message || 'Unable to generate flow chart', 'error');
+        }
       }
+    } else if (error.code === 'timeout' || error.status === 504) {
+      setFlowchartStatus('Timed out while loading flow chart. Try again or generate with Claude.', 'error');
     } else {
       setFlowchartStatus(error.message || 'Unable to load flow chart', 'error');
-      resetFlowchartView();
     }
   } finally {
     setFlowchartBusy(false);
@@ -475,6 +646,7 @@ function renderAutomations(list) {
             <h3>${automation.name || 'Automation'}</h3>
             <div class="automation-card-actions">
               ${latestBadge}
+              <button type="button" class="automation-schema-trigger" data-automation-id="${automation.automation_id}">Schema</button>
               <button type="button" class="automation-run-trigger" data-automation-id="${automation.automation_id}" data-engine="${automation.engine || 'deterministic'}">Run</button>
             </div>
           </div>
@@ -765,7 +937,23 @@ automationRunButton?.addEventListener('click', async () => {
 });
 
 automationList?.addEventListener('click', async (event) => {
-  const trigger = event.target.closest('.automation-run-trigger');
+  const target = event.target instanceof HTMLElement ? event.target : null;
+  if (!target) return;
+
+  const schemaTrigger = target.closest('.automation-schema-trigger');
+  if (schemaTrigger) {
+    const automationId = schemaTrigger.dataset.automationId;
+    if (!automationId) return;
+    schemaTrigger.disabled = true;
+    try {
+      await viewAutomationSchemaById(automationId);
+    } finally {
+      schemaTrigger.disabled = false;
+    }
+    return;
+  }
+
+  const trigger = target.closest('.automation-run-trigger');
   if (!trigger) return;
   const automationId = trigger.dataset.automationId;
   if (!automationId) return;
@@ -798,6 +986,20 @@ automationList?.addEventListener('click', async (event) => {
   }
 });
 
+document.addEventListener('click', (event) => {
+  const target = event.target instanceof HTMLElement ? event.target : null;
+  if (!target) return;
+  const dismiss = target.closest('[data-modal-dismiss]');
+  if (dismiss && dismiss.dataset.modalDismiss === 'automation-schema-modal') {
+    closeAutomationSchemaViewer();
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && automationSchemaModal && !automationSchemaModal.hidden) {
+    closeAutomationSchemaViewer();
+  }
+});
 
 refreshRunsButton?.addEventListener('click', loadRuns);
 refreshAutomationsButton?.addEventListener('click', loadAutomations);
